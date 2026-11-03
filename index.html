@@ -289,6 +289,34 @@
   .cmp1{display:flex; gap:10px; align-items:flex-start; background:#faf8ff; border-radius:12px; padding:8px 10px; margin-top:6px; font-size:14.5px; line-height:1.55}
   .cmp1 .e{font-size:24px; flex:none}
   .qpic{text-align:center; font-size:64px; line-height:1; margin-top:6px}
+
+  /* ---- (IT) data units ---- */
+  .bulbs{display:grid; grid-template-columns:repeat(8,1fr); gap:6px; max-width:440px; margin:6px auto 0}
+  .bulb{border:none; cursor:pointer; font-family:inherit; border-radius:14px; padding:6px 0; background:#eceaf6; color:#9a93c9;
+    font-weight:800; font-size:18px; transition:.15s}
+  .bulb .e{display:block; font-size:24px; filter:grayscale(1); opacity:.45}
+  .bulb.on{background:linear-gradient(140deg,#fff3b0,#ffd34e); color:var(--ink); box-shadow:0 0 14px rgba(255,211,78,.85)}
+  .bulb.on .e{filter:none; opacity:1}
+  .bulb small{display:block; font-size:11px; font-weight:600}
+  .pv .bulb{cursor:default}
+  .byteout{display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px; margin-top:10px; text-align:center}
+  .byteout div{background:#faf9ff; border-radius:14px; padding:8px 4px; box-shadow:inset 0 0 0 2px #eee9fc}
+  .byteout small{display:block; font-size:12px; color:#9a93c9; font-weight:600}
+  .byteout b{font-size:clamp(18px,5vw,26px); letter-spacing:1px}
+  .ladder{max-width:520px; margin:8px auto 0}
+  .rung{display:flex; align-items:center; gap:10px; border-radius:16px; padding:9px 12px; color:#fff}
+  .rung .u{font-weight:800; font-size:18px; min-width:64px; line-height:1.15}
+  .rung .u small{display:block; font-size:11.5px; font-weight:500; opacity:.92}
+  .rung .ex{font-size:14px; line-height:1.45; flex:1; min-width:0}
+  .rung .e{font-size:24px; flex:none}
+  .ladder .step{text-align:center; font-weight:800; color:var(--purple); font-size:14px; padding:2px 0}
+  @media (max-width:420px){
+    .bulbs{grid-template-columns:repeat(4,1fr)}
+    .rung{flex-wrap:wrap; row-gap:2px}
+    .rung .e{order:-1}
+    .rung .u{display:flex; align-items:baseline; gap:6px}
+    .rung .ex{flex-basis:100%}
+  }
 </style>
 </head>
 <body>
@@ -308,12 +336,12 @@
       <button class="card c1 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🕰️</span>คอมพิวเตอร์คืออะไร<small>อดีต ปัจจุบัน อนาคต</small></button>
       <button class="card c2" onclick="go('hw')"><span class="ico">📱</span>ฮาร์ดแวร์<small>ชิ้นส่วนในมือถือเรา</small></button>
       <button class="card c3 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🧩</span>ซอฟต์แวร์<small>แอป + ระบบปฏิบัติการ</small></button>
-      <button class="card c4 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📏</span>หน่วยข้อมูล<small>bit byte GB</small></button>
+      <button class="card c4" onclick="go('unit')"><span class="ico">📏</span>หน่วยข้อมูล<small>ทำไมมือถือเต็ม · MB GB</small></button>
       <button class="card c5 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🌐</span>เครือข่าย อินเทอร์เน็ต<small>Wi-Fi 4G 5G</small></button>
       <button class="card c7 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🛡️</span>ภัยไซเบอร์<small>มิจฉาชีพออนไลน์</small></button>
       <button class="card c8 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">⚖️</span>กฎหมายดิจิทัล<small>พ.ร.บ.คอมฯ · PDPA</small></button>
       <button class="card c2 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🤖</span>เทคโนโลยีอนาคต<small>AI Cloud IoT</small></button>
-      <button class="card c6" onclick="go('game');renderLevels()"><span class="ico">🎮</span>เกมพิชิตด่าน<small>ตอบถูก ปลดล็อกด่าน!</small></button>
+      <button class="card c6" onclick="openGame()"><span class="ico">🎮</span>เกมพิชิตด่าน<small>ตอบถูก ปลดล็อกด่าน!</small></button>
     </div>
     <p class="hint" style="margin-top:16px">💡 ทุกบทมี 3 ชั้น: 🌱 อ่านแค่ชั้นแรกก็เข้าใจ · อยากรู้มากขึ้นค่อยกดต่อ 🌿 🌳</p>
   </div>
@@ -419,7 +447,133 @@
         </table></div>
         <div class="memo ex">📝 <b>ลำดับความเร็วหน่วยความจำ (เร็ว → ช้า):</b> Register ใน CPU → Cache → RAM → SSD → HDD<br>ยิ่งเร็ว ยิ่งแพง ยิ่งจุน้อย</div>
         <div class="memo">🖨️ <b>ศัพท์จอ/เครื่องพิมพ์:</b> <b>Pixel</b> = จุดเล็กที่สุดบนจอ · <b>Resolution</b> = จำนวนจุด เช่น 1920×1080 · <b>dpi</b> = จุดต่อนิ้ว ใช้วัดความละเอียดงานพิมพ์/สแกน</div>
-        <div class="center" style="margin-top:16px"><button class="btn go" onclick="go('game');renderLevels()">🎮 ไปพิชิตด่านเลย!</button></div>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('hw')">🎮 ไปพิชิตด่านเลย!</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DATA UNITS ================= -->
+  <div class="screen" id="unit">
+    <button class="backbtn" onclick="home()">⬅️ กลับหน้าหลัก</button>
+    <div class="panel">
+      <h2>📏 หน่วยข้อมูล · ทำไมมือถือถึงเต็ม?</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p>เวลามือถือขึ้นว่า <b>"พื้นที่เต็ม"</b> 😵 หรือเห็นคำว่า <b>MB</b> <b>GB</b> ตามแพ็กเน็ต — นั่นคือ <b>หน่วยวัดขนาดข้อมูล</b> เหมือน "กรัม กิโลกรัม" ที่ใช้ชั่งของ · เริ่มจากหน้าจอที่เราเคยเห็นกันก่อน</p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 หน้าจอที่เห็นในมือถือ</div>
+        <p class="tip">นี่คือหน้า <b>ตั้งค่า › พื้นที่จัดเก็บ</b> ของมือถือ · <b>แตะวงกลมตัวเลข</b> (หรือแตะแถบสี) ดูว่าแต่ละอย่างกินที่ไปเท่าไร 👆</p>
+        <div class="fig" id="figStore"></div>
+        <div class="chips" id="chipsStore"></div>
+        <div class="info" id="infoStore">👆 แตะวงกลมตัวเลข ดูว่าข้อมูลแต่ละชนิดใหญ่แค่ไหน</div>
+        <div class="memo">👀 <b>สังเกตไหม:</b> ไฟล์ทีละชิ้นนับเป็น <b>MB</b> (รูป 3 MB · เพลง 4 MB) แต่ทั้งเครื่องนับเป็น <b>GB</b> (128 GB) — เพราะ GB ใหญ่กว่า MB ตั้ง <b>1,024 เท่า</b></div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> 🔧 เปิดดูข้างในไฟล์</div>
+        <p class="tip">รูป เพลง แชท ทุกอย่างในเครื่อง ข้างในเป็นแค่ <b>สวิตช์ไฟ เปิด–ปิด</b> เรียงกันยาว ๆ · เปิด = <b>1</b> · ปิด = <b>0</b> · ลอง<b>แตะหลอดไฟ</b>ดู 👆</p>
+        <div class="fig">
+          <div class="bulbs" id="bulbs"></div>
+          <div class="byteout" id="bOut"></div>
+          <div class="chips">
+            <button class="chip" onclick="setBits('01000001')">🔤 ทำตัว A</button>
+            <button class="chip" onclick="setBits('01100001')">🔡 ทำตัว a</button>
+            <button class="chip" onclick="setBits('00110101')">5️⃣ ทำตัวเลข 5</button>
+            <button class="chip" onclick="setBits('00000000')">🧹 ปิดหมด</button>
+          </div>
+        </div>
+        <div class="info" style="border-color:#bdf0cc">💡 ไฟ <b>1 ดวง</b> = <b>1 บิต (bit)</b> · ไฟ <b>8 ดวง</b> รวมกัน = <b>1 ไบต์ (Byte)</b> = ตัวอักษรอังกฤษ <b>1 ตัว</b><br>รูป 1 ใบ (3 MB) จึงเป็นไฟเรียงกันราว <b>25 ล้านดวง</b> 😮</div>
+
+        <!-- 3) overview -->
+        <div class="step-h"><span class="sn">3</span> 🗺️ ภาพรวม: บันไดหน่วยข้อมูล</div>
+        <p class="tip">จากหลอดไฟดวงเดียว รวมกันเป็นก้อนใหญ่ขึ้นทีละขั้น · <b>ยิ่งลงล่าง ยิ่งใหญ่</b> ⬇️</p>
+        <div class="ladder">
+          <div class="rung c4"><span class="u">bit<small>บิต</small></span><span class="ex">ไฟ 1 ดวง · 0 หรือ 1</span><span class="e">💡</span></div>
+          <div class="step">× 8</div>
+          <div class="rung c3"><span class="u">Byte<small>ไบต์</small></span><span class="ex">ตัวอักษรอังกฤษ 1 ตัว</span><span class="e">🔤</span></div>
+          <div class="step">× 1,024</div>
+          <div class="rung c6"><span class="u">KB<small>กิโลไบต์</small></span><span class="ex">ข้อความแชท · เอกสาร 1 หน้า</span><span class="e">💬</span></div>
+          <div class="step">× 1,024</div>
+          <div class="rung c5"><span class="u">MB<small>เมกะไบต์</small></span><span class="ex">รูปถ่าย 1 ใบ · เพลง 1 เพลง</span><span class="e">📷</span></div>
+          <div class="step">× 1,024</div>
+          <div class="rung c1"><span class="u">GB<small>กิกะไบต์</small></span><span class="ex">หนัง 1 เรื่อง · ความจุมือถือ · แพ็กเน็ต</span><span class="e">🎬</span></div>
+          <div class="step">× 1,024</div>
+          <div class="rung c2"><span class="u">TB<small>เทระไบต์</small></span><span class="ex">ฮาร์ดดิสก์คอมพิวเตอร์ทั้งลูก</span><span class="e">🗄️</span></div>
+        </div>
+        <div class="memo">🔑 <b>จำสั้น ๆ:</b> บิต → ไบต์ <b>คูณ 8</b> · จากนั้น <b>คูณ 1,024</b> ทุกขั้น · เรียงเล็กไปใหญ่: <b>บิต · ไบต์ · กิโล · เมกะ · กิกะ · เทระ</b></div>
+        <button class="more" onclick="openLayer('unitL2',this)">🌿 อยากรู้อีกนิด · เรื่องที่เจอในชีวิตจริง ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="unitL2">
+        <h3>🌿 ชั้นต้นกล้า · เข้าใจเรื่องที่เจอทุกวัน</h3>
+
+        <p><b>1) ทำไมต้อง 1,024 ไม่ใช่ 1,000?</b></p>
+        <p class="tip">เพราะในเครื่องมีแค่ 0 กับ 1 จึงนับเพิ่มทีละ <b>2 เท่า</b> · เพิ่ม 10 ครั้งได้ 1,024 ซึ่งใกล้ 1,000 ที่สุด</p>
+        <div class="flow">
+          <div class="f" style="background:var(--cyan)">1</div><div class="ar">➜</div><div class="f" style="background:var(--cyan)">2</div><div class="ar">➜</div><div class="f" style="background:var(--cyan)">4</div><div class="ar">➜</div><div class="f" style="background:var(--cyan)">8</div><div class="ar">➜</div><div class="f" style="background:var(--blue)">…</div><div class="ar">➜</div><div class="f" style="background:var(--purple)">512</div><div class="ar">➜</div><div class="f" style="background:var(--pink)">1,024</div>
+        </div>
+
+        <p style="margin-top:14px"><b>2) ซื้อมือถือ 128 GB ทำไมบางเครื่องโชว์แค่ราว 119 GB?</b></p>
+        <div class="cmp">
+          <div class="it"><div class="e">🏭</div><b>ผู้ผลิตนับ</b><span>1 GB = 1,000,000,000 ไบต์<br>(นับแบบเลขกลม ๆ)</span></div>
+          <div class="it"><div class="e">📱</div><b>ตัวเครื่องนับ</b><span>1 GB = 1,024 × 1,024 × 1,024<br>= 1,073,741,824 ไบต์</span></div>
+        </div>
+        <div class="memo">👉 128,000 ล้านไบต์ ÷ 1,073 ล้าน ≈ <b>119 GB</b> · พื้นที่<b>ไม่ได้หาย</b> แค่นับคนละแบบ (ระบบปฏิบัติการก็กินที่ไปอีกส่วนหนึ่ง)</div>
+
+        <p style="margin-top:14px"><b>3) b ตัวเล็ก กับ B ตัวใหญ่ ไม่เหมือนกัน</b></p>
+        <div class="cmp">
+          <div class="it"><div class="e">📶</div><b>b เล็ก = บิต</b><span>ใช้กับ <b>ความเร็วเน็ต</b><br>เช่น เน็ตบ้าน 100 Mbps</span></div>
+          <div class="it"><div class="e">📁</div><b>B ใหญ่ = ไบต์</b><span>ใช้กับ <b>ขนาดไฟล์ / ความจุ</b><br>เช่น รูป 3 MB · มือถือ 128 GB</span></div>
+        </div>
+        <div class="memo">🧮 เน็ต <b>100 Mbps</b> ÷ 8 = โหลดได้ราว <b>12.5 MB ต่อวินาที</b> · หนัง 2 GB (2,048 MB) จึงใช้เวลาราว <b>3 นาที</b></div>
+
+        <p style="margin-top:14px"><b>4) ของจริงจุได้เท่าไร</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>ของ</th><th>ขนาดโดยประมาณ</th></tr>
+          <tr><td>💬 ข้อความแชท 1 ข้อความ</td><td>ไม่กี่สิบไบต์</td></tr>
+          <tr><td>📷 รูปจากกล้องมือถือ</td><td>2–5 MB</td></tr>
+          <tr><td>🎵 เพลง MP3</td><td>3–5 MB</td></tr>
+          <tr><td>🎬 คลิป 1 นาที (Full HD)</td><td>ราว 100 MB</td></tr>
+          <tr><td>🎞️ หนัง 1 เรื่อง</td><td>1–4 GB</td></tr>
+          <tr><td>💿 แผ่นซีดี (CD)</td><td>ราว 700 MB</td></tr>
+          <tr><td>📀 แผ่นดีวีดี (DVD) ชั้นเดียว</td><td>ราว 4.7 GB</td></tr>
+          <tr><td>🔑 แฟลชไดรฟ์</td><td>16–256 GB</td></tr>
+          <tr><td>🗄️ ฮาร์ดดิสก์คอมพิวเตอร์</td><td>หลายร้อย GB ถึงหลาย TB</td></tr>
+        </table></div>
+        <button class="more" onclick="openLayer('unitL3',this)">🌳 เจาะลึก · ข้างในหลอดไฟคิดเลขอย่างไร ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="unitL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · เจาะลึก</h3>
+
+        <p><b>1) หลอดไฟ 8 ดวง อ่านเป็นตัวเลขอย่างไร (เลขฐานสอง)</b></p>
+        <p class="tip">หลอดแต่ละดวงมี "ค่าประจำ" ไม่เท่ากัน · ดวงไหนเปิด ก็เอาค่าของดวงนั้นมาบวกกัน</p>
+        <div class="bulbs pv" id="pvA"></div>
+        <div class="memo">👉 ตัว A = <b>01000001</b> = 64 + 1 = <b>65</b> · ไฟ 8 ดวงทำได้ทั้งหมด <b>256 แบบ</b> (เลข 0 ถึง 255) · ลองเลื่อนขึ้นไปกดหลอดไฟในชั้นเมล็ดดูได้</div>
+
+        <p style="margin-top:14px"><b>2) ตัวอักษรเก็บในเครื่องอย่างไร (รหัสอักขระ)</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>รหัส</th><th>เก็บอะไร</th><th>ใช้กี่ไบต์ต่อตัว</th></tr>
+          <tr><td><b>ASCII</b> (แอสกี)</td><td>อักษรอังกฤษ ตัวเลข เครื่องหมาย</td><td>1 ไบต์</td></tr>
+          <tr><td><b>TIS-620</b> (มอก. 620)</td><td>อักษรไทย มาตรฐานของไทย</td><td>1 ไบต์</td></tr>
+          <tr><td><b>Unicode</b> (ยูนิโค้ด) แบบ UTF-8</td><td>ทุกภาษาทั่วโลก + อีโมจิ</td><td>อังกฤษ 1 · ไทย 3 ไบต์</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>3) หน่วยที่ใหญ่กว่า TB และหน่วยย่อยอื่น ๆ</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>หน่วย</th><th>เท่ากับ</th></tr>
+          <tr><td>Nibble (นิบเบิล)</td><td>4 บิต (ครึ่งไบต์)</td></tr>
+          <tr><td>PB เพตะไบต์</td><td>1,024 TB</td></tr>
+          <tr><td>EB เอกซะไบต์</td><td>1,024 PB</td></tr>
+          <tr><td>ZB เซตตะไบต์</td><td>1,024 EB</td></tr>
+          <tr><td>YB ยอตตะไบต์</td><td>1,024 ZB</td></tr>
+        </table></div>
+        <div class="memo ex">📝 <b>เรียงครบทั้งบันได (เล็ก → ใหญ่):</b> bit → Nibble → Byte → KB → MB → GB → TB → PB → EB → ZB → YB<br>บางตำราเขียน <b>KiB MiB GiB</b> เพื่อบอกชัด ๆ ว่านับแบบ 1,024</div>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('unit')">🎮 ทดสอบความเข้าใจ</button></div>
       </div>
     </div>
   </div>
@@ -428,7 +582,8 @@
   <div class="screen" id="game">
     <button class="backbtn" onclick="home()">⬅️ กลับหน้าหลัก</button>
     <div class="panel" id="game-menu">
-      <h2>🎮 เกมพิชิตด่าน · ฮาร์ดแวร์</h2>
+      <h2 id="gTitle">🎮 เกมพิชิตด่าน · ฮาร์ดแวร์</h2>
+      <div class="tabs" id="gTabs"></div>
       <p class="lead">ด่านละ 5 ข้อ สุ่มใหม่ทุกครั้ง · มีหัวใจ ❤️ 3 ดวง · ตอบถูก 4 ข้อขึ้นไป = ผ่าน ปลดล็อกด่านถัดไป 🔓</p>
       <div class="levels" id="levels"></div>
       <p class="hint" style="margin-top:12px">ข้อที่ตอบผิด จะวนกลับมาถามอีกในรอบหน้า 🔁</p>
@@ -452,7 +607,7 @@
         <div class="detail" id="e-detail">ทำถูก 5 จาก 5 ข้อ</div>
         <div class="center" style="margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
           <button class="btn go" onclick="backToGameMenu()">🗺️ แผนที่ด่าน</button>
-          <button class="btn alt" onclick="go('hw')">📖 ทบทวนบทเรียน</button>
+          <button class="btn alt" onclick="go(CHS[curCh].scr)">📖 ทบทวนบทเรียน</button>
         </div>
       </div>
     </div>
@@ -460,7 +615,7 @@
 
   <footer>
     🦉 สื่อการเรียนรู้ "ไอทีง่ายนิดเดียว" · เปิดได้ทุกอุปกรณ์<br>
-    ต้นแบบบทที่ 2 ฮาร์ดแวร์ · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
+    บทที่ 2 ฮาร์ดแวร์ · บทที่ 4 หน่วยข้อมูล · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
   </footer>
 </div>
 
@@ -645,6 +800,60 @@ function pop(el){ el.style.animation='none'; void el.offsetWidth; el.style.anima
 drawFig('phone','figOut','chipsOut','infoOut');
 drawFig('inside','figIn','chipsIn','infoIn');
 
+/* ============ data units (outside → inside) ============ */
+// [key, ชื่อ, GB, สีแถบ, สีป้าย, คำอธิบาย] · ใช้ไปรวม 97 จาก 128 GB
+const STORE = [
+  ['app','📲 แอป',38,'#4ea8ff','#4ea8ff','โปรแกรมที่ลงไว้ เช่น LINE Facebook TikTok แอปธนาคาร · แอป 1 ตัวใหญ่ตั้งแต่หลักสิบ MB ไปจนถึงหลาย GB'],
+  ['photo','🖼️ รูปภาพ',24,'#ff6ec7','#ff6ec7','รูปจากกล้องมือถือ 1 ใบ ประมาณ <b>3 MB</b><br>24 GB จึงเท่ากับรูปราว <b>8,000 ใบ</b> (24 × 1,024 ÷ 3)'],
+  ['video','🎬 วิดีโอ',22,'#a06bff','#a06bff','คลิปชัด (Full HD) 1 นาที ประมาณ <b>100 MB</b><br>22 GB ≈ คลิปรวมกันราว <b>3–4 ชั่วโมง</b> · วิดีโอกินที่มากที่สุด'],
+  ['music','🎵 เพลง',5,'#ff9d42','#ff9d42','เพลง MP3 1 เพลง ประมาณ <b>4 MB</b><br>5 GB ≈ <b>1,200 กว่าเพลง</b>'],
+  ['sys','⚙️ ระบบ',8,'#6f66b0','#6f66b0','ระบบปฏิบัติการ (Android / iOS) ที่ทำให้เครื่องเปิดติด · ลบทิ้งไม่ได้'],
+  ['free','⬜ ว่าง',31,'#dcd8f0','#9a93c9','พื้นที่ที่ยังเหลือ · ถ้าเต็ม จะถ่ายรูป อัปเดตแอปไม่ได้<br>อยากได้ที่คืนเร็ว ๆ → ลบ<b>คลิปวิดีโอ</b>เก่า เพราะไฟล์ใหญ่ที่สุด']
+];
+function drawStore(){
+  const T=`font-family="Kanit,sans-serif" fill="${DK}"`;
+  let s=`<svg viewBox="0 0 320 330" class="hsvg"><defs><clipPath id="barc"><rect x="34" y="86" width="252" height="20" rx="10"/></clipPath></defs>
+    <rect x="8" y="4" width="304" height="322" rx="30" fill="${DK}"/><rect x="18" y="16" width="284" height="298" rx="20" fill="#fff"/>
+    <text x="160" y="42" text-anchor="middle" font-size="14" ${T} fill-opacity=".7">ตั้งค่า › พื้นที่จัดเก็บ</text>
+    <text x="34" y="74" font-size="22" font-weight="700" ${T}>ใช้ไป 97 GB</text>
+    <text x="286" y="74" text-anchor="end" font-size="14" ${T} fill-opacity=".6">จาก 128 GB</text><g clip-path="url(#barc)">`;
+  let x=34;
+  STORE.forEach(([k,,gb,c])=>{ const w=gb/128*252; s+=`<rect class="pt" data-k="${k}" x="${x}" y="86" width="${w}" height="20" fill="${c}"/>`; x+=w; });
+  s+='</g>';
+  STORE.forEach(([k,n,gb,c],i)=>{
+    const y=136+i*31;
+    s+=`<g class="pt" data-k="${k}"><rect x="28" y="${y-14}" width="264" height="27" rx="9" fill="#faf9ff"/>
+      <rect x="62" y="${y-6}" width="12" height="12" rx="3" fill="${c}"/><text x="82" y="${y+5}" font-size="15" ${T}>${n}</text>
+      <text x="282" y="${y+5}" text-anchor="end" font-size="15" font-weight="700" ${T}>${gb} GB</text></g>
+      <g class="bd" data-k="${k}" transform="translate(44,${y})"><circle r="10"/><text y="4">${i+1}</text></g>`;
+  });
+  $('figStore').innerHTML=s+'</svg>';
+  $('chipsStore').innerHTML=STORE.map(([k,n],i)=>`<button class="chip" data-k="${k}">${i+1}. ${n}</button>`).join('');
+  const pick=k=>{
+    ['figStore','chipsStore'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const [,n,gb,,g,d]=STORE.find(r=>r[0]===k);
+    $('infoStore').innerHTML=`<b>${n}</b> <i class="gp" style="background:${g}">${gb} GB</i><br>${d}`;
+    pop($('infoStore'));
+  };
+  ['figStore','chipsStore'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+drawStore();
+
+// หลอดไฟ 8 ดวง = 1 ไบต์ · เริ่มที่ตัว A ให้เห็นว่าไฟชุดนี้คือตัวอักษร
+let bits=[0,1,0,0,0,0,0,1];
+const esc=ch=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[ch]||ch);
+function drawBulbs(){
+  $('bulbs').innerHTML=bits.map((b,i)=>`<button class="bulb${b?' on':''}" onclick="flip(${i})"><span class="e">💡</span>${b}</button>`).join('');
+  const v=bits.reduce((a,b)=>a*2+b,0);
+  const ch= v===32?'␣ เว้นวรรค' : (v>32&&v<127)? esc(String.fromCharCode(v)) : '—<small>ไม่ใช่ตัวที่พิมพ์ได้</small>';
+  $('bOut').innerHTML=`<div><small>ภาษาเครื่อง (0/1)</small><b>${bits.join('')}</b></div><div><small>อ่านเป็นตัวเลข</small><b>${v}</b></div><div><small>อ่านเป็นตัวอักษร</small><b>${ch}</b></div>`;
+}
+function flip(i){ bits[i]=bits[i]?0:1; drawBulbs(); }
+function setBits(str){ bits=[...str].map(Number); drawBulbs(); pop($('bOut')); }
+drawBulbs();
+// ชั้น 🌳: ตัว A พร้อมค่าประจำดวง (128…1)
+$('pvA').innerHTML=[0,1,0,0,0,0,0,1].map((b,i)=>`<div class="bulb${b?' on':''}"><span class="e">💡</span>${b}<small>ค่า ${128>>i}</small></div>`).join('');
+
 /* ============ question bank ============
    q = คำถาม · c = ตัวเลือก (ข้อแรก = คำตอบถูก ระบบสลับให้เอง) · w = เฉลยสั้น */
 const BANK = {
@@ -696,20 +905,78 @@ const BANK = {
     {q:'หน่วย "dpi" ใช้วัดอะไร', c:['ความละเอียดงานพิมพ์/สแกน (จุดต่อนิ้ว)','ความเร็วอินเทอร์เน็ต','ความจุข้อมูล','ความเร็ว CPU'], w:'dpi = dots per inch'},
     {q:'ความละเอียดจอ 1920×1080 หมายถึงอะไร', c:['จำนวนจุดภาพแนวนอน × แนวตั้ง','ขนาดจอเป็นนิ้ว','ความเร็วจอ','ความจุหน่วยความจำ'], w:'กว้าง 1920 จุด สูง 1080 จุด'},
     {q:'ข้อใดกล่าวถูกต้องเกี่ยวกับหน่วยความจำ', c:['ยิ่งเร็ว ยิ่งแพง และมักจุได้น้อย','ยิ่งเร็ว ยิ่งถูก และจุได้มาก','HDD เร็วที่สุดในเครื่อง','RAM เก็บข้อมูลถาวร'], w:'Cache เร็วสุดแต่จุน้อยและแพง'}
+  ],
+  u1: [
+    {q:'หน่วยข้อมูลที่เล็กที่สุด คือข้อใด', c:['บิต (bit)','ไบต์ (Byte)','กิโลไบต์ (KB)','เมกะไบต์ (MB)'], w:'บิต = ไฟ 1 ดวง มีแค่ 0 หรือ 1'},
+    {q:'1 ไบต์ (Byte) เท่ากับกี่บิต', c:['8 บิต','2 บิต','10 บิต','1,024 บิต'], w:'ไฟ 8 ดวงรวมกัน = 1 ไบต์'},
+    {q:'บิต (bit) 1 ตัว มีค่าเป็นอะไรได้บ้าง', c:['0 หรือ 1','0 ถึง 9','A ถึง Z','1 ถึง 8'], w:'เหมือนสวิตช์ไฟ ปิด = 0 · เปิด = 1'},
+    {q:'ข้อใดเรียงจาก "เล็ก → ใหญ่" ถูกต้อง', c:['KB → MB → GB → TB','MB → KB → GB → TB','GB → MB → KB → TB','KB → GB → MB → TB'], w:'กิโล → เมกะ → กิกะ → เทระ'},
+    {q:'ข้อใดมีขนาดใหญ่ที่สุด', c:['1 TB','1 GB','1 MB','1 KB'], w:'TB อยู่ขั้นบนสุดของบันไดที่เรียนมา'},
+    {q:'ข้อใดมีขนาดเล็กที่สุด', c:['1 KB','1 MB','1 GB','1 TB'], w:'KB อยู่ขั้นล่างสุดในกลุ่มนี้'},
+    {q:'ตัวอักษรภาษาอังกฤษ 1 ตัว ใช้พื้นที่ประมาณเท่าใด', c:['1 ไบต์','1 บิต','1 KB','1 MB'], w:'ไฟ 8 ดวง (1 ไบต์) เขียนตัวอักษรอังกฤษได้ 1 ตัว'},
+    {q:'"GB" ย่อมาจากคำใด', c:['กิกะไบต์ (Gigabyte)','กิโลไบต์ (Kilobyte)','เกมไบต์ (Gamebyte)','กิกะบิต (Gigabit)'], w:'G = กิกะ · B ตัวใหญ่ = ไบต์'},
+    {q:'ไฟล์ใดมักมีขนาดใหญ่ที่สุด', c:['หนัง 1 เรื่อง','รูปถ่าย 1 ใบ','เพลง 1 เพลง','ข้อความ LINE 1 ข้อความ'], w:'หนังหลาย GB · รูป/เพลงไม่กี่ MB · ข้อความแชทแค่ไม่กี่ไบต์'},
+    {p:'💡', q:'หลอดไฟ 1 ดวงที่ "เปิด" หรือ "ปิด" ได้ เปรียบได้กับข้อมูลขนาดเท่าใด', c:['1 บิต','1 ไบต์','1 KB','1 GB'], w:'ไฟ 1 ดวง = 1 บิต · 8 ดวง = 1 ไบต์'},
+    {q:'หน่วยที่อยู่ถัดจาก MB ขึ้นไป 1 ขั้น คือข้อใด', c:['GB','KB','TB','Byte'], w:'MB → GB → TB'},
+    {p:'📱', q:'มือถือขึ้นว่า "พื้นที่เต็ม" ลบอะไรทิ้งจะได้ที่ว่างคืนมากที่สุด', c:['คลิปวิดีโอยาว ๆ','ข้อความแชทเก่า','รายชื่อเบอร์โทร','รูปโปรไฟล์ 1 ใบ'], w:'วิดีโอไฟล์ใหญ่สุด แค่ 1 นาทีก็ราว 100 MB'},
+    {q:'"บิต" (bit) ย่อมาจากคำใด', c:['Binary Digit (เลขฐานสอง)','Big Item','Byte Unit','Basic Data'], w:'Binary digit = ตัวเลข 0 หรือ 1'}
+  ],
+  u2: [
+    {q:'1 KB เท่ากับกี่ไบต์', c:['1,024 ไบต์','1,000 บิต','8 ไบต์','100 ไบต์'], w:'จากไบต์ขึ้นไป คูณ 1,024 ทุกขั้น'},
+    {q:'1 MB เท่ากับกี่ KB', c:['1,024 KB','1,000,000 KB','8 KB','10 KB'], w:'KB × 1,024 = MB'},
+    {q:'1 GB เท่ากับกี่ MB', c:['1,024 MB','100 MB','8 MB','1,000,000 MB'], w:'MB × 1,024 = GB'},
+    {q:'1 TB เท่ากับกี่ GB', c:['1,024 GB','1,000,000 GB','512 GB','8 GB'], w:'GB × 1,024 = TB'},
+    {q:'2 KB เท่ากับกี่ไบต์', c:['2,048 ไบต์','2,000 ไบต์','1,024 ไบต์','16 ไบต์'], w:'2 × 1,024 = 2,048'},
+    {q:'16 บิต เท่ากับกี่ไบต์', c:['2 ไบต์','16 ไบต์','8 ไบต์','128 ไบต์'], w:'16 ÷ 8 = 2'},
+    {q:'512 MB เท่ากับกี่ GB', c:['0.5 GB','5 GB','512 GB','2 GB'], w:'512 ÷ 1,024 = ครึ่ง GB'},
+    {q:'ทำไมขั้นของหน่วยคอมพิวเตอร์เป็น 1,024 ไม่ใช่ 1,000', c:['คอมนับทีละ 2 เท่า · 2 คูณกัน 10 ครั้ง = 1,024','1,024 เป็นเลขนำโชค','ผู้ผลิตตั้งให้ขายได้แพงขึ้น','1,000 หารด้วย 8 ไม่ลงตัว'], w:'คอมคิดเป็นเลขฐานสอง (0/1) จึงโตทีละ 2 เท่า'},
+    {q:'เน็ต "100 Mbps" ตัว b เล็ก หมายถึงอะไร', c:['บิต (bit) ต่อวินาที','ไบต์ (Byte) ต่อวินาที','บาทต่อเดือน','กิกะไบต์ต่อวัน'], w:'b เล็ก = บิต · B ใหญ่ = ไบต์'},
+    {q:'เน็ต 100 Mbps โหลดไฟล์ได้ประมาณวินาทีละกี่ MB', c:['12.5 MB','100 MB','800 MB','1 MB'], w:'100 ÷ 8 = 12.5 · เปลี่ยนบิตเป็นไบต์ต้องหาร 8'},
+    {q:'ซื้อมือถือ 128 GB แต่เครื่องบางรุ่นโชว์ราว 119 GB เพราะอะไร', c:['ผู้ผลิตนับ 1 GB = 1,000 ล้านไบต์ แต่เครื่องนับแบบ 1,024','ร้านแอบเอาพื้นที่ไป','เครื่องเสีย','มีไวรัส'], w:'นับคนละแบบ พื้นที่ไม่ได้หายจริง'},
+    {p:'💿', q:'แผ่นซีดี (CD) ในภาพ จุข้อมูลได้ประมาณเท่าใด', c:['700 MB','4.7 GB','128 GB','1 TB'], w:'CD ≈ 700 MB · DVD ≈ 4.7 GB'},
+    {p:'📀', q:'แผ่น DVD (ชั้นเดียว) จุข้อมูลได้ประมาณเท่าใด', c:['4.7 GB','700 MB','1 TB','128 MB'], w:'DVD ≈ 4.7 GB · มากกว่าซีดีราว 6–7 เท่า'}
+  ],
+  u3: [
+    {q:'1 PB (เพตะไบต์) เท่ากับเท่าใด', c:['1,024 TB','1,024 GB','1,000 MB','8 TB'], w:'TB × 1,024 = PB'},
+    {q:'ข้อใดเรียงจาก "เล็ก → ใหญ่" ถูกต้อง', c:['TB → PB → EB → ZB','PB → TB → ZB → EB','EB → PB → TB → ZB','TB → EB → PB → ZB'], w:'เทระ → เพตะ → เอกซะ → เซตตะ'},
+    {q:'ข้อใดใหญ่ที่สุด', c:['1 YB (ยอตตะไบต์)','1 ZB (เซตตะไบต์)','1 EB (เอกซะไบต์)','1 PB (เพตะไบต์)'], w:'… EB → ZB → YB'},
+    {q:'"นิบเบิล" (Nibble) เท่ากับกี่บิต', c:['4 บิต','8 บิต','2 บิต','16 บิต'], w:'ครึ่งไบต์ = 4 บิต'},
+    {q:'ข้อมูล 8 บิต แทนค่าได้ทั้งหมดกี่แบบ', c:['256 แบบ','8 แบบ','16 แบบ','1,024 แบบ'], w:'2 คูณกัน 8 ครั้ง = 256 (เลข 0 ถึง 255)'},
+    {q:'เลขฐานสอง 01000001 มีค่าเท่ากับเลขฐานสิบเท่าใด', c:['65','41','101','11'], w:'64 + 1 = 65 · ซึ่งเป็นรหัสของตัว A'},
+    {q:'เลขฐานสอง 00000101 มีค่าเท่ากับเลขฐานสิบเท่าใด', c:['5','101','3','10'], w:'4 + 1 = 5'},
+    {q:'เลขฐานสอง 11111111 มีค่าเท่ากับเลขฐานสิบเท่าใด', c:['255','256','8','11,111,111'], w:'128+64+32+16+8+4+2+1 = 255'},
+    {q:'ระบบเลขที่คอมพิวเตอร์ใช้ทำงานอยู่ข้างใน คือข้อใด', c:['เลขฐานสอง (0 กับ 1)','เลขฐานสิบ (0–9)','เลขไทย','เลขโรมัน'], w:'วงจรในเครื่องรู้แค่ ไฟมา (1) กับ ไฟไม่มา (0)'},
+    {q:'รหัสมาตรฐานแทนตัวอักษรภาษาอังกฤษ ที่ใช้กันแพร่หลาย คือข้อใด', c:['ASCII (แอสกี)','PDF','HTML','JPEG'], w:'ASCII เก็บอักษรอังกฤษตัวละ 1 ไบต์'},
+    {q:'รหัสที่รวมตัวอักษรของทุกภาษาทั่วโลกไว้ด้วยกัน คือข้อใด', c:['Unicode (ยูนิโค้ด)','ASCII','TIS-620','MP3'], w:'Unicode ทำให้พิมพ์ไทย จีน อังกฤษ อีโมจิ ปนกันได้'},
+    {q:'รหัสอักษรภาษาไทยตามมาตรฐานของไทย คือข้อใด', c:['TIS-620 (มอก. 620)','ASCII','JPEG','UTF-16'], w:'มอก. 620 เก็บอักษรไทยตัวละ 1 ไบต์'},
+    {q:'ในรูปแบบ UTF-8 ตัวอักษรไทย 1 ตัวใช้กี่ไบต์', c:['3 ไบต์','1 ไบต์','8 ไบต์','1 KB'], w:'อังกฤษ 1 ไบต์ · ไทย 3 ไบต์'}
   ]
 };
+/* รหัสด่าน (hw1…) = คีย์ดาวใน localStorage — ห้ามเปลี่ยน ผู้เรียนจะเสียดาว */
 const LEVELS = [
-  {id:'hw1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'รับเข้า คิด แสดงผล', cls:'c6'},
-  {id:'hw2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'RAM ROM CPU อุปกรณ์', cls:'c5'},
-  {id:'hw3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ศัพท์สเปก ระดับยาก', cls:'c2'}
+  {ch:'hw', id:'hw1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'รับเข้า คิด แสดงผล', cls:'c6'},
+  {ch:'hw', id:'hw2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'RAM ROM CPU อุปกรณ์', cls:'c5'},
+  {ch:'hw', id:'hw3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ศัพท์สเปก ระดับยาก', cls:'c2'},
+  {ch:'unit', id:'u1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'บิต ไบต์ เรียงหน่วย', cls:'c6'},
+  {ch:'unit', id:'u2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'แปลงหน่วย · เน็ต Mbps', cls:'c5'},
+  {ch:'unit', id:'u3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ฐานสอง รหัสอักษร หน่วยใหญ่', cls:'c2'}
 ];
+const CHS = {
+  hw:{n:'ฮาร์ดแวร์', i:'📱', scr:'hw'},
+  unit:{n:'หน่วยข้อมูล', i:'📏', scr:'unit'}
+};
+let curCh='hw';
+const chLevels = () => LEVELS.filter(L=>L.ch===curCh);
+function openGame(ch){ if(ch) curCh=ch; go('game'); backToGameMenu(); }
 const PER_ROUND=5, PASS=4;
 
 /* ============ level map ============ */
-function isOpen(i){ return i===0 || (save.stars[LEVELS[i-1].id]||0)>0; }
+function isOpen(i){ return i===0 || (save.stars[chLevels()[i-1].id]||0)>0; }
 function renderLevels(){
+  $('gTitle').textContent='🎮 เกมพิชิตด่าน · '+CHS[curCh].n;
+  $('gTabs').innerHTML=Object.entries(CHS).map(([k,C])=>`<button class="tab${k===curCh?' on':''}" onclick="curCh='${k}';renderLevels()">${C.i} ${C.n}</button>`).join('');
   const box=$('levels'); box.innerHTML='';
-  LEVELS.forEach((L,i)=>{
+  chLevels().forEach((L,i)=>{
     const b=document.createElement('button');
     const open=isOpen(i), st=save.stars[L.id]||0;
     b.className='lv '+L.cls+(open?'':' locked');
@@ -727,7 +994,7 @@ function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=
 function qKey(lvId,q){ return lvId+'|'+q.q; }
 
 function startGame(lv){
-  const L=LEVELS[lv], pool=BANK[L.id];
+  const L=chLevels()[lv], pool=BANK[L.id];
   // ข้อที่เคยตอบผิด ได้สิทธิ์ขึ้นก่อน แล้วเติมด้วยข้อสุ่ม
   const wrong=shuffle(pool.filter(q=>save.wrong.includes(qKey(L.id,q))));
   const rest=shuffle(pool.filter(q=>!wrong.includes(q)));
@@ -758,7 +1025,7 @@ function showQ(){
 function answer(btn,val,q){
   const btns=[...document.querySelectorAll('#q-choices .choice')];
   btns.forEach(b=>b.disabled=true);
-  const key=qKey(LEVELS[game.lv].id,q);
+  const key=qKey(chLevels()[game.lv].id,q);
   if(val===q.ans){
     btn.classList.add('correct');
     game.score++; $('q-score').textContent=game.score;
@@ -785,11 +1052,11 @@ function nextQ(){
 function endGame(){
   $('game-play').style.display='none';
   $('game-end').style.display='block';
-  const s=game.score, L=LEVELS[game.lv];
+  const s=game.score, L=chLevels()[game.lv];
   const pass = s>=PASS && game.hearts>0;
   const starN = !pass?0 : s>=5?3 : 2;
   $('e-stars').textContent = '⭐'.repeat(starN)+'☆'.repeat(3-starN);
-  const next=LEVELS[game.lv+1];
+  const next=chLevels()[game.lv+1];
   $('e-msg').textContent = !pass?'เกือบแล้ว ลองใหม่นะ 💪' : starN===3?'สุดยอด! ไม่พลาดเลย 🏆':'ผ่านด่านแล้ว! 😄';
   $('e-detail').textContent = `ทำถูก ${s} จาก ${PER_ROUND} ข้อ`+(pass&&next&&!(save.stars[L.id]>0)?` · ปลดล็อก ${next.name} 🔓`:'')+(!pass?` · ต้องถูก ${PASS} ข้อขึ้นไป`:'');
   if(starN>(save.stars[L.id]||0)){ save.stars[L.id]=starN; persist(); showStars(); }

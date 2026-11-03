@@ -505,7 +505,7 @@
       <div class="menu">
         <button class="card c5" onclick="go('ofh')"><span class="ico">📜</span>1. ประวัติ Office<small>มาจากไหน แต่ละรุ่นต่างกันยังไง</small></button>
         <button class="card c3" onclick="go('ofs')"><span class="ico">🖥️</span>2. หน้าจอโปรแกรม<small>ส่วนที่ทุกโปรแกรมมีเหมือนกัน</small></button>
-        <button class="card c8 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📝</span>3. Word<small>พิมพ์เอกสาร จดหมาย</small></button>
+        <button class="card c8" onclick="go('ofw')"><span class="ico">📝</span>3. Word<small>พิมพ์เอกสาร จดหมาย</small></button>
         <button class="card c6 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📊</span>4. Excel<small>ตาราง สูตร คำนวณ</small></button>
         <button class="card c7 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📽️</span>5. PowerPoint<small>สไลด์นำเสนอ</small></button>
         <button class="card c2 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">⌨️</span>6. ปุ่มลัด<small>ทำงานไวขึ้น · ออกสอบบ่อย</small></button>
@@ -708,6 +708,113 @@
         <p class="tip">มุมขวาล่างของริบบอนมี<b>ตัวเลือกการแสดง Ribbon</b> เลือกได้ 3 แบบ: <b>โหมดเต็มหน้าจอ</b> (ซ่อนหมด) · <b>แสดงแท็บเท่านั้น</b> · <b>แสดง Ribbon เสมอ</b> · หรือ<b>ดับเบิลคลิกชื่อแท็บ</b> / กด <b>Ctrl+F1</b> ก็กลับมา</p>
         <div class="memo">🧓 รุ่นเก่า (ถึง Office 2003) ยังไม่มีริบบอน ใช้<b>เมนูตัวหนังสือ</b>แทน · ริบบอนเริ่มที่ <b>Office 2007</b> (ทบทวนบทประวัติ Office)</div>
         <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofs')">🎮 ทดสอบความเข้าใจ</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= OFFICE 3 · WORD ================= -->
+  <div class="screen" id="ofw">
+    <button class="backbtn" onclick="go('office')">⬅️ กลับห้องเรียน Office</button>
+    <div class="panel">
+      <h2>📝 Word · โปรแกรมพิมพ์เอกสาร</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p><b>Word</b> = โปรแกรม<b>พิมพ์เอกสาร</b> (Word processor) ✍️ · จดหมาย หนังสือราชการ รายงาน ประกาศ · เหมือน<b>แอปโน้ตในมือถือ</b> 📱 แต่<b>จัดหน้ากระดาษ</b>ได้ แล้วสั่งพิมพ์ออกมาเป็นแผ่นได้ตรงตามที่เห็นบนจอ</p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 มองจากภายนอก: จอ Word มีอะไรที่โปรแกรมอื่นไม่มี</div>
+        <p class="tip">ส่วนที่ทุกโปรแกรมมีเหมือนกัน (แถบชื่อเรื่อง ริบบอน …) เรียนไปแล้วในบท<b>หน้าจอโปรแกรม</b> · บทนี้ดู<b>ของเฉพาะ Word</b> · <b>แตะวงกลมตัวเลข</b> หรือแตะตรงไหนบนจอก็ได้ 👆 · คำ<span class="kw">สีม่วง</span>ในบทก็แตะได้</p>
+        <div class="fig" id="figWd"></div>
+        <div class="chips" id="chipsWd"></div>
+        <div class="info" id="infoWd">👆 แตะวงกลมตัวเลข ดูว่าส่วนนั้นชื่ออะไร ทำอะไร</div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> 🔍 ลองกดดู: ปุ่มจัดแนวหลัก 4 แบบในกลุ่ม<span class="kw" onclick="wdKw('para')">ย่อหน้า</span></div>
+        <div class="tabs" id="alTabs">
+          <button class="tab on" onclick="drawAl('L',this)">⬅️ จัดชิดซ้าย</button>
+          <button class="tab" onclick="drawAl('C',this)">↔️ กึ่งกลาง</button>
+          <button class="tab" onclick="drawAl('R',this)">➡️ จัดชิดขวา</button>
+          <button class="tab" onclick="drawAl('J',this)">⬌ จัดชิดขอบ</button>
+        </div>
+        <div class="fig" id="figAl"></div>
+        <div class="info" id="infoAl"></div>
+        <div class="memo">🔑 จำง่าย ๆ: ตัวอักษรตัวแรกของคำอังกฤษ <b>L</b>eft · c<b>E</b>nter · <b>R</b>ight · <b>J</b>ustify → กด <b>Ctrl</b> คู่กับตัวนั้น · กึ่งกลางใช้ <b>E</b> (ตัว C เป็นปุ่มลัด<b>คัดลอก</b> Ctrl+C อยู่แล้ว)</div>
+        <button class="more" onclick="openLayer('ofwL2',this)">🌿 อยากรู้อีกนิด · แท็บของ Word · ปุ่ม Enter 3 แบบ ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="ofwL2">
+        <h3>🌿 ชั้นต้นกล้า · แต่ละแท็บทำอะไร</h3>
+        <p><b>1) แท็บของ Word</b> · หาคำสั่งไม่เจอ ให้ถามตัวเองว่า "งานนี้แต่ง<b>ตัวหนังสือ</b> · <b>ใส่ของ</b>เพิ่ม · หรือ<b>จัดหน้ากระดาษ</b>"</p>
+        <div class="tw"><table class="t">
+          <tr><th>แท็บ</th><th>ใช้ทำอะไร</th><th>ตัวอย่างคำสั่ง</th></tr>
+          <tr><td>🏠 <b>หน้าแรก</b></td><td>แต่ง<b>ตัวหนังสือ</b>และย่อหน้า (ใช้บ่อยสุด)</td><td>ฟอนต์ · ตัวหนา · จัดแนว · สไตล์ · ค้นหา/แทนที่</td></tr>
+          <tr><td>➕ <b>แทรก</b></td><td><b>ใส่ของเพิ่ม</b>ลงในเอกสาร</td><td>ตาราง · รูปภาพ · หัวกระดาษ · ท้ายกระดาษ · หมายเลขหน้า · ตัวแบ่งหน้า · ลิงก์</td></tr>
+          <tr><td>🎨 <b>ออกแบบ</b></td><td>แต่ง<b>หน้าตาทั้งเอกสาร</b></td><td>ธีม · ลายน้ำ · สีหน้า · เส้นขอบหน้า</td></tr>
+          <tr><td>📐 <b>เค้าโครง</b></td><td><b>จัดหน้ากระดาษ</b></td><td>ระยะขอบ · การวางแนว (แนวตั้ง/แนวนอน) · ขนาดกระดาษ · คอลัมน์ · ตัวแบ่ง</td></tr>
+          <tr><td>📚 <b>อ้างอิง</b></td><td>งาน<b>รายงาน วิชาการ</b></td><td>สารบัญ · เชิงอรรถ · บรรณานุกรม</td></tr>
+          <tr><td>✉️ <b>การส่งจดหมาย</b></td><td>จดหมายฉบับเดียว ส่ง<b>หลายคน</b></td><td>จดหมายเวียน · ซองจดหมาย · ป้ายชื่อ</td></tr>
+          <tr><td>✅ <b>รีวิว</b></td><td><b>ตรวจงาน</b> ก่อนส่ง</td><td>ตัวสะกด · จำนวนคำ · ข้อคิดเห็น · ติดตามการเปลี่ยนแปลง</td></tr>
+          <tr><td>👁️ <b>มุมมอง</b></td><td>เปลี่ยน<b>วิธีมอง</b>บนจอ</td><td>โหมดการอ่าน · เค้าโครงเหมือนพิมพ์ · ไม้บรรทัด · บานหน้าต่างนำทาง · ย่อ/ขยาย</td></tr>
+        </table></div>
+        <div class="memo ex">🏷️ ชื่อแท็บภาษาไทย หน้าของ Microsoft เองเขียนไม่ตรงกัน: <b>รีวิว = ตรวจทาน</b> · <b>อ้างอิง = การอ้างอิง</b> · <b>มุมมอง = ดู</b> · เจอคำไหนในข้อสอบ ก็คือแท็บเดียวกัน<br>🎯 กับดัก: <b>ตัวแบ่งหน้า</b> มีทั้งในแท็บ<b>แทรก</b> และในปุ่ม<b>ตัวแบ่ง</b>ของแท็บ<b>เค้าโครง</b> · ข้อสอบที่ถาม "อยู่แท็บใด" จะมีตัวเลือกที่ถูกแค่ข้อเดียว ให้ดูตัวเลือกให้ครบ</div>
+
+        <p style="margin-top:14px"><b>2) ปุ่ม Enter 3 แบบ</b> (ข้อสอบชอบถาม)</p>
+        <div class="tw"><table class="t">
+          <tr><th>กด</th><th>ได้อะไร</th><th>ใช้เมื่อไร</th></tr>
+          <tr><td><b>Enter</b></td><td>ขึ้น<b>ย่อหน้าใหม่</b></td><td>จบเรื่องหนึ่ง เริ่มเรื่องใหม่</td></tr>
+          <tr><td><b>Shift+Enter</b></td><td>ขึ้น<b>บรรทัดใหม่</b> แต่ยังอยู่<b>ย่อหน้าเดิม</b></td><td>ที่อยู่ ชื่อ–ตำแหน่ง ใต้ลายเซ็น</td></tr>
+          <tr><td><b>Ctrl+Enter</b></td><td>ขึ้น<b>หน้าใหม่</b>ทันที (ตัวแบ่งหน้า)</td><td>บทใหม่ต้องเริ่มหน้าใหม่ · ห้ามกด Enter รัว ๆ จนล้นหน้า</td></tr>
+        </table></div>
+        <p class="tip">🤔 ทำไมห้ามกด Enter รัว ๆ? แก้ข้อความหน้าแรกนิดเดียว บรรทัดว่างทั้งหมดจะเลื่อนตาม หัวบทใหม่ไปโผล่กลางหน้า · ตัวแบ่งหน้า (Ctrl+Enter) ไม่เลื่อน</p>
+        <button class="more" onclick="openLayer('ofwL3',this)">🌳 เจาะลึก · หัว/ท้ายกระดาษ · จดหมายเวียน · นามสกุลไฟล์ · ปุ่มลัด ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="ofwL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · งานเอกสารจริง</h3>
+        <p><b>1) ของที่อยู่ขอบกระดาษ</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>ชื่อ</th><th>อยู่ตรงไหน</th><th>ใช้ทำอะไร</th></tr>
+          <tr><td><b>หัวกระดาษ</b> (Header)</td><td>ขอบ<b>บน</b> ทุกหน้า</td><td>ชื่อหน่วยงาน ชื่อเรื่อง · พิมพ์ครั้งเดียว ขึ้นทุกหน้า</td></tr>
+          <tr><td><b>ท้ายกระดาษ</b> (Footer)</td><td>ขอบ<b>ล่าง</b> ทุกหน้า</td><td>หมายเลขหน้า · ชื่อไฟล์</td></tr>
+          <tr><td><b>เชิงอรรถ</b> (Footnote)</td><td>ท้าย<b>หน้าเดียวกัน</b>กับคำนั้น</td><td>อธิบายคำ อ้างที่มา · มีเลขกำกับ¹</td></tr>
+          <tr><td><b>อ้างอิงท้ายเรื่อง</b> (Endnote)</td><td>ท้าย<b>เอกสาร</b> (หรือท้ายส่วน)</td><td>รวมคำอธิบายไว้ท้ายเล่ม</td></tr>
+        </table></div>
+        <div class="memo">📏 <b>ตัวแบ่งหน้า</b> = ขึ้นหน้าใหม่เฉย ๆ · <b>ตัวแบ่งส่วน</b> (Section break) = แบ่งเอกสารเป็นส่วน ให้แต่ละส่วน<b>ตั้งค่าหน้าต่างกันได้</b> เช่น หน้าเดียวเป็นแนวนอน หรือเลขหน้าเริ่มนับใหม่</div>
+
+        <p style="margin-top:14px"><b>2) จดหมายเวียน</b> (Mail Merge) · จดหมายฉบับเดียว ใส่ชื่อผู้รับคนละคนให้อัตโนมัติ</p>
+        <div class="path"><span>✉️ เริ่มจดหมายเวียน</span><span>▶</span><span>👥 เลือกผู้รับ</span><span>▶</span><span>🏷️ แทรกเขตข้อมูลผสาน</span><span>▶</span><span>👀 แสดงตัวอย่างผลลัพธ์</span><span>▶</span><span>✅ เสร็จสิ้นและผสาน</span></div>
+        <p class="tip">ทุกปุ่มอยู่แท็บ <b>การส่งจดหมาย</b> · รายชื่อผู้รับเก็บใน <b>Excel</b> ได้ (1 แถว = 1 คน) · ตัวอย่าง: หนังสือเชิญประชุมสมาชิก 200 คน พิมพ์จดหมายครั้งเดียว</p>
+
+        <p style="margin-top:14px"><b>3) นามสกุลไฟล์ของ Word</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>นามสกุล</th><th>คืออะไร</th></tr>
+          <tr><td><b>.docx</b></td><td>ไฟล์ Word แบบปัจจุบัน (เริ่ม Word 2007 บน Windows)</td></tr>
+          <tr><td><b>.doc</b></td><td>ไฟล์ Word รุ่นเก่า (Word 97–2003)</td></tr>
+          <tr><td><b>.dotx</b></td><td><b>แม่แบบ</b> (Template) · เปิดแล้วได้เอกสารใหม่ ตัวแม่แบบไม่ถูกแก้</td></tr>
+          <tr><td><b>.docm</b></td><td>ไฟล์ Word ที่มี<b>แมโคร</b> (คำสั่งอัตโนมัติ) · ⚠️ ไฟล์แปลกที่มีแมโคร อย่าเปิดใช้</td></tr>
+          <tr><td><b>.pdf</b></td><td>Word <b>บันทึกเป็น PDF</b> ได้ · ส่งให้คนอื่นอ่าน หน้าตาไม่เพี้ยน</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>4) ปุ่มลัดที่ใช้บ่อยใน Word</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>กด</th><th>ได้อะไร</th></tr>
+          <tr><td><b>Ctrl+B · I · U</b></td><td>ตัวหนา · ตัวเอียง · ขีดเส้นใต้</td></tr>
+          <tr><td><b>Ctrl+L · E · R · J</b></td><td>จัดชิดซ้าย · กึ่งกลาง · จัดชิดขวา · จัดชิดขอบ</td></tr>
+          <tr><td><b>Ctrl+] · Ctrl+[</b></td><td>ขยาย/ลด ขนาดตัวอักษรทีละ 1 พอยต์</td></tr>
+          <tr><td><b>Ctrl+D</b></td><td>เปิดกล่องฟอนต์ (ใน Excel ปุ่มเดียวกันคือ เติมลง ⚠️)</td></tr>
+          <tr><td><b>Ctrl+F · Ctrl+H</b></td><td>ค้นหา (เปิดบานหน้าต่างการนำทาง) · แทนที่</td></tr>
+          <tr><td><b>Ctrl+K</b></td><td>ใส่ลิงก์</td></tr>
+          <tr><td><b>Shift+F3</b></td><td>สลับตัวพิมพ์ใหญ่/เล็ก (ภาษาอังกฤษ)</td></tr>
+          <tr><td><b>F7</b></td><td>ตรวจตัวสะกด (เปิดบานหน้าต่าง<b>ตัวแก้ไข</b> · Editor)</td></tr>
+          <tr><td><b>F12</b></td><td>บันทึกเป็น (Save As)</td></tr>
+        </table></div>
+        <p class="tip">⌨️ ตารางปุ่มลัดของ Microsoft อิง<b>แป้นพิมพ์แบบสหรัฐฯ</b> (ภาษาอังกฤษ)</p>
+        <div class="memo">✅ ส่งงานให้คนอื่นแก้: เปิด <b>ติดตามการเปลี่ยนแปลง</b> (แท็บรีวิว) ทุกคำที่แก้จะมีสีกำกับ เจ้าของงานเลือก<b>ยอมรับ</b>หรือ<b>ปฏิเสธ</b>ทีละจุดได้ · อยากเขียนติงโดยไม่แก้เนื้อความ ใช้<b>ข้อคิดเห็น</b></div>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofw')">🎮 ทดสอบความเข้าใจ</button></div>
       </div>
     </div>
   </div>
@@ -1589,7 +1696,7 @@
 
   <footer>
     🦉 สื่อการเรียนรู้ "ไอทีง่ายนิดเดียว" · เปิดได้ทุกอุปกรณ์<br>
-    ครบ 8 บท + ห้องเรียน Office · เกม 30 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
+    ครบ 8 บท + ห้องเรียน Office · เกม 33 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
   </footer>
 </div>
 
@@ -2299,6 +2406,115 @@ function ofsDeep(k,lv){
 function ofsKw(k){ ofsPick(k); $('infoOfs').scrollIntoView({behavior:'smooth',block:'center'}); }
 drawOfs('word');
 
+/* ============ บท O3 · Word ============ */
+// พื้นที่แตะ [x,y,w,h] ของจอ Word · เรียงจากบนลงล่าง (ลำดับคีย์ใน WD = เลขวงกลม)
+const WD_HIT = {
+  font:[46,42,100,42], para:[146,42,68,42], style:[214,42,104,42], ruler:[60,84,260,12], nav:[0,84,60,124],
+  page:[60,96,260,112], pg:[0,208,70,28], count:[70,208,70,28], views:[140,208,62,28], zoom:[202,208,118,28]
+};
+// วงกลมตัวเลข [badgeX, badgeY, pointX, pointY]
+const WD_BD = {font:[96,-11,96,50], para:[180,-11,180,52], style:[266,-11,266,60], ruler:[310,90,310,90], nav:[30,190,30,190],
+  page:[150,196,150,196], pg:[30,248,30,228], count:[100,248,100,228], views:[171,248,171,228], zoom:[262,248,262,228]};
+function wdSvg(badges){
+  const c=OFP.word.c, T='font-family="Kanit,sans-serif"', W='#fff';
+  let s=`<svg viewBox="${badges?'0 -22 320 282':'0 0 320 236'}" class="hsvg ofs">
+  <rect x="0" y="0" width="320" height="236" rx="10" fill="#f3f3f3" stroke="#cfcfd8"/>
+  <rect x="0" y="0" width="320" height="22" rx="10" fill="${c}"/><rect x="0" y="12" width="320" height="10" fill="${c}"/>
+  <text x="32" y="15" font-size="10" fill="${W}">💾</text><text x="49" y="15.5" font-size="11" fill="${W}" font-weight="700">↶</text>
+  <text x="140" y="15" text-anchor="middle" font-size="8.5" fill="${W}" ${T}>จดหมายเชิญ - Word</text>
+  <text x="256" y="15" font-size="11" fill="${W}">–</text><rect x="275" y="7" width="8" height="8" fill="none" stroke="${W}" stroke-width="1.3"/><text x="298" y="15.5" font-size="11" fill="${W}" font-weight="700">✕</text>
+  <rect x="0" y="22" width="320" height="19" fill="#fafafa"/>
+  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>ไฟล์</text>`;
+  let x=34;
+  OFP.word.tabs.forEach((t,i)=>{ const w=t.length*4.9+12;
+    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${t}</text>`;
+    if(i===0) s+=`<rect x="${x+4}" y="38" width="${w-8}" height="2" fill="${c}"/>`;
+    x+=w; });
+  // ริบบอนแท็บหน้าแรก: คลิปบอร์ด · ฟอนต์ · ย่อหน้า (ปุ่มจัดแนว 4 แบบ) · สไตล์
+  s+=`<rect x="2" y="42" width="316" height="41" rx="4" fill="#fff" stroke="#e2e2e8"/>
+    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>คลิปบอร์ด</text>
+    <line x1="46" y1="46" x2="46" y2="80" stroke="#e2e2e8"/>
+    <rect x="52" y="47" width="62" height="10" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="55" y="54.5" font-size="6.5" fill="#333">TH Sarabun New</text>
+    <rect x="118" y="47" width="20" height="10" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="122" y="54.5" font-size="6.5" fill="#333">16</text>
+    <text x="54" y="70" font-size="10" font-weight="900" fill="#333">B</text><text x="66" y="70" font-size="10" font-style="italic" fill="#333">I</text><text x="76" y="70" font-size="10" text-decoration="underline" fill="#333">U</text><text x="90" y="70" font-size="10" fill="#c00">A</text>
+    <text x="96" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ฟอนต์</text>
+    <line x1="146" y1="46" x2="146" y2="80" stroke="#e2e2e8"/>
+    ${[0,2,4,-1].map((off,i)=>{const X=152+i*15; // ชิดซ้าย · กึ่งกลาง · ชิดขวา · จัดชิดขอบ
+      return [0,1,2,3].map(r=>`<rect x="${X+(r%2&&off>=0?off:0)}" y="${57+r*3}" width="${r%2&&off>=0?5:9}" height="1.4" fill="#555"/>`).join('');}).join('')}
+    <text x="180" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ย่อหน้า</text>
+    <line x1="214" y1="46" x2="214" y2="80" stroke="#e2e2e8"/>
+    ${['ปกติ','หัวเรื่อง 1','ชื่อเรื่อง'].map((t,i)=>`<rect x="${220+i*32}" y="48" width="29" height="20" rx="2" fill="${i===0?'#eef3fd':'#fff'}" stroke="#d6d6de"/><text x="${234.5+i*32}" y="61" text-anchor="middle" font-size="${i===1?5.5:6.5}" fill="${i===1?c:'#333'}" ${i>0?'font-weight="700"':''} ${T}>${t}</text>`).join('')}
+    <text x="266" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>สไตล์</text>`;
+  // ไม้บรรทัด · บานหน้าต่างนำทาง · หน้ากระดาษ
+  s+=`<rect x="2" y="84" width="316" height="124" fill="#e9e9ee"/>
+    <rect x="62" y="85" width="256" height="10" fill="#fff" stroke="#d6d6de"/><rect x="62" y="85" width="40" height="10" fill="#dcdce4"/><rect x="278" y="85" width="40" height="10" fill="#dcdce4"/>
+    ${Array.from({length:17},(_,i)=>`<line x1="${102+i*11}" y1="${i%2?92:89}" x2="${102+i*11}" y2="95" stroke="#888" stroke-width=".7"/>`).join('')}
+    <path d="M99 85 L105 85 L102 89 Z" fill="#666"/>
+    <rect x="2" y="85" width="56" height="122" fill="#fff" stroke="#d6d6de"/>
+    <text x="30" y="96" text-anchor="middle" font-size="7" font-weight="700" fill="#333" ${T}>การนำทาง</text>
+    <rect x="6" y="100" width="48" height="9" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="9" y="107" font-size="5.5" fill="#888" ${T}>🔍 ค้นหา</text>
+    ${['เรียนเชิญ','กำหนดการ','แผนที่'].map((t,i)=>`<rect x="6" y="${114+i*13}" width="48" height="10" rx="2" fill="${i===0?'#dbe7fb':'transparent'}"/><text x="9" y="${121+i*13}" font-size="6.5" fill="#333" ${T}>${t}</text>`).join('')}
+    <rect x="102" y="98" width="176" height="110" fill="#fff" stroke="#d6d6de"/>
+    <text x="190" y="112" text-anchor="middle" font-size="8" font-weight="700" fill="#333" ${T}>เรียนเชิญ</text>
+    ${[0,1,2,3,4,5,6].map(i=>`<rect x="${i===0?122:114}" y="${120+i*10}" width="${i===3||i===6?90:(i===0?144:152)}" height="3" rx="1.5" fill="#c9cbd6"/>`).join('')}
+    <rect x="205" y="178" width="1.2" height="8" fill="#333"/>`;
+  s+=`<rect x="0" y="208" width="320" height="28" rx="10" fill="${c}"/><rect x="0" y="208" width="320" height="10" fill="${c}"/>
+  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>หน้า 1 จาก 2</text><text x="76" y="225" font-size="8.5" fill="${W}" ${T}>125 คำ</text>
+  <text x="146" y="226" font-size="9" fill="${W}">📖</text><rect x="161" y="217" width="9" height="10" rx="1" fill="#ffffff55" stroke="${W}"/><rect x="176" y="217" width="14" height="10" rx="1" fill="none" stroke="${W}"/>
+  <text x="206" y="225" font-size="10" fill="${W}">−</text><rect x="216" y="221" width="52" height="1.6" fill="${W}"/><rect x="240" y="216" width="4" height="11" rx="1" fill="${W}"/><text x="272" y="225" font-size="10" fill="${W}">+</text><text x="283" y="225" font-size="8" fill="${W}">100%</text>`;
+  Object.entries(WD_HIT).forEach(([k,[hx,hy,hw,hh]])=>{ s+=`<rect class="hit" data-k="${k}" x="${hx}" y="${hy}" width="${hw}" height="${hh}" rx="4"/>`; });
+  if(badges) Object.keys(WD).forEach((k,i)=>{ const [bx,by,px,py]=WD_BD[k];
+    if(bx!==px||by!==py) s+=`<line x1="${bx}" y1="${by}" x2="${px}" y2="${py}" stroke="#ff6ec7" stroke-width="1.6" stroke-dasharray="3 2"/>`;
+    s+=`<g class="bd" data-k="${k}" transform="translate(${bx},${by})"><circle r="8.5"/><text y="4">${i+1}</text></g>`; });
+  return s+'</svg>';
+}
+function drawWd(){
+  $('figWd').innerHTML=wdSvg(true);
+  $('chipsWd').innerHTML=Object.keys(WD).map((k,i)=>`<button class="chip" data-k="${k}">${i+1}. ${WD[k][0]}</button>`).join('');
+  const pick=wdPick=k=>{
+    ['figWd','chipsWd'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const O=WD[k];
+    $('infoWd').innerHTML=`<b>${O[0]}</b> <i class="gp" style="background:${OFP.word.c}">${O[1]}</i><br>${O[2]}`;
+    pop($('infoWd'));
+  };
+  ['figWd','chipsWd'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+let wdPick=()=>{};
+function wdKw(k){ wdPick(k); $('infoWd').scrollIntoView({behavior:'smooth',block:'center'}); }
+// ปุ่มจัดแนว 4 แบบ: [ชื่อ, อังกฤษ, ปุ่มลัด, ใช้เมื่อไร]
+const WD_AL = {
+  L:['จัดชิดซ้าย','Align Left','Ctrl+L','ค่าปกติของงานพิมพ์ทั่วไป · ขอบซ้ายตรง ขอบขวาไม่เท่ากัน'],
+  C:['กึ่งกลาง','Center','Ctrl+E','หัวเรื่อง ชื่อเรื่อง คำว่า "ประกาศ" · ข้อความอยู่กลางหน้า'],
+  R:['จัดชิดขวา','Align Right','Ctrl+R','วันที่ หรือที่อยู่ผู้ส่ง ที่ต้องวางชิดขวา'],
+  J:['จัดชิดขอบ','Justify','Ctrl+J','เนื้อความหนังสือ รายงาน · ขอบซ้ายและขวาตรงทั้งสองข้าง (บรรทัดสุดท้ายชิดซ้ายตามปกติ) · บางหน้าของ Microsoft เรียกว่า <b>เต็มแนว</b>']
+};
+function drawAl(a,btn){
+  if(btn) document.querySelectorAll('#alTabs .tab').forEach(t=>t.classList.toggle('on',t===btn));
+  const ws=[230,186,214,120], X0=45, X1=275;
+  let s=`<svg viewBox="0 0 320 130" class="hsvg"><rect x="30" y="6" width="260" height="118" rx="4" fill="#fff" stroke="#d6d6de"/>
+    <line x1="${X0}" y1="10" x2="${X0}" y2="120" stroke="#ff6ec7" stroke-dasharray="3 3"/><line x1="${X1}" y1="10" x2="${X1}" y2="120" stroke="#ff6ec7" stroke-dasharray="3 3"/>`;
+  ws.forEach((w,i)=>{ const last=i===ws.length-1, ww=(a==='J'&&!last)?X1-X0:w;
+    const x=a==='C'?(X0+X1-ww)/2:a==='R'?X1-ww:X0;
+    s+=`<rect x="${x}" y="${24+i*24}" width="${ww}" height="9" rx="4.5" fill="${OFP.word.c}" opacity=".75"/>`; });
+  $('figAl').innerHTML=s+'</svg>';
+  const A=WD_AL[a];
+  $('infoAl').innerHTML=`<b>${A[0]}</b> <i class="gp" style="background:${OFP.word.c}">${A[1]}</i> · ปุ่มลัด <b>${A[2]}</b><br>${A[3]}<br><small>เส้นประสีชมพู = ขอบกระดาษที่ตั้งไว้ (ระยะขอบ)</small>`;
+}
+// ส่วนเฉพาะจอ Word: [ชื่อ, ชื่ออังกฤษ, คำอธิบาย] · เรียงจากบนลงล่าง
+const WD = {
+  font:['กลุ่มฟอนต์','Font','แต่ง<b>ตัวหนังสือ</b>: แบบอักษร · ขนาด · <b>B</b> ตัวหนา · <i>I</i> ตัวเอียง · <u>U</u> ขีดเส้นใต้ · สีตัวอักษร · หนังสือราชการไทยใช้ฟอนต์ตระกูล <b>TH Sarabun</b>'],
+  para:['กลุ่มย่อหน้า','Paragraph','จัด<b>ทั้งย่อหน้า</b>: ปุ่มจัดแนวหลัก 4 แบบ (จัดชิดซ้าย กึ่งกลาง จัดชิดขวา จัดชิดขอบ) · เครื่องที่เปิดภาษาไทยอาจเห็นปุ่ม<b>กระจายแบบไทย</b>เพิ่ม · ระยะห่างบรรทัด · สัญลักษณ์แสดงหัวข้อ · ลำดับเลข'],
+  style:['กลุ่มสไตล์','Styles','ชุดรูปแบบสำเร็จรูป เช่น <b>ปกติ · หัวเรื่อง 1 · ชื่อเรื่อง</b> · กดทีเดียวได้ทั้งแบบอักษร ขนาด สี · ใช้ <b>หัวเรื่อง</b> แล้ว Word ทำ<b>สารบัญ</b>ให้อัตโนมัติได้'],
+  ruler:['ไม้บรรทัด','Ruler','แถบมีขีดเหนือหน้ากระดาษ · บอก<b>ระยะขอบ</b> (ส่วนสีเทาสองข้าง) · ลากสามเหลี่ยม<b>อันบน</b> (หัวคว่ำลง) = <b>ย่อหน้าบรรทัดแรก</b> · อันล่าง = ย่อหน้าแบบแขวน · ซ่อนอยู่ เปิดได้ที่แท็บ <b>มุมมอง</b> › ไม้บรรทัด'],
+  nav:['บานหน้าต่างนำทาง','Navigation pane','แถบซ้ายแสดง<b>หัวเรื่อง</b>ทั้งเอกสาร · คลิกชื่อหัวเรื่อง = กระโดดไปหน้านั้นทันที · มีช่อง<b>ค้นหาคำ</b> · เปิดด้วย <b>Ctrl+F</b> หรือแท็บมุมมอง'],
+  page:['หน้ากระดาษ','Page','ที่พิมพ์งานจริง · ขีดกะพริบ | เรียกว่า <b>จุดแทรก</b> (เคอร์เซอร์) พิมพ์ตรงไหน ตัวหนังสือขึ้นตรงนั้น · พิมพ์จนเต็มหน้า Word <b>ขึ้นหน้าใหม่ให้เอง</b>'],
+  pg:['เลขหน้า','Page number','บนแถบสถานะ บอก <b>หน้าที่อยู่ จากทั้งหมดกี่หน้า</b> เช่น หน้า 1 จาก 2'],
+  count:['จำนวนคำ','Word count','บนแถบสถานะ นับคำให้อัตโนมัติ · กดแล้วเห็นจำนวน<b>อักขระ บรรทัด ย่อหน้า</b>เพิ่ม'],
+  views:['ปุ่มมุมมอง','Views','เปลี่ยน<b>วิธีมอง</b>เอกสาร ไม่ได้เปลี่ยนเนื้อหา: 🎯 <b>โฟกัส</b> (ซ่อนริบบอน เหลือแต่เนื้อความ กด Esc ออก) · 📖 <b>โหมดการอ่าน</b> · ▯ <b>เค้าโครงเหมือนพิมพ์</b> (ค่าปกติ เห็นเหมือนพิมพ์ออกมา) · ▭ <b>เค้าโครงเว็บ</b>'],
+  zoom:['ตัวเลื่อนย่อ/ขยาย','Zoom slider','อยู่บนแถบสถานะเหมือนโปรแกรม Office อื่น (Excel · PowerPoint) · ซูมแค่การมอง ตัวหนังสือในไฟล์ไม่ได้ใหญ่ขึ้นจริง']
+};
+drawWd(); drawAl('L');
+
 /* ============ future tech (outside → inside) ============ */
 // ช่องบนหน้าจอ: [ไอคอน, ชื่อบนภาพ, ชื่อเต็ม, เทคโนโลยี, สีป้าย, คำอธิบาย]
 const FUT = {
@@ -2961,7 +3177,7 @@ const BANK = {
     {t:'tap', g:'excel', k:'ribbon', q:'อยากกดตัวหนา B ต้องไปหาที่ส่วนไหน? แตะเลย 👆', w:'ปุ่มคำสั่งทุกปุ่มอยู่บนริบบอน · ตัวหนาอยู่แท็บหน้าแรก กลุ่มฟอนต์'},
     {t:'tap', g:'word', k:'launch', q:'แตะ "ตัวเปิดใช้กล่องโต้ตอบ" ของกลุ่มฟอนต์ 👆', w:'ลูกศรเล็ก ↘ มุมขวาล่างของกลุ่ม กดแล้วได้หน้าต่างตั้งค่าแบบละเอียด'},
     {t:'tap', g:'excel', k:'launch', q:'อยากเปิดหน้าต่างตั้งค่าฟอนต์แบบละเอียด แตะตรงไหน? 👆', w:'ตัวเปิดใช้กล่องโต้ตอบ = ลูกศรเล็กมุมขวาล่างของกลุ่มฟอนต์'},
-    {t:'tap', g:'word', k:'status', q:'แตะ "แถบสถานะ" (Status bar) 👆', w:'แถบล่างสุด บอกหน้า จำนวนคำ และมีปุ่มเปลี่ยนมุมมอง'},
+    {t:'tap', g:'word', k:'status', alt:['zoom'], q:'แตะ "แถบสถานะ" (Status bar) 👆', w:'แถบล่างสุด บอกหน้า จำนวนคำ และมีปุ่มเปลี่ยนมุมมอง'},
     {t:'tap', g:'ppt', k:'status', q:'อยากรู้ว่าตอนนี้อยู่สไลด์ที่เท่าไร ดูส่วนไหน? 👆', w:'แถบสถานะของ PowerPoint บอก "สไลด์ 1 จาก 3"'},
     {t:'tap', g:'excel', k:'zoom', q:'แตะ "ตัวเลื่อนย่อ/ขยาย" (Zoom slider) 👆', w:'อยู่มุมขวาล่าง มี − + และตัวเลข % · ซูมแค่การมอง ไฟล์ไม่เปลี่ยน'},
     {t:'tap', g:'ppt', k:'win', q:'อยากย่อหน้าต่างเก็บลงแถบงาน แตะตรงไหน? 👆', w:'ปุ่ม – มุมขวาบนสุด (คู่กับ ▢ ขยาย และ ✕ ปิด)'},
@@ -2997,6 +3213,51 @@ const BANK = {
     {q:'ข้อใด "ไม่ใช่" ส่วนที่ทุกโปรแกรมมีเหมือนกัน', c:['แถบสูตร (Formula bar)','แถบชื่อเรื่อง','แถบสถานะ','ริบบอน'], w:'แถบสูตรมีเฉพาะ Excel ไว้ดูและแก้สูตรในเซลล์'},
     {p:'🎨', q:'แท็บ "ออกแบบ" (Design) มีในโปรแกรมใดบ้าง', c:['Word และ PowerPoint','Excel เท่านั้น','Word และ Excel','ทุกโปรแกรม'], w:'Word ใช้แต่งธีมเอกสาร PowerPoint ใช้เลือกธีมสไลด์ · Excel ไม่มีแท็บออกแบบประจำ (มีแต่แท็บที่โผล่ตอนเลือกตารางหรือแผนภูมิ)'},
     {p:'🧓', q:'Office รุ่นใดเริ่มเปลี่ยนจากเมนูตัวหนังสือมาใช้ริบบอน', c:['Office 2007','Office 97','Office 2003','Office 2016'], w:'ริบบอนเริ่ม Office 2007 · รุ่น 2003 ยังเป็นเมนูแบบเก่า'}
+  ],
+  ow1: [
+    {t:'tap', g:'wd', k:'font', q:'อยากเลือกแบบอักษรเอง และตั้งขนาดเป็น 16 พอยต์ แตะกลุ่มไหน? 👆', w:'กลุ่มฟอนต์ แท็บหน้าแรก มีช่องแบบอักษร ขนาด และปุ่ม B I U'},
+    {t:'tap', g:'wd', k:'font', q:'แตะกลุ่มที่มีปุ่มตัวหนา B ตัวเอียง I ขีดเส้นใต้ U 👆', w:'กลุ่มฟอนต์ ใช้แต่งตัวหนังสือ'},
+    {t:'tap', g:'wd', k:'para', q:'อยากจัดหัวเรื่องให้อยู่กึ่งกลางหน้า แตะกลุ่มไหน? 👆', w:'ปุ่มจัดแนว 4 แบบอยู่กลุ่มย่อหน้า · หรือกด Ctrl+E'},
+    {t:'tap', g:'wd', k:'para', q:'แตะ "กลุ่มย่อหน้า" (Paragraph) 👆', w:'กลุ่มย่อหน้า: จัดแนว ระยะห่างบรรทัด สัญลักษณ์หัวข้อ ลำดับเลข'},
+    {t:'tap', g:'wd', k:'style', q:'อยากทำหัวข้อด้วยรูปแบบสำเร็จรูป "หัวเรื่อง 1" แตะกลุ่มไหน? 👆', w:'กลุ่มสไตล์ · ใช้หัวเรื่องแล้ว Word ทำสารบัญให้ได้'},
+    {t:'tap', g:'wd', k:'ruler', q:'แตะ "ไม้บรรทัด" (Ruler) 👆', w:'แถบมีขีดเหนือหน้ากระดาษ บอกระยะขอบ และใช้ตั้งย่อหน้าบรรทัดแรก'},
+    {t:'tap', g:'wd', k:'ruler', q:'ส่วนไหนแสดงระยะขอบกระดาษเป็นแถบสีเทา มีขีดบอกระยะ? 👆', w:'ไม้บรรทัด ส่วนสีเทาสองข้างคือระยะขอบ'},
+    {t:'tap', g:'wd', k:'nav', q:'แตะ "บานหน้าต่างนำทาง" (Navigation pane) 👆', w:'แถบซ้าย แสดงหัวเรื่องทั้งเอกสาร คลิกแล้วกระโดดไปหน้านั้น · เปิดด้วย Ctrl+F'},
+    {t:'tap', g:'wd', k:'nav', q:'เอกสาร 50 หน้า อยากกระโดดไปหัวข้อ "แผนที่" ทันที แตะส่วนที่แสดงรายชื่อหัวข้อ 👆', w:'บานหน้าต่างนำทาง คลิกชื่อหัวเรื่อง = ไปหน้านั้นเลย'},
+    {t:'tap', g:'wd', k:'page', q:'แตะ "หน้ากระดาษ" ที่เราพิมพ์งาน 👆', w:'พื้นที่ทำงานของ Word เป็นหน้ากระดาษ ขีดกะพริบคือจุดแทรก'},
+    {t:'tap', g:'wd', k:'pg', q:'เอกสารนี้มีทั้งหมดกี่หน้า ดูตรงไหน? แตะเลย 👆', w:'แถบสถานะ ซ้ายล่าง: หน้า 1 จาก 2'},
+    {t:'tap', g:'wd', k:'count', q:'งานเขียนต้องไม่เกิน 500 คำ ดูจำนวนคำตรงไหน? แตะเลย 👆', w:'แถบสถานะบอกจำนวนคำอัตโนมัติ'},
+    {t:'tap', g:'wd', k:'views', q:'อยากสลับไป "โหมดการอ่าน" อ่านเอกสารเต็มจอ แตะตรงไหน? 👆', w:'ปุ่มมุมมองบนแถบสถานะ ข้างตัวเลื่อนซูม'}
+  ],
+  ow2: [
+    {p:'📐', q:'ตั้งระยะขอบกระดาษ อยู่แท็บใดของ Word', c:['เค้าโครง','หน้าแรก','ออกแบบ','มุมมอง'], w:'แท็บเค้าโครง (Layout) จัดหน้ากระดาษ: ระยะขอบ การวางแนว ขนาด'},
+    {p:'🔄', q:'อยากเปลี่ยนกระดาษจากแนวตั้งเป็นแนวนอน ใช้คำสั่งใด', c:['การวางแนว','ระยะขอบ','ขนาด','คอลัมน์'], w:'การวางแนว (Orientation) แท็บเค้าโครง'},
+    {p:'🔢', q:'ใส่หมายเลขหน้า อยู่แท็บใด', c:['แทรก','หน้าแรก','รีวิว','มุมมอง'], w:'แท็บแทรก กลุ่มหัวกระดาษและท้ายกระดาษ'},
+    {p:'🖼️', q:'ใส่รูปภาพหรือตารางลงในเอกสาร อยู่แท็บใด', c:['แทรก','ออกแบบ','เค้าโครง','อ้างอิง'], w:'แทรก = ใส่ของเพิ่ม: ตาราง รูป หัวกระดาษ ลิงก์'},
+    {p:'💧', q:'ใส่ลายน้ำ "ลับ" จาง ๆ กลางหน้าทุกหน้า อยู่แท็บใด', c:['ออกแบบ','แทรก','รีวิว','มุมมอง'], w:'แท็บออกแบบ กลุ่มพื้นหลังของหน้า'},
+    {p:'📚', q:'สร้างสารบัญอัตโนมัติ อยู่แท็บใด', c:['อ้างอิง','แทรก','การส่งจดหมาย','มุมมอง'], w:'แท็บอ้างอิง · ต้องใช้สไตล์หัวเรื่องกับหัวข้อก่อน'},
+    {p:'✉️', q:'พิมพ์จดหมายฉบับเดียว แล้วให้ใส่ชื่อผู้รับ 200 คนอัตโนมัติ ใช้คำสั่งใด', c:['จดหมายเวียน','ติดตามการเปลี่ยนแปลง','ข้อคิดเห็น','ตัวแบ่งส่วน'], w:'จดหมายเวียน (Mail Merge) แท็บการส่งจดหมาย'},
+    {p:'✅', q:'ตรวจตัวสะกดทั้งเอกสาร อยู่แท็บใด', c:['รีวิว','อ้างอิง','ออกแบบ','การส่งจดหมาย'], w:'แท็บรีวิว · หรือกด F7'},
+    {p:'📏', q:'ไม้บรรทัดหายไป เปิดกลับได้ที่แท็บใด', c:['มุมมอง','เค้าโครง','หน้าแรก','แทรก'], w:'แท็บมุมมอง › ติ๊ก ไม้บรรทัด'},
+    {p:'⬌', q:'จัดเนื้อความให้ขอบซ้ายและขวาตรงทั้งสองข้าง เรียกว่าอะไร', c:['จัดชิดขอบ','กึ่งกลาง','จัดชิดซ้าย','จัดชิดขวา'], w:'จัดชิดขอบ (Justify) · ปุ่มลัด Ctrl+J'},
+    {p:'↔️', q:'ใน Word ปุ่มลัดจัดข้อความกึ่งกลาง คือข้อใด', c:['Ctrl+E','Ctrl+C','Ctrl+M','Ctrl+G'], w:'Ctrl+E (cEnter) · Ctrl+C คือคัดลอก'},
+    {p:'↵', q:'ใน Word กดปุ่มใด ขึ้นบรรทัดใหม่ แต่ยังอยู่ย่อหน้าเดิม', c:['Shift+Enter','Enter','Ctrl+Enter','Alt+Enter'], w:'Shift+Enter ขึ้นบรรทัด · Enter ย่อหน้าใหม่ · Ctrl+Enter หน้าใหม่'},
+    {p:'📄', q:'ใน Word กดปุ่มใด ขึ้นหน้าใหม่ทันที (ตัวแบ่งหน้า)', c:['Ctrl+Enter','Shift+Enter','Enter','Ctrl+N'], w:'Ctrl+Enter = ตัวแบ่งหน้า · Ctrl+N = สร้างเอกสารใหม่ทั้งไฟล์'}
+  ],
+  ow3: [
+    {p:'🔝', q:'ชื่อหน่วยงานที่พิมพ์ครั้งเดียว แล้วขึ้นบนสุดของทุกหน้า เรียกว่าอะไร', c:['หัวกระดาษ (Header)','ท้ายกระดาษ (Footer)','เชิงอรรถ (Footnote)','ชื่อเรื่อง (Title)'], w:'หัวกระดาษ ขอบบนทุกหน้า · ท้ายกระดาษ ขอบล่าง'},
+    {p:'¹', q:'คำอธิบายเล็ก ๆ ที่มีเลขกำกับ อยู่ท้ายหน้าเดียวกันกับคำนั้น เรียกว่าอะไร', c:['เชิงอรรถ (Footnote)','อ้างอิงท้ายเรื่อง (Endnote)','ท้ายกระดาษ (Footer)','ข้อคิดเห็น (Comment)'], w:'เชิงอรรถ ท้ายหน้า · อ้างอิงท้ายเรื่อง ท้ายเอกสาร'},
+    {p:'🧩', q:'อยากให้หน้าเดียวในเอกสารเป็นกระดาษแนวนอน ต้องใช้อะไรแบ่งก่อน', c:['ตัวแบ่งส่วน (Section break)','ตัวแบ่งหน้า (Page break)','กด Enter หลายครั้ง','ตัวแบ่งคอลัมน์'], w:'ตัวแบ่งส่วน ทำให้แต่ละส่วนตั้งค่าหน้ากระดาษต่างกันได้'},
+    {q:'ขั้นตอนแรกของการทำจดหมายเวียน คือข้อใด', c:['เริ่มจดหมายเวียน','เลือกผู้รับ','แทรกเขตข้อมูลผสาน','เสร็จสิ้นและผสาน'], w:'เริ่ม → เลือกผู้รับ → แทรกเขตข้อมูลผสาน → แสดงตัวอย่าง → เสร็จสิ้นและผสาน'},
+    {p:'📊', q:'รายชื่อผู้รับสำหรับจดหมายเวียน เก็บในโปรแกรมใดได้สะดวก', c:['Excel','PowerPoint','Paint','Notepad เท่านั้น'], w:'ตาราง Excel 1 แถว = 1 คน'},
+    {p:'📄', q:'ไฟล์ Word แบบปัจจุบัน (ตั้งแต่ Word 2007) มีนามสกุลใด', c:['.docx','.doc','.xlsx','.pptx'], w:'.docx ปัจจุบัน · .doc รุ่นเก่า · .xlsx Excel · .pptx PowerPoint'},
+    {p:'📋', q:'นามสกุล .dotx คือไฟล์ประเภทใด', c:['แม่แบบ (Template) ของ Word','ไฟล์ Word รุ่นเก่า','ไฟล์ Word ที่มีแมโคร','ไฟล์ PDF'], w:'.dotx แม่แบบ · .doc รุ่นเก่า · .docm มีแมโคร'},
+    {p:'⚠️', q:'ไฟล์ Word นามสกุลใด มีแมโคร (คำสั่งอัตโนมัติ) อยู่ข้างใน', c:['.docm','.docx','.dotx','.pdf'], w:'.docm · m = macro · ไฟล์แปลกที่มีแมโคร อย่าเปิดใช้'},
+    {p:'🔁', q:'กด Ctrl+H ใน Word ได้คำสั่งใด', c:['แทนที่ (Replace)','ค้นหา (Find)','ไฮเปอร์ลิงก์','ประวัติ'], w:'Ctrl+H แทนที่ · Ctrl+F ค้นหา'},
+    {p:'🔤', q:'กด Ctrl+D ใน Word ได้อะไร', c:['เปิดกล่องฟอนต์','เติมลง (Fill Down)','ทำสำเนาวัตถุ','ลบไฟล์'], w:'Word = กล่องฟอนต์ · Excel = เติมลง · PowerPoint = ทำสำเนา (ปุ่มเดียวกัน คนละโปรแกรม)'},
+    {p:'➕', q:'กด Ctrl+] ใน Word ได้อะไร', c:['ขยายขนาดตัวอักษร 1 พอยต์','ลดขนาดตัวอักษร 1 พอยต์','ย่อหน้าเข้า','ขึ้นหน้าใหม่'], w:'Ctrl+] ขยาย · Ctrl+[ ลด'},
+    {p:'💾', q:'ปุ่ม F12 ใน Word คือคำสั่งใด', c:['บันทึกเป็น (Save As)','ตรวจตัวสะกด','พิมพ์','ช่วยเหลือ'], w:'F12 บันทึกเป็น · F7 ตรวจตัวสะกด'},
+    {p:'✍️', q:'ส่งงานให้หัวหน้าแก้ แล้วอยากเห็นทุกจุดที่ถูกแก้ พร้อมเลือกยอมรับหรือปฏิเสธได้ ใช้คำสั่งใด', c:['ติดตามการเปลี่ยนแปลง','จดหมายเวียน','ตัวแบ่งส่วน','โหมดการอ่าน'], w:'ติดตามการเปลี่ยนแปลง (Track Changes) แท็บรีวิว'}
   ],
   oh1: [
     {p:'⌨️', q:'โปรแกรมใดเกิดมาแทน "เครื่องพิมพ์ดีด" ในสำนักงาน', c:['Microsoft Word','Microsoft Excel','Microsoft PowerPoint','Google Chrome'], w:'Word = พิมพ์เอกสาร'},
@@ -3075,7 +3336,10 @@ const LEVELS = [
   {ch:'ofh', id:'oh3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'รุ่นของ Office · โปรแกรมคู่แข่ง', cls:'c2'},
   {ch:'ofs', id:'os1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'👆 แตะบนจอ ส่วนนี้อยู่ตรงไหน', cls:'c6'},
   {ch:'ofs', id:'os2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'ริบบอน Backstage ปุ่มมุมจอ', cls:'c5'},
-  {ch:'ofs', id:'os3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'แท็บนี้ของโปรแกรมไหน', cls:'c2'}
+  {ch:'ofs', id:'os3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'แท็บนี้ของโปรแกรมไหน', cls:'c2'},
+  {ch:'ofw', id:'ow1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'👆 แตะบนจอ Word', cls:'c6'},
+  {ch:'ofw', id:'ow2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'คำสั่งอยู่แท็บไหน · จัดแนว · Enter', cls:'c5'},
+  {ch:'ofw', id:'ow3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'หัวกระดาษ จดหมายเวียน นามสกุล ปุ่มลัด', cls:'c2'}
 ];
 const CHS = {
   pc:{n:'คอมพิวเตอร์', i:'🕰️', scr:'pc'},
@@ -3087,7 +3351,8 @@ const CHS = {
   law:{n:'กฎหมาย', i:'⚖️', scr:'law'},
   fut:{n:'อนาคต', i:'🤖', scr:'fut'},
   ofh:{n:'🏆 ประวัติ Office', i:'📜', scr:'ofh'},
-  ofs:{n:'🏆 หน้าจอโปรแกรม', i:'🖥️', scr:'ofs'}
+  ofs:{n:'🏆 หน้าจอโปรแกรม', i:'🖥️', scr:'ofs'},
+  ofw:{n:'🏆 Word', i:'📝', scr:'ofw'}
 };
 let curCh='hw';
 const chLevels = () => LEVELS.filter(L=>L.ch===curCh);
@@ -3192,7 +3457,7 @@ function showQ(){
   $('q-fb').textContent=''; $('q-why').style.display='none'; $('q-next').style.display='none';
   const box=$('q-choices'); box.innerHTML='';
   if(q.t==='tap'){ // เกมแตะบนภาพหน้าจอ (บท O2)
-    $('q-pic').innerHTML=ofsSvg(q.g,false);
+    $('q-pic').innerHTML=q.g==='wd'?wdSvg(false):ofsSvg(q.g,false);
     $('q-pic').onclick=e=>{ const el=e.target.closest('.hit'); if(el&&!game.tapped){ game.tapped=true; tapAnswer(el,q); } };
     game.tapped=false; return;
   }
@@ -3238,7 +3503,7 @@ function tapAnswer(el,q){
   } else {
     el.classList.add('bad'); $('q-pic').querySelector(`.hit[data-k="${q.k}"]`).classList.add('ok');
     game.hearts--; $('q-hearts').textContent=heartsTxt();
-    $('q-fb').textContent=`❌ ตรงนั้นคือ ${OFS[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
+    $('q-fb').textContent=`❌ ตรงนั้นคือ ${(q.g==='wd'?WD:OFS)[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
     if(!q.boss && !save.wrong.includes(key)) save.wrong.push(key);
   }
   afterAnswer(q);

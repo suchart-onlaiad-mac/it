@@ -506,7 +506,7 @@
         <button class="card c5" onclick="go('ofh')"><span class="ico">📜</span>1. ประวัติ Office<small>มาจากไหน แต่ละรุ่นต่างกันยังไง</small></button>
         <button class="card c3" onclick="go('ofs')"><span class="ico">🖥️</span>2. หน้าจอโปรแกรม<small>ส่วนที่ทุกโปรแกรมมีเหมือนกัน</small></button>
         <button class="card c8" onclick="go('ofw')"><span class="ico">📝</span>3. Word<small>พิมพ์เอกสาร จดหมาย</small></button>
-        <button class="card c6 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📊</span>4. Excel<small>ตาราง สูตร คำนวณ</small></button>
+        <button class="card c6" onclick="go('ofx')"><span class="ico">📊</span>4. Excel<small>ตาราง สูตร คำนวณ</small></button>
         <button class="card c7 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📽️</span>5. PowerPoint<small>สไลด์นำเสนอ</small></button>
         <button class="card c2 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">⌨️</span>6. ปุ่มลัด<small>ทำงานไวขึ้น · ออกสอบบ่อย</small></button>
       </div>
@@ -815,6 +815,143 @@
         <p class="tip">⌨️ ตารางปุ่มลัดของ Microsoft อิง<b>แป้นพิมพ์แบบสหรัฐฯ</b> (ภาษาอังกฤษ)</p>
         <div class="memo">✅ ส่งงานให้คนอื่นแก้: เปิด <b>ติดตามการเปลี่ยนแปลง</b> (แท็บรีวิว) ทุกคำที่แก้จะมีสีกำกับ เจ้าของงานเลือก<b>ยอมรับ</b>หรือ<b>ปฏิเสธ</b>ทีละจุดได้ · อยากเขียนติงโดยไม่แก้เนื้อความ ใช้<b>ข้อคิดเห็น</b></div>
         <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofw')">🎮 ทดสอบความเข้าใจ</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="ofx">
+    <button class="backbtn" onclick="go('office')">⬅️ กลับห้องเรียน Office</button>
+    <div class="panel">
+      <h2>📊 Excel · โปรแกรมตารางคำนวณ</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p><b>Excel</b> = โปรแกรม<b>ตารางคำนวณ</b> (Spreadsheet) 🧮 · จอเป็น<b>ตารางช่อง ๆ</b> ใส่ตัวเลขแล้วให้โปรแกรม<b>คิดเลขให้</b> · เหมือน<b>สมุดบัญชีรายรับ–รายจ่าย</b> 📒 ที่บวกลบเองได้ แก้ตัวเลขช่องเดียว ยอดรวมเปลี่ยนตามทันที</p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 มองจากภายนอก: จอ Excel มีอะไรที่โปรแกรมอื่นไม่มี</div>
+        <p class="tip">ส่วนที่ทุกโปรแกรมมีเหมือนกัน เรียนไปแล้วในบท<b>หน้าจอโปรแกรม</b> · บทนี้ดู<b>ของเฉพาะ Excel</b> · <b>แตะวงกลมตัวเลข</b> หรือแตะตรงไหนบนจอก็ได้ 👆 · คำ<span class="kw">สีม่วง</span>ในบทก็แตะได้</p>
+        <div class="fig" id="figXl"></div>
+        <div class="chips" id="chipsXl"></div>
+        <div class="info" id="infoXl">👆 แตะวงกลมตัวเลข ดูว่าส่วนนั้นชื่ออะไร ทำอะไร</div>
+        <div class="memo">📍 <b>ชื่อช่อง = ตัวอักษรคอลัมน์ + เลขแถว</b> · คอลัมน์ D ตัดกับแถว 2 = ช่อง <b>D2</b> · เหมือน<b>เลขที่นั่งในโรงหนัง</b> 🎬 แถว + เลขเก้าอี้ · ช่องหนึ่ง ๆ เรียกว่า <b>เซลล์</b> (Cell)</div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> 🔍 ลองกดดู: Excel คิดเลขให้ยังไง</div>
+        <div class="tabs" id="calcTabs">
+          <button class="tab on" onclick="drawCalc('f',this)">➖ สูตรลบ</button>
+          <button class="tab" onclick="drawCalc('fill',this)">⬇️ ลากเติมลง</button>
+          <button class="tab" onclick="drawCalc('sum',this)">Σ รวมด้วย SUM</button>
+        </div>
+        <div class="fig" id="figCalc"></div>
+        <div class="center" style="margin:6px 0">
+          <button class="tab" onclick="calcBump(-500)">➖ รายรับ ม.ค. ลด 500</button>
+          <button class="tab" onclick="calcBump(500)">➕ รายรับ ม.ค. เพิ่ม 500</button>
+        </div>
+        <div class="info" id="infoCalc"></div>
+        <div class="memo">🔑 สูตรต้อง<b>ขึ้นต้นด้วย =</b> เสมอ · พิมพ์ <b>=B2-C2</b> แปลว่า "เอาเลขในช่อง B2 ลบช่อง C2" · สูตรอ้าง<b>ชื่อช่อง</b> ไม่ได้อ้างตัวเลข ⇒ ตัวเลขในช่องเปลี่ยน ผลเปลี่ยนตามเอง</div>
+        <button class="more" onclick="openLayer('ofxL2',this)">🌿 อยากรู้อีกนิด · เครื่องหมายคิดเลข · ฟังก์ชัน · แท็บของ Excel ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="ofxL2">
+        <h3>🌿 ชั้นต้นกล้า · สูตรกับฟังก์ชัน</h3>
+        <p><b>1) เครื่องหมายคิดเลข</b> · บนแป้นพิมพ์ไม่มี × ÷ เลยใช้ตัวอื่นแทน</p>
+        <div class="tw"><table class="t">
+          <tr><th>เครื่องหมาย</th><th>ความหมาย</th><th>ตัวอย่าง</th><th>ได้</th></tr>
+          <tr><td><b>+</b></td><td>บวก</td><td>=5+2</td><td>7</td></tr>
+          <tr><td><b>-</b></td><td>ลบ</td><td>=5-2</td><td>3</td></tr>
+          <tr><td><b>*</b> (ดอกจัน)</td><td><b>คูณ</b></td><td>=5*2</td><td>10</td></tr>
+          <tr><td><b>/</b> (ทับ)</td><td><b>หาร</b></td><td>=10/2</td><td>5</td></tr>
+          <tr><td><b>^</b> (แคเรต)</td><td><b>ยกกำลัง</b></td><td>=5^2</td><td>25</td></tr>
+        </table></div>
+        <div class="memo ex">🎯 ลำดับการคิด คล้ายวิชาคณิตศาสตร์: <b>วงเล็บ ( )</b> ก่อน → <b>ยกกำลัง ^</b> → <b>คูณ หาร</b> → <b>บวก ลบ</b> · <b>=2+3*4</b> ได้ <b>14</b> (คูณก่อน) · <b>=(2+3)*4</b> ได้ <b>20</b></div>
+
+        <p style="margin-top:14px"><b>2) ฟังก์ชัน</b> (Function) = <b>สูตรสำเร็จรูป</b> มีชื่อ · ใส่ช่วงช่องในวงเล็บ · <b>B2:B4</b> (มีโคลอน <b>:</b>) แปลว่า <b>B2 ถึง B4</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>ฟังก์ชัน</th><th>ทำอะไร</th><th>ตัวอย่าง</th></tr>
+          <tr><td><b>SUM</b></td><td><b>รวม</b>ผลบวก</td><td>=SUM(B2:B4)</td></tr>
+          <tr><td><b>AVERAGE</b></td><td>หา<b>ค่าเฉลี่ย</b></td><td>=AVERAGE(B2:B4)</td></tr>
+          <tr><td><b>MAX · MIN</b></td><td>หาค่า<b>มากสุด · น้อยสุด</b></td><td>=MAX(B2:B4)</td></tr>
+          <tr><td><b>COUNT</b></td><td>นับช่องที่เป็น<b>ตัวเลข</b></td><td>=COUNT(B1:B5)</td></tr>
+          <tr><td><b>COUNTA</b></td><td>นับช่องที่<b>ไม่ว่าง</b> (ตัวหนังสือก็นับ)</td><td>=COUNTA(A1:A5)</td></tr>
+          <tr><td><b>IF</b></td><td><b>ถ้า</b>…จริง ให้ผลหนึ่ง · ไม่จริง ให้อีกผล</td><td>=IF(D2&gt;=0,"กำไร","ขาดทุน")</td></tr>
+        </table></div>
+        <p class="tip">🤔 ไม่ต้องพิมพ์ SUM เอง: เลือกช่องใต้ตัวเลข แล้วกด <b>Σ ผลรวมอัตโนมัติ</b> (AutoSum) · หรือกด <b>Alt+=</b> · ลืมชื่อฟังก์ชัน กดปุ่ม <b>fx</b> หน้าแถบสูตร ให้โปรแกรมช่วยเลือก</p>
+
+        <p style="margin-top:14px"><b>3) แท็บของ Excel</b> · หาคำสั่งไม่เจอ ถามตัวเองว่า "งานนี้แต่ง<b>หน้าตาช่อง</b> · <b>ใส่ของ</b>เพิ่ม · <b>คิดเลข</b> · หรือ<b>จัดการข้อมูล</b>"</p>
+        <div class="tw"><table class="t">
+          <tr><th>แท็บ</th><th>ใช้ทำอะไร</th><th>ตัวอย่างคำสั่ง</th></tr>
+          <tr><td>🏠 <b>หน้าแรก</b></td><td>แต่ง<b>หน้าตาช่อง</b> (ใช้บ่อยสุด)</td><td>ฟอนต์ · ผสานและจัดกึ่งกลาง · ตัดข้อความ · รูปแบบตัวเลข · การจัดรูปแบบตามเงื่อนไข</td></tr>
+          <tr><td>➕ <b>แทรก</b></td><td><b>ใส่ของเพิ่ม</b></td><td>แผนภูมิ (กราฟ) · PivotTable · ตาราง · รูปภาพ</td></tr>
+          <tr><td>📐 <b>เค้าโครงหน้ากระดาษ</b></td><td>จัดหน้า<b>ก่อนพิมพ์</b></td><td>ระยะขอบ · การวางแนว · พื้นที่พิมพ์</td></tr>
+          <tr><td>🧮 <b>สูตร</b></td><td>คลัง<b>ฟังก์ชัน</b></td><td>แทรกฟังก์ชัน · ผลรวมอัตโนมัติ · แสดงสูตร</td></tr>
+          <tr><td>🗃️ <b>ข้อมูล</b></td><td><b>จัดการข้อมูล</b>ทั้งตาราง</td><td>เรียงลำดับ · ตัวกรอง · เอารายการซ้ำออก · การตรวจสอบความถูกต้องของข้อมูล</td></tr>
+          <tr><td>✅ <b>รีวิว</b></td><td><b>ตรวจงาน</b>และป้องกัน</td><td>ตัวสะกด · ข้อคิดเห็น · ป้องกันแผ่นงาน</td></tr>
+          <tr><td>👁️ <b>มุมมอง</b></td><td>เปลี่ยน<b>วิธีมอง</b>บนจอ</td><td>ตรึงแนว · เส้นตาราง · ย่อ/ขยาย</td></tr>
+        </table></div>
+        <div class="memo ex">🎯 กับดัก: บางคำสั่งอยู่<b>สองแท็บ</b> · <b>ผลรวมอัตโนมัติ</b> อยู่ทั้งหน้าแรกและสูตร · <b>เรียงลำดับ/ตัวกรอง</b> อยู่ทั้งหน้าแรกและข้อมูล · ข้อสอบ "อยู่แท็บใด" ให้ดูตัวเลือกให้ครบ ปกติจะมีแท็บที่ถูกแค่ข้อเดียว</div>
+        <button class="more" onclick="openLayer('ofxL3',this)">🌳 เจาะลึก · $ ตรึงช่อง · ข้อผิดพลาด # · กราฟ · นามสกุลไฟล์ · ปุ่มลัด ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="ofxL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · ใช้งานจริง</h3>
+        <p><b>1) $ ตรึงช่อง</b> · ลากสูตรเติมลง ชื่อช่องในสูตร<b>เลื่อนตาม</b>ให้เอง (D2 → D3) · แต่บางช่องเราไม่อยากให้เลื่อน</p>
+        <div class="tw"><table class="t">
+          <tr><th>เขียนแบบ</th><th>ชื่อเรียก</th><th>ลากสูตรแล้ว</th></tr>
+          <tr><td><b>A1</b></td><td>อ้างอิงแบบ<b>สัมพัทธ์</b></td><td>เลื่อนตามทั้งคอลัมน์และแถว</td></tr>
+          <tr><td><b>$A$1</b></td><td>อ้างอิงแบบ<b>สัมบูรณ์</b></td><td><b>ไม่เลื่อนเลย</b> ($ = หมุดตอกไว้)</td></tr>
+          <tr><td><b>$A1 · A$1</b></td><td>อ้างอิงแบบ<b>ผสม</b></td><td>ตรึงไว้แค่ด้านที่มี $</td></tr>
+        </table></div>
+        <p class="tip">📌 ตัวอย่าง: ช่อง F1 ใส่อัตราดอกเบี้ย 6% ทุกแถวต้องคูณช่องเดียวกัน → เขียน <b>=B2*$F$1</b> ลากลงแล้ว B2 เปลี่ยนเป็น B3 B4 แต่ $F$1 ไม่เปลี่ยน · กด <b>F4</b> ตอนพิมพ์สูตร = ใส่ $ ให้ (กดซ้ำสลับแบบ)</p>
+
+        <p style="margin-top:14px"><b>2) ข้อผิดพลาดที่ขึ้นต้นด้วย #</b> · Excel ไม่ได้พัง แค่บอกว่าสูตรมีปัญหาตรงไหน</p>
+        <div class="tw"><table class="t" id="xlErr">
+          <tr><th>เห็น</th><th>แปลว่า</th></tr>
+          <tr><td><b>#####</b></td><td>คอลัมน์<b>แคบเกิน</b> ตัวเลขแสดงไม่พอ · ขยายคอลัมน์ก็หาย (อีกสาเหตุ: วันที่/เวลาที่<b>ติดลบ</b>)</td></tr>
+          <tr><td><b>#DIV/0!</b></td><td><b>หารด้วยศูนย์</b> (หรือหารด้วยช่องว่าง)</td></tr>
+          <tr><td><b>#NAME?</b></td><td>Excel <b>ไม่รู้จักชื่อ</b> ในสูตร มักเพราะพิมพ์ชื่อฟังก์ชันผิด เช่น =SUMM(B2:B4)</td></tr>
+          <tr><td><b>#REF!</b></td><td>สูตรอ้าง<b>ช่องที่ไม่มีอยู่แล้ว</b> เช่น ลบแถวที่สูตรใช้อยู่ทิ้ง</td></tr>
+          <tr><td><b>#VALUE!</b></td><td><b>ชนิดข้อมูลผิด</b> เช่น เอาตัวหนังสือไปบวกกับตัวเลข</td></tr>
+          <tr><td><b>#N/A</b></td><td><b>หาค่าไม่เจอ</b> เช่น ฟังก์ชันค้นหาหารายการที่ไม่มีในตาราง</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>3) แผนภูมิ (กราฟ)</b> · อยู่แท็บ <b>แทรก</b> · เลือกให้ตรงกับเรื่องที่อยากเล่า</p>
+        <div class="tw"><table class="t">
+          <tr><th>แบบ</th><th>เหมาะกับ</th><th>ตัวอย่าง</th></tr>
+          <tr><td>📊 <b>คอลัมน์ · แท่ง</b></td><td><b>เปรียบเทียบ</b>หลายรายการ</td><td>ผลผลิตข้าวของแต่ละแปลง</td></tr>
+          <tr><td>📈 <b>เส้น</b></td><td><b>แนวโน้ม</b>ตามเวลา</td><td>ราคาข้าวรายเดือนทั้งปี</td></tr>
+          <tr><td>🥧 <b>วงกลม</b></td><td><b>สัดส่วนของทั้งก้อน</b> (ข้อมูลชุดเดียว)</td><td>รายจ่ายแต่ละหมวดคิดเป็นกี่ % ของทั้งหมด</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>4) นามสกุลไฟล์ของ Excel</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>นามสกุล</th><th>คืออะไร</th></tr>
+          <tr><td><b>.xlsx</b></td><td>ไฟล์ Excel แบบปัจจุบัน (เริ่ม Excel 2007)</td></tr>
+          <tr><td><b>.xls</b></td><td>ไฟล์ Excel รุ่นเก่า (Excel 97–2003)</td></tr>
+          <tr><td><b>.xlsm</b></td><td>ไฟล์ Excel ที่มี<b>แมโคร</b> · ⚠️ ไฟล์แปลกที่มีแมโคร อย่าเปิดใช้</td></tr>
+          <tr><td><b>.xltx</b></td><td><b>แม่แบบ</b> (Template)</td></tr>
+          <tr><td><b>.csv</b></td><td>ข้อความล้วน คั่นด้วยจุลภาค · เปิดได้หลายโปรแกรม แต่<b>สูตร สี กราฟ ไม่ถูกเก็บ</b></td></tr>
+        </table></div>
+        <div class="memo">📏 แผ่นงาน 1 แผ่นใหญ่แค่ไหน: <b>1,048,576 แถว × 16,384 คอลัมน์</b> · คอลัมน์สุดท้ายชื่อ <b>XFD</b> (หลัง Z ต่อด้วย AA AB …)</div>
+
+        <p style="margin-top:14px"><b>5) ปุ่มลัดที่ใช้บ่อยใน Excel</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>กด</th><th>ได้อะไร</th></tr>
+          <tr><td><b>F2</b></td><td><b>แก้ไข</b>ข้อความในช่อง (ไม่ต้องพิมพ์ใหม่ทั้งช่อง)</td></tr>
+          <tr><td><b>F4</b></td><td>สลับแบบ $ ตอนพิมพ์สูตร</td></tr>
+          <tr><td><b>Alt+=</b></td><td>ผลรวมอัตโนมัติ (SUM)</td></tr>
+          <tr><td><b>Alt+Enter</b></td><td>ขึ้น<b>บรรทัดใหม่ในช่องเดียวกัน</b> (Enter เฉย ๆ = ลงไปช่องถัดไป)</td></tr>
+          <tr><td><b>Ctrl+;</b></td><td>ใส่<b>วันที่วันนี้</b></td></tr>
+          <tr><td><b>Ctrl+1</b></td><td>เปิดกล่อง<b>จัดรูปแบบเซลล์</b> (ใน Word ปุ่มเดียวกันคือ ระยะบรรทัดเดี่ยว ⚠️)</td></tr>
+          <tr><td><b>Ctrl+D</b></td><td><b>เติมลง</b> คัดลอกช่องบนลงมา (ใน Word คือ กล่องฟอนต์ ⚠️)</td></tr>
+          <tr><td><b>Ctrl+Home</b></td><td>ไป<b>ต้นแผ่นงาน</b> (ปกติคือช่อง <b>A1</b>)</td></tr>
+          <tr><td><b>Ctrl+PgUp · PgDn</b></td><td>สลับไปแผ่นงานก่อนหน้า · ถัดไป</td></tr>
+        </table></div>
+        <p class="tip">⌨️ ตารางปุ่มลัดของ Microsoft อิง<b>แป้นพิมพ์แบบสหรัฐฯ</b> (ภาษาอังกฤษ)</p>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofx')">🎮 ทดสอบความเข้าใจ</button></div>
       </div>
     </div>
   </div>
@@ -1696,7 +1833,7 @@
 
   <footer>
     🦉 สื่อการเรียนรู้ "ไอทีง่ายนิดเดียว" · เปิดได้ทุกอุปกรณ์<br>
-    ครบ 8 บท + ห้องเรียน Office · เกม 33 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
+    ครบ 8 บท + ห้องเรียน Office · เกม 36 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
   </footer>
 </div>
 
@@ -2515,6 +2652,148 @@ const WD = {
 };
 drawWd(); drawAl('L');
 
+/* ============ บท O4 · Excel ============ */
+// ตารางตัวอย่าง: เดือน · รายรับ · รายจ่าย · คงเหลือ (=B-C)
+const XLD = {m:['ม.ค.','ก.พ.','มี.ค.'], inc:[5000,4500,6000], exp:[3200,2800,3500]};
+const nf = n => n.toLocaleString('en-US');
+// พื้นที่แตะ [x,y,w,h] ของจอ Excel · เรียงจากบนลงล่าง (ลำดับคีย์ใน XL = เลขวงกลม)
+const XL_HIT = {
+  sum:[234,42,86,42], name:[0,84,54,15], fx:[54,84,20,15], fbar:[74,84,246,15], colh:[18,99,302,11], rowh:[0,99,18,97],
+  cell:[200,123,60,13], fill:[253,155,14,14], sheets:[0,196,90,12], newsh:[90,196,26,12], stat:[0,208,320,28]
+};
+// วงกลมตัวเลข [badgeX, badgeY, pointX, pointY]
+const XL_BD = {sum:[276,-11,276,52], name:[26,-11,26,90], fx:[64,-11,64,90], fbar:[150,-11,150,91], colh:[289,104,289,104], rowh:[10,190,10,190],
+  cell:[290,129,262,129], fill:[290,166,262,163], sheets:[40,248,40,202], newsh:[103,248,103,203], stat:[250,248,250,228]};
+function xlSvg(badges){
+  const c=OFP.excel.c, T='font-family="Kanit,sans-serif"', W='#fff';
+  let s=`<svg viewBox="${badges?'0 -22 320 282':'0 0 320 236'}" class="hsvg ofs">
+  <rect x="0" y="0" width="320" height="236" rx="10" fill="#f3f3f3" stroke="#cfcfd8"/>
+  <rect x="0" y="0" width="320" height="22" rx="10" fill="${c}"/><rect x="0" y="12" width="320" height="10" fill="${c}"/>
+  <text x="32" y="15" font-size="10" fill="${W}">💾</text><text x="49" y="15.5" font-size="11" fill="${W}" font-weight="700">↶</text>
+  <text x="140" y="15" text-anchor="middle" font-size="8.5" fill="${W}" ${T}>รายรับรายจ่าย - Excel</text>
+  <text x="256" y="15" font-size="11" fill="${W}">–</text><rect x="275" y="7" width="8" height="8" fill="none" stroke="${W}" stroke-width="1.3"/><text x="298" y="15.5" font-size="11" fill="${W}" font-weight="700">✕</text>
+  <rect x="0" y="22" width="320" height="19" fill="#fafafa"/>
+  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>ไฟล์</text>`;
+  let x=34;
+  [...OFP.excel.tabs,'ข้อมูล'].forEach((t,i)=>{ const w=t.length*4.9+12;
+    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${t}</text>`;
+    if(i===0) s+=`<rect x="${x+4}" y="38" width="${w-8}" height="2" fill="${c}"/>`;
+    x+=w; });
+  // ริบบอนแท็บหน้าแรก: คลิปบอร์ด · ฟอนต์ · การจัดแนว · ตัวเลข · การแก้ไข (Σ)
+  s+=`<rect x="2" y="42" width="316" height="41" rx="4" fill="#fff" stroke="#e2e2e8"/>
+    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>คลิปบอร์ด</text>
+    <line x1="46" y1="46" x2="46" y2="80" stroke="#e2e2e8"/>
+    <text x="56" y="66" font-size="10" font-weight="900" fill="#333">B</text><text x="68" y="66" font-size="10" font-style="italic" fill="#333">I</text><text x="78" y="66" font-size="10" text-decoration="underline" fill="#333">U</text><text x="92" y="66" font-size="10" fill="#c00">A</text>
+    <text x="78" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ฟอนต์</text>
+    <line x1="110" y1="46" x2="110" y2="80" stroke="#e2e2e8"/>
+    ${[0,2,4].map((off,i)=>{const X=118+i*14; return [0,1,2,3].map(r=>`<rect x="${X+(r%2?off:0)}" y="${55+r*3}" width="${r%2?5:9}" height="1.4" fill="#555"/>`).join('');}).join('')}
+    <rect x="160" y="54" width="9" height="11" fill="none" stroke="#555" stroke-width=".8"/>
+    <text x="140" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>การจัดแนว</text>
+    <line x1="174" y1="46" x2="174" y2="80" stroke="#e2e2e8"/>
+    <text x="182" y="66" font-size="9" fill="#333">%</text><text x="196" y="66" font-size="11" font-weight="700" fill="#333">,</text><text x="206" y="65" font-size="6.5" fill="#333">.00</text>
+    <text x="204" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ตัวเลข</text>
+    <line x1="234" y1="46" x2="234" y2="80" stroke="#e2e2e8"/>
+    <rect x="240" y="47" width="74" height="22" rx="3" fill="#eef7f1" stroke="#cfe6d7"/>
+    <text x="252" y="64" text-anchor="middle" font-size="15" font-weight="700" fill="${c}">Σ</text><text x="284" y="61" text-anchor="middle" font-size="6.5" fill="#333" ${T}>ผลรวมอัตโนมัติ</text>
+    <text x="276" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>การแก้ไข</text>`;
+  // กล่องชื่อ · fx · แถบสูตร
+  s+=`<rect x="2" y="85" width="50" height="12" rx="2" fill="#fff" stroke="#c8c8d0"/><text x="8" y="94" font-size="7.5" fill="#333">D2</text><text x="46" y="94" font-size="6" fill="#888">▾</text>
+    <text x="64" y="94.5" text-anchor="middle" font-size="8" font-style="italic" fill="#555">fx</text>
+    <rect x="74" y="85" width="244" height="12" rx="2" fill="#fff" stroke="#c8c8d0"/><text x="80" y="94" font-size="8" fill="#333">=B2-C2</text>`;
+  // ตาราง: หัวคอลัมน์ · หัวแถว · เซลล์
+  const cx=[18,80,140,200,260,320], ry=[110,123,136,149,162,175,188,196];
+  s+=`<rect x="2" y="99" width="316" height="97" fill="#fff"/><rect x="2" y="99" width="316" height="11" fill="#eeeef2"/><rect x="2" y="99" width="16" height="97" fill="#eeeef2"/>
+    <path d="M15 101 L15 108 L5 108 Z" fill="#b8b8c4"/>`;
+  'ABCDE'.split('').forEach((L,i)=>{ s+=`<text x="${(cx[i]+cx[i+1])/2}" y="107.5" text-anchor="middle" font-size="7.5" fill="${i===3?c:'#555'}" ${i===3?'font-weight="700"':''}>${L}</text>`; });
+  cx.slice(1,5).forEach(X=>{ s+=`<line x1="${X}" y1="99" x2="${X}" y2="196" stroke="#dcdce4" stroke-width=".7"/>`; });
+  ry.slice(0,7).forEach((Y,i)=>{ s+=`<line x1="2" y1="${Y}" x2="318" y2="${Y}" stroke="#dcdce4" stroke-width=".7"/><text x="10" y="${Y+9.5}" text-anchor="middle" font-size="7" fill="${i===1?c:'#555'}" ${i===1?'font-weight="700"':''}>${i+1}</text>`; });
+  const rows=[['เดือน','รายรับ','รายจ่าย','คงเหลือ'], ...XLD.m.map((m,i)=>[m,nf(XLD.inc[i]),nf(XLD.exp[i]),nf(XLD.inc[i]-XLD.exp[i])])];
+  s+=`<rect x="200" y="136" width="60" height="26" fill="#dff0e5"/>`; // ช่วงที่เลือก D2:D4 (D2 = ช่องที่ใช้งาน สีขาว)
+  rows.forEach((r,i)=>r.forEach((v,j)=>{ const Y=ry[i]+9.5;
+    s+= j===0||i===0 ? `<text x="${cx[j]+4}" y="${Y}" font-size="7.5" fill="#333" ${i===0?'font-weight="700"':''} ${T}>${v}</text>`
+                     : `<text x="${cx[j+1]-4}" y="${Y}" text-anchor="end" font-size="7.5" fill="#333">${v}</text>`; }));
+  s+=`<rect x="200" y="123" width="60" height="39" fill="none" stroke="${c}" stroke-width="1.8"/><rect x="257" y="159" width="5.5" height="5.5" fill="${c}" stroke="#fff" stroke-width=".8"/>`;
+  // แท็บแผ่นงาน · ปุ่ม +
+  s+=`<rect x="2" y="196" width="316" height="12" fill="#e9e9ee"/>
+    <rect x="6" y="196" width="40" height="11" fill="#fff"/><rect x="6" y="205.5" width="40" height="1.5" fill="${c}"/><text x="26" y="204" text-anchor="middle" font-size="7" font-weight="700" fill="${c}" ${T}>แผ่น1</text>
+    <text x="66" y="204" text-anchor="middle" font-size="7" fill="#555" ${T}>แผ่น2</text>
+    <circle cx="103" cy="202" r="5" fill="#fff" stroke="#999"/><text x="103" y="205" text-anchor="middle" font-size="8" fill="#555">+</text>`;
+  // แถบสถานะ: ค่าเฉลี่ย · จำนวน · ผลรวม ของช่วงที่เลือก
+  const sel=XLD.inc.map((v,i)=>v-XLD.exp[i]), sm=sel.reduce((a,b)=>a+b,0);
+  s+=`<rect x="0" y="208" width="320" height="28" rx="10" fill="${c}"/><rect x="0" y="208" width="320" height="10" fill="${c}"/>
+  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>พร้อม</text>
+  <text x="312" y="225" text-anchor="end" font-size="8" fill="${W}" ${T}>ค่าเฉลี่ย: ${nf(sm/sel.length)}   จำนวน: ${sel.length}   ผลรวม: ${nf(sm)}</text>`;
+  Object.entries(XL_HIT).forEach(([k,[hx,hy,hw,hh]])=>{ s+=`<rect class="hit" data-k="${k}" x="${hx}" y="${hy}" width="${hw}" height="${hh}" rx="3"/>`; });
+  if(badges) Object.keys(XL).forEach((k,i)=>{ const [bx,by,px,py]=XL_BD[k];
+    if(bx!==px||by!==py) s+=`<line x1="${bx}" y1="${by}" x2="${px}" y2="${py}" stroke="#ff6ec7" stroke-width="1.6" stroke-dasharray="3 2"/>`;
+    s+=`<g class="bd" data-k="${k}" transform="translate(${bx},${by})"><circle r="8.5"/><text y="4">${i+1}</text></g>`; });
+  return s+'</svg>';
+}
+function drawXl(){
+  $('figXl').innerHTML=xlSvg(true);
+  $('chipsXl').innerHTML=Object.keys(XL).map((k,i)=>`<button class="chip" data-k="${k}">${i+1}. ${XL[k][0]}</button>`).join('');
+  const pick=xlPick=k=>{
+    ['figXl','chipsXl'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const O=XL[k];
+    $('infoXl').innerHTML=`<b>${O[0]}</b> <i class="gp" style="background:${OFP.excel.c}">${O[1]}</i><br>${O[2]}`;
+    pop($('infoXl'));
+  };
+  ['figXl','chipsXl'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+let xlPick=()=>{};
+function xlKw(k){ xlPick(k); $('infoXl').scrollIntoView({behavior:'smooth',block:'center'}); }
+// ส่วนเฉพาะจอ Excel: [ชื่อ, ชื่ออังกฤษ, คำอธิบาย] · เรียงจากบนลงล่าง
+const XL = {
+  sum:['ผลรวมอัตโนมัติ','AutoSum','ปุ่ม <b>Σ</b> (ซิกมา) · เลือกช่องใต้ตัวเลขแล้วกด Excel ใส่สูตร <b>=SUM(…)</b> ให้เอง · ปุ่มลัด <b>Alt+=</b> · มีทั้งแท็บ<b>หน้าแรก</b>และแท็บ<b>สูตร</b>'],
+  name:['กล่องชื่อ','Name Box','บอก<b>ชื่อช่องที่เลือกอยู่</b> เช่น D2 · พิมพ์ชื่อช่องลงไปแล้วกด Enter = กระโดดไปช่องนั้นทันที'],
+  fx:['ปุ่มแทรกฟังก์ชัน','Insert Function','ปุ่ม <b>fx</b> หน้าแถบสูตร · ลืมชื่อฟังก์ชัน กดแล้วโปรแกรมช่วย<b>เลือกฟังก์ชัน</b>และบอกว่าต้องใส่อะไรบ้าง'],
+  fbar:['แถบสูตร','Formula Bar','แสดง<b>ของจริงในช่อง</b> · ในช่องเห็นผล <b>1,800</b> แต่แถบสูตรเห็นสูตร <b>=B2-C2</b> · แก้สูตรตรงนี้ได้'],
+  colh:['ส่วนหัวคอลัมน์','Column heading','แถบ<b>ตัวอักษร</b> A B C … บอกชื่อ<b>คอลัมน์</b> (แนวตั้ง) · คลิกตัวอักษร = เลือกทั้งคอลัมน์ · ลากเส้นขอบระหว่างตัวอักษร = ขยายคอลัมน์'],
+  rowh:['ส่วนหัวแถว','Row heading','แถบ<b>ตัวเลข</b> 1 2 3 … ด้านซ้าย บอกชื่อ<b>แถว</b> (แนวนอน) · คลิกตัวเลข = เลือกทั้งแถว · สามเหลี่ยมมุมบนซ้าย = <b>เลือกทั้งหมด</b>'],
+  cell:['เซลล์ที่ใช้งานอยู่','Active cell','ช่องที่<b>ขอบหนา</b> = ช่องที่เรากำลังทำงาน · พิมพ์อะไร ลงช่องนี้ · ช่อง D2 นี้มีสูตร แต่ในช่อง<b>โชว์ผลลัพธ์</b> 1,800'],
+  fill:['จุดจับเติม','Fill handle','<b>จุดสี่เหลี่ยมเล็ก</b> มุมขวาล่างของช่องที่เลือก · ลากลง = <b>คัดลอกสูตร</b>ให้ช่องข้างล่าง ชื่อช่องในสูตรเลื่อนตามเอง · พิมพ์ 1, 2 <b>เลือกทั้งสองช่อง</b> แล้วลาก = ได้ 3, 4, 5 … ต่อให้'],
+  sheets:['แท็บแผ่นงาน','Sheet tabs','ไฟล์ Excel 1 ไฟล์ = <b>สมุดงาน</b> (Workbook) · ข้างในมีหลาย<b>แผ่นงาน</b> (Worksheet) เหมือนสมุดมีหลายหน้า · คลิกแท็บ = สลับแผ่น · ดับเบิลคลิก = เปลี่ยนชื่อ'],
+  newsh:['ปุ่มแผ่นงานใหม่','New sheet','ปุ่ม <b>+</b> ข้างแท็บแผ่นงาน · กดแล้วได้<b>แผ่นงานใหม่</b>เพิ่มในสมุดงานเดิม (ไม่ใช่ไฟล์ใหม่)'],
+  stat:['แถบสถานะ','Status bar','เลือกช่องตัวเลขหลายช่อง Excel บอก <b>ค่าเฉลี่ย · จำนวน · ผลรวม</b> ให้ทันที <b>ไม่ต้องเขียนสูตร</b> · ซ้ายสุดบอกโหมด เช่น <b>พร้อม</b> · ขวาสุดมีปุ่มมุมมองและตัวเลื่อนซูม เหมือน Word']
+};
+// ลองกดดู: ตารางคิดเลขสด 3 โหมด
+let calcMode='f';
+function calcBump(d){ XLD.inc[0]=Math.max(0,XLD.inc[0]+d); drawCalc(calcMode); drawXl(); }
+function drawCalc(m,btn){
+  calcMode=m;
+  if(btn) document.querySelectorAll('#calcTabs .tab').forEach(t=>t.classList.toggle('on',t===btn));
+  const c=OFP.excel.c, T='font-family="Kanit,sans-serif"', BL='#2f6fe0', RD='#e0453f';
+  const cx=[4,26,92,162,232,316], ry=[24,42,60,78,96,114,132];
+  const D=XLD.inc.map((v,i)=>v-XLD.exp[i]), S=[XLD.inc,XLD.exp,D].map(a=>a.reduce((x,y)=>x+y,0));
+  const fbar={f:'=B2-C2', fill:'=B4-C4', sum:'=SUM(B2:B4)'}[m], nm={f:'D2', fill:'D4', sum:'B5'}[m];
+  let s=`<svg viewBox="0 0 320 136" class="hsvg"><rect x="4" y="2" width="40" height="16" rx="2" fill="#fff" stroke="#c8c8d0"/><text x="10" y="14" font-size="10" fill="#333">${nm}</text>
+    <text x="54" y="14" font-size="10" font-style="italic" fill="#555">fx</text><rect x="68" y="2" width="248" height="16" rx="2" fill="#fff" stroke="#c8c8d0"/>
+    <text x="74" y="14.5" font-size="11" font-weight="700" fill="${c}">${fbar}</text>
+    <rect x="4" y="24" width="312" height="18" fill="#eeeef2"/><rect x="4" y="24" width="22" height="108" fill="#eeeef2"/>`;
+  'ABCD'.split('').forEach((L,i)=>{ s+=`<text x="${(cx[i+1]+cx[i+2])/2}" y="37" text-anchor="middle" font-size="10" fill="#555">${L}</text>`; });
+  ry.slice(1,6).forEach((Y,i)=>{ s+=`<text x="15" y="${Y+12.5}" text-anchor="middle" font-size="10" fill="#555">${i+1}</text>`; });
+  ry.forEach(Y=>{ s+=`<line x1="4" y1="${Y}" x2="316" y2="${Y}" stroke="#dcdce4"/>`; });
+  cx.forEach(X=>{ s+=`<line x1="${X}" y1="24" x2="${X}" y2="132" stroke="#dcdce4"/>`; });
+  const box=(col,r0,r1,clr,w)=>`<rect x="${cx[col+1]+1}" y="${ry[r0+1]+1}" width="${cx[col+2]-cx[col+1]-2}" height="${ry[r1+2]-ry[r0+1]-2}" fill="${clr}18" stroke="${clr}" stroke-width="${w||2}"/>`;
+  if(m==='f') s+=box(1,1,1,BL)+box(2,1,1,RD)+box(3,1,1,c,2.5);
+  if(m==='fill') s+=box(3,1,3,c,2.5)+box(1,3,3,BL)+box(2,3,3,RD);
+  if(m==='sum') s+=box(1,1,3,BL)+box(1,4,4,c,2.5);
+  const cell=(col,row,v,bold)=>`<text x="${col===0?cx[1]+5:cx[col+2]-5}" y="${ry[row+1]+12.5}" ${col===0?'':'text-anchor="end"'} font-size="10.5" fill="#333" ${bold?'font-weight="700"':''} ${T}>${v}</text>`;
+  ['เดือน','รายรับ','รายจ่าย','คงเหลือ'].forEach((h,j)=>{ s+=cell(j,0,h,true); });
+  XLD.m.forEach((mm,i)=>{ s+=cell(0,i+1,mm)+cell(1,i+1,nf(XLD.inc[i]))+cell(2,i+1,nf(XLD.exp[i]));
+    if(m!=='f'||i===0) s+=cell(3,i+1,nf(D[i])); });
+  if(m==='sum'){ s+=cell(0,4,'รวม',true)+cell(1,4,nf(S[0]),true)+cell(2,4,nf(S[1]),true)+cell(3,4,nf(S[2]),true); }
+  if(m==='fill') s+=`<rect x="${cx[5]-4}" y="${ry[5]-4}" width="7" height="7" fill="${c}" stroke="#fff"/><text x="${cx[5]-20}" y="${ry[5]+14}" font-size="12">👆</text>`;
+  $('figCalc').innerHTML=s+'</svg>';
+  const tx={
+    f:`ช่อง <b>D2</b> มีสูตร <b>=B2-C2</b> · Excel เอา <b style="color:${BL}">รายรับ ${nf(XLD.inc[0])}</b> ลบ <b style="color:${RD}">รายจ่าย ${nf(XLD.exp[0])}</b> ได้ <b>${nf(D[0])}</b><br>ลองกด ➕ ➖ ด้านบน: ตัวเลขเปลี่ยน <b>ผลเปลี่ยนตามเอง</b> ไม่ต้องคิดใหม่ · ช่องที่สูตรใช้มี<b>กรอบสี</b>บอก`,
+    fill:`ไม่ต้องพิมพ์สูตรใหม่ทุกแถว · จับ<b>จุดจับเติม</b> (จุดมุมขวาล่าง) <b>ลากลง</b> · สูตรถูกคัดลอกไป และชื่อช่อง<b>เลื่อนตามแถว</b>เอง<br>D3 = <b>=B3-C3</b> · D4 = <b>=B4-C4</b> (แถบสูตรด้านบนคือช่อง D4)`,
+    sum:`ช่อง <b>B5</b> = <b>=SUM(B2:B4)</b> แปลว่า "รวมช่อง B2 <b>ถึง</b> B4" ได้ <b>${nf(S[0])}</b> · กรอบสีน้ำเงินคือช่วงที่รวม<br>ได้มาง่าย ๆ: เลือกช่อง B5 แล้วกด <b>Σ ผลรวมอัตโนมัติ</b> หรือ <b>Alt+=</b>`
+  }[m];
+  $('infoCalc').innerHTML=tx;
+}
+drawXl(); drawCalc('f');
+
 /* ============ future tech (outside → inside) ============ */
 // ช่องบนหน้าจอ: [ไอคอน, ชื่อบนภาพ, ชื่อเต็ม, เทคโนโลยี, สีป้าย, คำอธิบาย]
 const FUT = {
@@ -3259,6 +3538,51 @@ const BANK = {
     {p:'💾', q:'ปุ่ม F12 ใน Word คือคำสั่งใด', c:['บันทึกเป็น (Save As)','ตรวจตัวสะกด','พิมพ์','ช่วยเหลือ'], w:'F12 บันทึกเป็น · F7 ตรวจตัวสะกด'},
     {p:'✍️', q:'ส่งงานให้หัวหน้าแก้ แล้วอยากเห็นทุกจุดที่ถูกแก้ พร้อมเลือกยอมรับหรือปฏิเสธได้ ใช้คำสั่งใด', c:['ติดตามการเปลี่ยนแปลง','จดหมายเวียน','ตัวแบ่งส่วน','โหมดการอ่าน'], w:'ติดตามการเปลี่ยนแปลง (Track Changes) แท็บรีวิว'}
   ],
+  ox1: [
+    {t:'tap', g:'xl', k:'name', q:'อยากรู้ว่าช่องที่เลือกอยู่ชื่ออะไร (เช่น D2) ดูตรงไหน? แตะเลย 👆', w:'กล่องชื่อ (Name Box) บอกชื่อช่องที่เลือกอยู่'},
+    {t:'tap', g:'xl', k:'name', q:'อยากกระโดดไปช่อง Z500 ทันที พิมพ์ชื่อช่องลงในส่วนไหน? 👆', w:'พิมพ์ชื่อช่องในกล่องชื่อแล้วกด Enter = ไปช่องนั้นทันที'},
+    {t:'tap', g:'xl', k:'fbar', q:'ในช่อง D2 เห็นแค่ 1,800 อยากดูว่าข้างในเป็นสูตรอะไร แตะส่วนไหน? 👆', w:'แถบสูตร แสดงของจริงในช่อง (สูตร =B2-C2) ส่วนในช่องโชว์แค่ผลลัพธ์'},
+    {t:'tap', g:'xl', k:'fbar', q:'แตะ "แถบสูตร" (Formula Bar) 👆', w:'แถบยาวด้านบนตาราง ต่อจากปุ่ม fx'},
+    {t:'tap', g:'xl', k:'fx', q:'แตะปุ่ม "แทรกฟังก์ชัน" (fx) ที่อยู่หน้าแถบสูตร 👆', w:'ปุ่ม fx ช่วยเลือกฟังก์ชัน เมื่อลืมชื่อ'},
+    {t:'tap', g:'xl', k:'sum', q:'อยากใส่ผลรวมลงในช่องใต้ตัวเลข ด้วยปุ่มเดียวบนริบบอน แตะปุ่มไหน? 👆', w:'Σ ผลรวมอัตโนมัติ (AutoSum) ใส่สูตร =SUM ให้เอง · ปุ่มลัด Alt+='},
+    {t:'tap', g:'xl', k:'colh', q:'อยากเลือกทั้งคอลัมน์ C ในคลิกเดียว แตะส่วนไหน? 👆', w:'คลิกตัวอักษรบนส่วนหัวคอลัมน์ = เลือกทั้งคอลัมน์'},
+    {t:'tap', g:'xl', k:'rowh', q:'อยากเลือกทั้งแถวที่ 3 ในคลิกเดียว แตะส่วนไหน? 👆', w:'คลิกตัวเลขบนส่วนหัวแถว (ด้านซ้าย) = เลือกทั้งแถว'},
+    {t:'tap', g:'xl', k:'cell', q:'แตะ "เซลล์ที่ใช้งานอยู่" (Active cell) ช่องที่มีขอบหนา 👆', w:'ช่อง D2 ขอบหนา = ช่องที่กำลังทำงาน · ชื่อของมันขึ้นในกล่องชื่อ'},
+    {t:'tap', g:'xl', k:'fill', q:'อยากคัดลอกสูตรไปแถวล่าง ๆ ด้วยการลากเมาส์ จับจุดไหน? 👆', w:'จุดจับเติม (Fill handle) จุดสี่เหลี่ยมเล็กมุมขวาล่างของช่องที่เลือก'},
+    {t:'tap', g:'xl', k:'sheets', q:'อยากสลับไปดู "แผ่น2" แตะส่วนไหน? 👆', w:'แท็บแผ่นงานด้านล่าง · คลิกชื่อแผ่น = สลับแผ่น'},
+    {t:'tap', g:'xl', k:'newsh', q:'อยากเพิ่มแผ่นงานใหม่อีกแผ่นในไฟล์เดิม แตะปุ่มไหน? 👆', w:'ปุ่ม + ข้างแท็บแผ่นงาน'},
+    {t:'tap', g:'xl', k:'stat', q:'เลือกช่องตัวเลขไว้ 3 ช่อง อยากรู้ผลรวมเร็ว ๆ โดยไม่ใส่อะไรลงในช่องเลย ดูได้จากส่วนไหน? 👆', w:'แถบสถานะ บอกค่าเฉลี่ย จำนวน ผลรวม ของช่องที่เลือกให้ทันที'}
+  ],
+  ox2: [
+    {p:'✏️', q:'สูตรใน Excel ต้องขึ้นต้นด้วยเครื่องหมายใด', c:['=','#','$','&'], w:'สูตรขึ้นต้นด้วย = เสมอ เช่น =B2-C2'},
+    {p:'✖️', q:'ใน Excel ใช้เครื่องหมายใดแทน "คูณ"', c:['*','x','#','^'], w:'* (ดอกจัน) = คูณ · ^ = ยกกำลัง'},
+    {p:'📒', q:'ไฟล์ Excel 1 ไฟล์ เรียกว่าอะไร', c:['สมุดงาน (Workbook)','แผ่นงาน (Worksheet)','เซลล์ (Cell)','สไลด์ (Slide)'], w:'1 ไฟล์ = สมุดงาน ข้างในมีหลายแผ่นงาน'},
+    {p:'🧮', q:'=2+3*4 ได้ผลเท่าไร', c:['14','20','24','9'], w:'คูณก่อนบวก: 3*4 = 12 แล้ว +2 = 14'},
+    {p:'🧮', q:'=(2+3)*4 ได้ผลเท่าไร', c:['20','14','24','10'], w:'ในวงเล็บก่อน: 2+3 = 5 แล้ว ×4 = 20'},
+    {p:'📊', q:'หาค่าเฉลี่ย ใช้ฟังก์ชันใด', c:['AVERAGE','SUM','COUNT','MAX'], w:'AVERAGE = ค่าเฉลี่ย · SUM = รวม'},
+    {p:'➕', q:'=SUM(B2:B4) รวมช่องใดบ้าง', c:['B2 B3 และ B4','B2 กับ B4 เท่านั้น','ทั้งคอลัมน์ B','B2 ช่องเดียว'], w:'โคลอน : แปลว่า "ถึง" · B2:B4 = B2 ถึง B4'},
+    {p:'🏆', q:'อยากรู้คะแนนสูงสุดในห้อง ใช้ฟังก์ชันใด', c:['MAX','MIN','COUNT','IF'], w:'MAX = มากสุด · MIN = น้อยสุด'},
+    {p:'🔢', q:'A1:A5 มีชื่อคน 2 ช่อง ตัวเลข 3 ช่อง =COUNT(A1:A5) ได้เท่าไร', c:['3','5','2','0'], w:'COUNT นับเฉพาะช่องตัวเลข · ถ้าใช้ COUNTA จะได้ 5 (นับทุกช่องที่ไม่ว่าง)'},
+    {p:'🤔', q:'=IF(D2>=0,"กำไร","ขาดทุน") ถ้า D2 = -300 ได้ผลอะไร', c:['ขาดทุน','กำไร','-300','0'], w:'-300 ไม่ได้ ≥ 0 เงื่อนไขไม่จริง จึงได้ผลที่สอง "ขาดทุน"'},
+    {p:'🗃️', q:'"เอารายการซ้ำออก" อยู่แท็บใดของ Excel', c:['ข้อมูล','สูตร','แทรก','มุมมอง'], w:'แท็บข้อมูล จัดการข้อมูลทั้งตาราง: เรียงลำดับ ตัวกรอง เอารายการซ้ำออก'},
+    {p:'📈', q:'สร้างแผนภูมิ (กราฟ) จากตาราง ใช้แท็บใด', c:['แทรก','ข้อมูล','สูตร','รีวิว'], w:'แผนภูมิอยู่แท็บแทรก (ใส่ของเพิ่ม)'},
+    {p:'🧊', q:'อยากให้หัวตารางค้างอยู่เวลาเลื่อนลง (ตรึงแนว) อยู่แท็บใด', c:['มุมมอง','หน้าแรก','ข้อมูล','แทรก'], w:'ตรึงแนว (Freeze Panes) อยู่แท็บมุมมอง'}
+  ],
+  ox3: [
+    {p:'📌', q:'$A$1 เรียกว่าการอ้างอิงแบบใด', c:['สัมบูรณ์','สัมพัทธ์','ผสม','วงกลม'], w:'$ หน้าทั้งคอลัมน์และแถว = สัมบูรณ์ ลากแล้วไม่เลื่อน'},
+    {p:'⬇️', q:'ช่อง C2 มี =B2*$F$1 ลากเติมลงไป C3 สูตรใน C3 คือข้อใด', c:['=B3*$F$1','=B3*$F$2','=B2*$F$1','=C3*$F$1'], w:'B2 ไม่มี $ จึงเลื่อนเป็น B3 · $F$1 ตรึงไว้ ไม่เลื่อน'},
+    {p:'⌨️', q:'ตอนพิมพ์สูตร กดปุ่มใดเพื่อใส่หรือสลับเครื่องหมาย $', c:['F4','F2','F7','F12'], w:'F4 สลับแบบ $ · F2 = แก้ไขในช่อง'},
+    {p:'#️⃣', q:'ช่องขึ้น ##### แปลว่าอะไร', c:['คอลัมน์แคบเกิน แสดงตัวเลขไม่พอ','หารด้วยศูนย์','พิมพ์ชื่อฟังก์ชันผิด','ไฟล์เสีย'], w:'ขยายคอลัมน์ให้กว้างขึ้นก็หาย'},
+    {p:'➗', q:'#DIV/0! แปลว่าอะไร', c:['หารด้วยศูนย์','พิมพ์ชื่อฟังก์ชันผิด','อ้างช่องที่ถูกลบไปแล้ว','หาค่าไม่เจอ'], w:'DIV = divide (หาร) /0 = ด้วยศูนย์'},
+    {p:'🔤', q:'พิมพ์ =SUMM(B2:B4) (สะกดผิด) จะขึ้นข้อผิดพลาดใด', c:['#NAME?','#REF!','#DIV/0!','#####'], w:'#NAME? = Excel ไม่รู้จักชื่อนี้'},
+    {p:'🗑️', q:'ช่อง D2 มี =B2-C2 แล้วลบคอลัมน์ C ทิ้ง สูตรจะขึ้นข้อใด', c:['#REF!','#NAME?','#N/A','#DIV/0!'], w:'#REF! = สูตรอ้างช่องที่ไม่มีอยู่แล้ว'},
+    {p:'🥧', q:'อยากโชว์ว่ารายจ่ายแต่ละหมวดคิดเป็นสัดส่วนเท่าไรของทั้งหมด แผนภูมิแบบใดเหมาะที่สุด', c:['วงกลม','เส้น','หุ้น','กระจาย (XY)'], w:'แผนภูมิวงกลม = สัดส่วนของทั้งก้อน (ข้อมูลชุดเดียว)'},
+    {p:'📏', q:'แผ่นงาน 1 แผ่นของ Excel ปัจจุบัน มีกี่แถว', c:['1,048,576','65,536','16,384','1,000,000'], w:'1,048,576 แถว × 16,384 คอลัมน์ · 65,536 คือรุ่นเก่าก่อน 2007'},
+    {p:'💾', q:'ไฟล์ Excel แบบปัจจุบัน มีนามสกุลใด', c:['.xlsx','.docx','.pptx','.pdf'], w:'.xlsx · รุ่นเก่า 97–2003 คือ .xls'},
+    {p:'⚠️', q:'ไฟล์ Excel ที่มีแมโคร ใช้นามสกุลใด', c:['.xlsm','.xlsx','.xltx','.csv'], w:'m = macro · ไฟล์แปลกที่มีแมโคร อย่าเปิดใช้'},
+    {p:'↩️', q:'อยากขึ้นบรรทัดใหม่ภายในช่องเดียวกัน กดปุ่มใด', c:['Alt+Enter','Enter','Shift+Enter','Tab'], w:'Alt+Enter = บรรทัดใหม่ในช่อง · Enter เฉย ๆ = ลงไปช่องถัดไป'},
+    {p:'⌨️', q:'Ctrl+D ใน Excel ทำอะไร', c:['เติมลง (คัดลอกช่องบนลงมา)','เปิดกล่องฟอนต์','ลบแถว','บันทึกไฟล์'], w:'Excel: Ctrl+D = เติมลง · ใน Word ปุ่มเดียวกันคือเปิดกล่องฟอนต์'}
+  ],
   oh1: [
     {p:'⌨️', q:'โปรแกรมใดเกิดมาแทน "เครื่องพิมพ์ดีด" ในสำนักงาน', c:['Microsoft Word','Microsoft Excel','Microsoft PowerPoint','Google Chrome'], w:'Word = พิมพ์เอกสาร'},
     {p:'📒', q:'โปรแกรมใดเหมาะกับงานตารางตัวเลข คำนวณรายรับรายจ่าย', c:['Microsoft Excel','Microsoft Word','Microsoft PowerPoint','Windows'], w:'Excel = คำนวณ'},
@@ -3339,7 +3663,10 @@ const LEVELS = [
   {ch:'ofs', id:'os3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'แท็บนี้ของโปรแกรมไหน', cls:'c2'},
   {ch:'ofw', id:'ow1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'👆 แตะบนจอ Word', cls:'c6'},
   {ch:'ofw', id:'ow2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'คำสั่งอยู่แท็บไหน · จัดแนว · Enter', cls:'c5'},
-  {ch:'ofw', id:'ow3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'หัวกระดาษ จดหมายเวียน นามสกุล ปุ่มลัด', cls:'c2'}
+  {ch:'ofw', id:'ow3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'หัวกระดาษ จดหมายเวียน นามสกุล ปุ่มลัด', cls:'c2'},
+  {ch:'ofx', id:'ox1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'👆 แตะบนจอ Excel', cls:'c6'},
+  {ch:'ofx', id:'ox2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'สูตร ฟังก์ชัน แท็บ', cls:'c5'},
+  {ch:'ofx', id:'ox3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'$ ตรึงช่อง ข้อผิดพลาด # นามสกุล ปุ่มลัด', cls:'c2'}
 ];
 const CHS = {
   pc:{n:'คอมพิวเตอร์', i:'🕰️', scr:'pc'},
@@ -3352,7 +3679,8 @@ const CHS = {
   fut:{n:'อนาคต', i:'🤖', scr:'fut'},
   ofh:{n:'🏆 ประวัติ Office', i:'📜', scr:'ofh'},
   ofs:{n:'🏆 หน้าจอโปรแกรม', i:'🖥️', scr:'ofs'},
-  ofw:{n:'🏆 Word', i:'📝', scr:'ofw'}
+  ofw:{n:'🏆 Word', i:'📝', scr:'ofw'},
+  ofx:{n:'🏆 Excel', i:'📊', scr:'ofx'}
 };
 let curCh='hw';
 const chLevels = () => LEVELS.filter(L=>L.ch===curCh);
@@ -3457,7 +3785,7 @@ function showQ(){
   $('q-fb').textContent=''; $('q-why').style.display='none'; $('q-next').style.display='none';
   const box=$('q-choices'); box.innerHTML='';
   if(q.t==='tap'){ // เกมแตะบนภาพหน้าจอ (บท O2)
-    $('q-pic').innerHTML=q.g==='wd'?wdSvg(false):ofsSvg(q.g,false);
+    $('q-pic').innerHTML=q.g==='wd'?wdSvg(false):q.g==='xl'?xlSvg(false):ofsSvg(q.g,false);
     $('q-pic').onclick=e=>{ const el=e.target.closest('.hit'); if(el&&!game.tapped){ game.tapped=true; tapAnswer(el,q); } };
     game.tapped=false; return;
   }
@@ -3503,7 +3831,7 @@ function tapAnswer(el,q){
   } else {
     el.classList.add('bad'); $('q-pic').querySelector(`.hit[data-k="${q.k}"]`).classList.add('ok');
     game.hearts--; $('q-hearts').textContent=heartsTxt();
-    $('q-fb').textContent=`❌ ตรงนั้นคือ ${(q.g==='wd'?WD:OFS)[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
+    $('q-fb').textContent=`❌ ตรงนั้นคือ ${(q.g==='wd'?WD:q.g==='xl'?XL:OFS)[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
     if(!q.boss && !save.wrong.includes(key)) save.wrong.push(key);
   }
   afterAnswer(q);

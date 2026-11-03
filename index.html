@@ -321,6 +321,13 @@
   .hsvg .hit.ok{fill:#39c14a40; stroke:#39c14a; stroke-width:2.5}
   .hsvg .hit.bad{fill:#ff5f5f40; stroke:#ff5f5f; stroke-width:2.5}
   .qpic .hsvg{max-width:440px; margin-top:6px}
+  .hsvg.kbd{max-width:600px}
+  .kbdw{overflow-x:auto; -webkit-overflow-scrolling:touch}
+  .kbdw .hsvg.kbd{min-width:520px}
+  .kbdw-hint{display:none; text-align:center; font-size:12.5px; color:#8a84a8; margin-top:2px}
+  @media (max-width:600px){ .kbdw-hint{display:block} }
+  .hsvg.kbd .hit.sel{fill:#ffb13bb0; stroke:#ff6ec7; stroke-width:1.5}
+  .hsvg.kbd .hit.ok{fill:#39c14a90} .hsvg.kbd .hit.bad{fill:#ff5f5f90}
 
   /* ---- (IT) data units ---- */
   .bulbs{display:grid; grid-template-columns:repeat(8,1fr); gap:6px; max-width:440px; margin:6px auto 0}
@@ -512,7 +519,7 @@
         <button class="card c8" onclick="go('ofw')"><span class="ico">📝</span>3. Word<small>พิมพ์เอกสาร จดหมาย</small></button>
         <button class="card c6" onclick="go('ofx')"><span class="ico">📊</span>4. Excel<small>ตาราง สูตร คำนวณ</small></button>
         <button class="card c7" onclick="go('ofp')"><span class="ico">📽️</span>5. PowerPoint<small>สไลด์นำเสนอ</small></button>
-        <button class="card c2 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">⌨️</span>6. ปุ่มลัด<small>ทำงานไวขึ้น · ออกสอบบ่อย</small></button>
+        <button class="card c2" onclick="go('ofk')"><span class="ico">⌨️</span>6. ปุ่มลัด<small>ทำงานไวขึ้น</small></button>
       </div>
     </div>
   </div>
@@ -1076,6 +1083,116 @@
         </table></div>
         <p class="tip">⌨️ ปุ่มฉาย (N P B W Esc) ใช้ได้<b>ตอนกำลังฉาย</b>เท่านั้น · จำ <b>B = Black</b> ดำ · <b>W = White</b> ขาว</p>
         <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofp')">🎮 ทดสอบความเข้าใจ</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= O6 ปุ่มลัด ================= -->
+  <div class="screen" id="ofk">
+    <button class="backbtn" onclick="go('office')">⬅️ กลับห้องเรียน Office</button>
+    <div class="panel">
+      <h2>⌨️ ปุ่มลัด · ทำงานไวขึ้น</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p><b>ปุ่มลัด</b> (Keyboard shortcut) = กดปุ่มบน<b>แป้นพิมพ์</b> 2–3 ปุ่มพร้อมกัน <b>แทนการเลื่อนเมาส์ไปคลิกเมนู</b> · เหมือน<b>ทางลัดในหมู่บ้าน</b> 🛵 ไปถึงที่เดิม แต่ไวกว่า · ของที่ทำได้ยังเหมือนเดิมทุกอย่าง แค่ไม่ต้องละมือจากแป้นพิมพ์</p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 มองจากภายนอก: แป้นพิมพ์มีปุ่มพิเศษอะไรบ้าง</div>
+        <p class="tip"><b>แตะปุ่ม</b>บนแป้นพิมพ์ ดูว่าปุ่มนั้นทำอะไร 👆 · ปุ่ม<b>สีม่วง</b> = ปุ่มเสริม · แตะหลายปุ่ม = กดพร้อมกัน · หรือแตะชื่อปุ่มลัดด้านล่างก็ได้</p>
+        <div class="fig" id="figKbd"></div>
+        <div class="chips" id="chipsKbd"></div>
+        <div class="info" id="infoKbd">👆 แตะปุ่มบนแป้นพิมพ์ ดูว่าปุ่มนั้นทำอะไร · แตะหลายปุ่ม = กดพร้อมกัน</div>
+        <div class="memo">🟣 ปุ่ม<b>เสริม</b> (Ctrl · Shift · Alt · ⊞ Windows · Fn) กดเดี่ยว ๆ ส่วนใหญ่ยังไม่สั่งงาน (ยกเว้น ⊞ เปิดเมนูเริ่ม · Alt ขึ้นตัวอักษรบนริบบอน) · ต้อง<b>กดค้าง</b> แล้วกดปุ่มอื่นตาม · เหมือน<b>กดค้างที่รูปในมือถือ</b> แล้วมีเมนูพิเศษโผล่</div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> 🔍 อ่านปุ่มลัดยังไง ทำไมต้องมี</div>
+        <div class="memo">🔑 เห็น <b>Ctrl+C</b> = <b>กด Ctrl ค้างไว้</b> → <b>กด C</b> → ปล่อยทั้งคู่ · เครื่องหมาย <b>+</b> แปลว่า "พร้อมกัน" <b>ไม่ต้องกดปุ่ม +</b> · เห็น <b>Ctrl+Shift+S</b> = ค้างสองปุ่มแรก แล้วกดปุ่มสุดท้าย</div>
+        <div class="memo">📜 <b>ที่มา:</b> คำสั่ง <b>ตัด · คัดลอก · วาง</b> ในคอมพิวเตอร์ เริ่มที่ห้องวิจัยของบริษัท <b>Xerox</b> (PARC) ราวปี <b>1974</b> โดย <b>Larry Tesler</b> (บางแหล่งยกเครดิตร่วมกับ Tim Mott) · <b>Apple</b> ทำให้แพร่หลายในคอม <b>Lisa</b> (1983 ใช้ปุ่มรูปแอปเปิล) และ <b>Macintosh</b> (1984 ใช้ปุ่ม ⌘) · ต่อมา Microsoft ใช้ชุดเดียวกันบน Windows โดยใช้ <b>Ctrl</b> · ผลคือวันนี้ <b>Ctrl+C X V Z</b> ใช้ได้แทบทุกโปรแกรม เรียนครั้งเดียวใช้ได้ทุกที่</div>
+        <div class="memo ex">👀 สังเกตบนภาพ: <b>Z X C V</b> เรียงติดกันแถวล่างซ้าย ใกล้ปุ่ม <b>Ctrl</b> · มือซ้ายกดได้มือเดียว มือขวาจับเมาส์ต่อได้ · Microsoft บอกว่าปุ่มลัดยังช่วย<b>คนที่ใช้เมาส์ลำบาก หรือมองจอไม่ชัด</b> ให้ใช้คอมได้</div>
+        <button class="more" onclick="openLayer('ofkL2',this)">🌿 อยากรู้อีกนิด · ปุ่มลัดของ Windows · ปุ่มเดียวกันคนละโปรแกรม ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="ofkL2">
+        <h3>🌿 ชั้นต้นกล้า · ใช้ได้ทุกที่ กับ กับดัก</h3>
+        <p><b>1) ปุ่มลัดชุดหลัก</b> · ใช้ได้ทั้ง Word Excel PowerPoint (และอีกหลายโปรแกรม)</p>
+        <div class="tw"><table class="t">
+          <tr><th>กด</th><th>ได้อะไร</th><th>จำง่าย</th></tr>
+          <tr><td><b>Ctrl+C</b></td><td><b>คัดลอก</b> (Copy) · ของเดิมยังอยู่</td><td>C = Copy</td></tr>
+          <tr><td><b>Ctrl+X</b></td><td><b>ตัด</b> (Cut) · ของเดิมย้ายออก</td><td>X ✂️ กรรไกร</td></tr>
+          <tr><td><b>Ctrl+V</b></td><td><b>วาง</b> (Paste)</td><td>อยู่ข้าง C</td></tr>
+          <tr><td><b>Ctrl+Z</b></td><td><b>เลิกทำ</b> (Undo) · กดซ้ำ = ย้อนต่อ</td><td>ลบผิด กดอันนี้</td></tr>
+          <tr><td><b>Ctrl+Y</b></td><td><b>ทำซ้ำ</b> (Redo) · เอาที่เลิกทำกลับคืน</td><td>คู่กับ Ctrl+Z</td></tr>
+          <tr><td><b>Ctrl+A</b></td><td><b>เลือกทั้งหมด</b></td><td>A = All</td></tr>
+          <tr><td><b>Ctrl+S</b></td><td><b>บันทึก</b></td><td>S = Save</td></tr>
+          <tr><td><b>Ctrl+O</b></td><td><b>เปิด</b>ไฟล์</td><td>O = Open</td></tr>
+          <tr><td><b>Ctrl+F</b></td><td><b>ค้นหา</b>ข้อความ</td><td>F = Find</td></tr>
+          <tr><td><b>Ctrl+B · I · U</b></td><td><b>ตัวหนา · ตัวเอียง · ขีดเส้นใต้</b></td><td>Bold · Italic · Underline</td></tr>
+          <tr><td><b>Ctrl+K</b></td><td>แทรก<b>ไฮเปอร์ลิงก์</b></td><td>—</td></tr>
+          <tr><td><b>Ctrl+P</b></td><td><b>พิมพ์</b>ออกเครื่องพิมพ์ (Word · PowerPoint)</td><td>P = Print</td></tr>
+        </table></div>
+        <p class="tip">⚠️ <b>Ctrl+Y</b> ใน Excel หน้าของ Microsoft เขียนว่า "ทำซ้ำคำสั่งหรือการกระทำสุดท้าย" (Repeat) · ภาษาไทยใช้คำว่า <b>ทำซ้ำ</b> ทั้งสองความหมาย</p>
+
+        <p style="margin-top:14px"><b>2) ปุ่มลัดของ Windows</b> · ใช้ได้ไม่ว่าจะเปิดโปรแกรมอะไรอยู่</p>
+        <div class="tw"><table class="t">
+          <tr><th>กด</th><th>ได้อะไร</th></tr>
+          <tr><td><b>Alt+Tab</b></td><td><b>สลับหน้าต่าง</b>ที่เปิดอยู่ · กด Alt ค้าง แล้วกด Tab หลายครั้งเพื่อเลือก</td></tr>
+          <tr><td><b>Alt+F4</b></td><td><b>ปิดหน้าต่าง</b>ที่ใช้งานอยู่ · ถ้าไม่มีหน้าต่างเปิดอยู่ = ถามว่าจะปิดเครื่องไหม</td></tr>
+          <tr><td><b>⊞+D</b></td><td><b>แสดงและซ่อนเดสก์ท็อป</b> · กดซ้ำ = หน้าต่างกลับมา</td></tr>
+          <tr><td><b>⊞+L</b></td><td><b>ล็อกคอมพิวเตอร์</b> · ลุกจากโต๊ะทุกครั้ง (L = Lock)</td></tr>
+          <tr><td><b>⊞+E</b></td><td>เปิด <b>File Explorer</b> ดูไฟล์ในเครื่อง</td></tr>
+          <tr><td><b>⊞+Shift+S</b></td><td><b>จับภาพหน้าจอบางส่วน</b> · ลากเลือกกรอบได้</td></tr>
+          <tr><td><b>⊞+V</b></td><td>เปิด<b>ประวัติคลิปบอร์ด</b> (ของที่คัดลอกไว้หลายชิ้น) · ต้องเปิดใช้ครั้งแรกก่อน</td></tr>
+          <tr><td><b>F2</b></td><td>ใน File Explorer = <b>เปลี่ยนชื่อ</b>ไฟล์ที่เลือก</td></tr>
+        </table></div>
+        <p class="tip">⊞ = <b>ปุ่ม Windows</b> (รูปหน้าต่าง 4 ช่อง) · หน้าภาษาไทยของ Microsoft เรียกว่า <b>แป้น Windows</b> ก็มี · ⚠️ หน้าไทยเขียน ⊞+E ผิดเป็น "Internet Explorer" · หน้าอังกฤษเขียนว่า <b>File Explorer</b></p>
+
+        <p style="margin-top:14px"><b>3) ปุ่มเดียวกัน คนละโปรแกรม</b> 🎯</p>
+        <div class="tw"><table class="t">
+          <tr><th>กด</th><th>📝 Word</th><th>📊 Excel</th><th>📽️ PowerPoint</th></tr>
+          <tr><td><b>Ctrl+1</b></td><td>ระยะห่าง<b>เดี่ยว</b></td><td>กล่อง<b>จัดรูปแบบเซลล์</b></td><td>—</td></tr>
+          <tr><td><b>Ctrl+2</b></td><td>ระยะห่าง<b>สองเท่า</b></td><td><b>ตัวหนา</b></td><td>—</td></tr>
+          <tr><td><b>Ctrl+5</b></td><td>ระยะห่างบรรทัด <b>1.5</b></td><td><b>ขีดทับ</b></td><td>—</td></tr>
+          <tr><td><b>Ctrl+D</b></td><td>กล่อง<b>ฟอนต์</b></td><td><b>เติมด้านล่าง</b> (คัดลอกช่องบนลงมา)</td><td><b>ทำซ้ำวัตถุ</b>ที่เลือก</td></tr>
+          <tr><td><b>Ctrl+E</b></td><td><b>กึ่งกลาง</b></td><td><b>เติมแบบรวดเร็ว</b> (Flash Fill)</td><td><b>กึ่งกลาง</b></td></tr>
+          <tr><td><b>Ctrl+M</b></td><td><b>เยื้อง</b>ย่อหน้า</td><td>—</td><td><b>สไลด์ใหม่</b></td></tr>
+          <tr><td><b>F5</b></td><td><b>ไปที่</b> (Go To)</td><td><b>ไปที่</b> (Go To)</td><td><b>เริ่มฉาย</b>ตั้งแต่สไลด์แรก</td></tr>
+        </table></div>
+        <div class="memo ex">🎯 เจอคำถามเรื่องปุ่มลัด อ่านก่อนว่า <b>"ในโปรแกรมใด"</b> · ปุ่มเดียวกันอาจได้ผลคนละอย่าง · "—" = หน้าทางการของ Microsoft ไม่ได้ระบุ หรือระบุไม่ตรงกัน</div>
+        <button class="more" onclick="openLayer('ofkL3',this)">🌳 เจาะลึก · รวมปุ่มลัด Word Excel PowerPoint · ปุ่ม F · Fn · Mac ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="ofkL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · ใช้งานจริง</h3>
+        <p><b>1) ทวนปุ่มลัดเด่นของแต่ละโปรแกรม</b> · รายละเอียดเต็มอยู่ท้ายบทของโปรแกรมนั้น</p>
+        <div class="tw"><table class="t">
+          <tr><th>โปรแกรม</th><th>กด</th><th>ได้อะไร</th></tr>
+          <tr><td rowspan="4">📝 <b>Word</b></td><td><b>Ctrl+L · E · R · J</b></td><td>ชิดซ้าย · กึ่งกลาง · ชิดขวา · จัดชิดขอบ</td></tr>
+          <tr><td><b>Ctrl+] · Ctrl+[</b></td><td>ขยาย/ลด ขนาดตัวอักษร</td></tr>
+          <tr><td><b>F7</b></td><td>ตรวจการสะกด (เปิดบานหน้าต่าง<b>ตัวแก้ไข</b>)</td></tr>
+          <tr><td><b>F12</b></td><td><b>บันทึกเป็น</b> (Excel ก็ใช้ได้)</td></tr>
+          <tr><td rowspan="4">📊 <b>Excel</b></td><td><b>F2</b></td><td>แก้ไขข้อความในช่อง</td></tr>
+          <tr><td><b>F4</b></td><td>สลับแบบ $ ตอนพิมพ์สูตร</td></tr>
+          <tr><td><b>Alt+=</b></td><td>ผลรวมอัตโนมัติ</td></tr>
+          <tr><td><b>Alt+Enter</b></td><td>ขึ้นบรรทัดใหม่ในช่องเดียวกัน</td></tr>
+          <tr><td rowspan="4">📽️ <b>PowerPoint</b></td><td><b>F5 · Shift+F5</b></td><td>ฉายตั้งแต่แรก · ฉายจากสไลด์ที่เปิดอยู่</td></tr>
+          <tr><td><b>Alt+F5</b></td><td>ฉายในมุมมองผู้นำเสนอ</td></tr>
+          <tr><td><b>Ctrl+M</b></td><td>สไลด์ใหม่</td></tr>
+          <tr><td><b>Esc · B · W</b></td><td>จบการฉาย · จอดำ · จอขาว</td></tr>
+        </table></div>
+        <div class="center" style="margin:8px 0"><button class="tab" onclick="go('ofw')">📝 บท Word</button> <button class="tab" onclick="go('ofx')">📊 บท Excel</button> <button class="tab" onclick="go('ofp')">📽️ บท PowerPoint</button></div>
+
+        <p style="margin-top:14px"><b>2) เรื่องควรรู้ก่อนใช้จริง</b></p>
+        <div class="memo">➕ <b>+ กับ ,</b> · หน้าของ Microsoft: <b>+</b> = กดหลายปุ่ม<b>พร้อมกัน</b> · <b>,</b> (จุลภาค) = กดหลายปุ่ม<b>ตามลำดับ</b> ทีละปุ่ม · วิธีกดที่ไม่พลาด (Apple เขียนไว้ชัด): กด<b>ปุ่มเสริมค้าง</b>ก่อน แล้วกดปุ่มสุดท้าย แล้วปล่อยทั้งหมด</div>
+        <div class="memo">💻 <b>ปุ่ม Fn บนโน้ตบุ๊ก</b> · ปุ่มแถวบนสุดมักทำได้ 2 อย่าง เช่น F5 กับปุ่มปรับเสียง/แสงจอ · กด F5 แล้วไม่ได้ผล ให้<b>กด Fn ค้าง</b> แล้วกด F5 · วิธีล็อกให้ใช้ F1–F12 ตลอด ต่างกันตามยี่ห้อ</div>
+        <div class="memo">🍎 <b>เครื่อง Mac</b> ใช้ปุ่ม <b>⌘ Command</b> แทน Ctrl · ⌘+C คัดลอก · ⌘+V วาง · ⌘+Z เลิกทำ</div>
+        <div class="memo">🔤 <b>กด Alt เฉย ๆ</b> ในโปรแกรม Office = มีตัวอักษรเล็ก ๆ ขึ้นบนริบบอน (<b>Key Tips</b>) กดตัวอักษรตามที่ขึ้นเพื่อเลือกคำสั่ง · หน้า Microsoft ภาษาไทยส่วนใหญ่เรียก <b>เคล็ดลับแป้นพิมพ์</b> (หน้า Word บางแถวเขียน <b>เคล็ดลับแป้น</b>)</div>
+        <div class="memo">🕰️ ปุ่มชุดเก่าก่อนมี Ctrl+C X V (มาตรฐานของ IBM): <b>Ctrl+Insert</b> คัดลอก · <b>Shift+Insert</b> วาง · <b>Shift+Delete</b> ตัด · หน้าปุ่มลัด Windows ของ Microsoft ยังเขียน Ctrl+Insert และ Shift+Insert เป็นทางเลือก · ⚠️ แต่ใน <b>File Explorer</b> กด <b>Shift+Delete</b> = <b>ลบไฟล์ถาวร</b> ไม่ผ่านถังรีไซเคิล</div>
+        <p class="tip">⌨️ ตารางปุ่มลัดของ Microsoft อิง<b>แป้นพิมพ์แบบสหรัฐฯ</b> · ชื่อปุ่มลัดเรียกตาม<b>ตัวอักษรอังกฤษ</b>บนปุ่ม แม้แป้นพิมพ์ในไทยจะพิมพ์ภาษาไทยไว้ด้วย</p>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofk')">🎮 ทดสอบความเข้าใจ</button></div>
       </div>
     </div>
   </div>
@@ -1957,7 +2074,7 @@
 
   <footer>
     🦉 สื่อการเรียนรู้ "ไอทีง่ายนิดเดียว" · เปิดได้ทุกอุปกรณ์<br>
-    ครบ 8 บท + ห้องเรียน Office · เกม 39 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
+    ครบ 8 บท + ห้องเรียน Office 6 บท · เกม 42 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
   </footer>
 </div>
 
@@ -3064,6 +3181,118 @@ const PP = {
 };
 drawPp(); drawFx('tr');
 
+/* ============ O6 ปุ่มลัด: แป้นพิมพ์แตะได้ ============ */
+// แป้นแบบสหรัฐฯ ย่อ (ไม่มีแป้นตัวเลขด้านขวา) · แถว = [[ป้าย, คีย์, กว้าง]] · กว้าง 1 = ปุ่มตัวอักษร
+const KBD_ROWS = (()=>{ const L=s=>s.split('').map(c=>[c.toUpperCase(),c,1]);
+  return [
+    [['Esc','esc',1],...[...Array(12)].map((_,i)=>['F'+(i+1),'f'+(i+1),1]),['PrtSc','prtsc',1],['Del','del',1]],
+    [...L('`1234567890-='),['⌫ Backspace','bksp',2]],
+    [['Tab','tab',1.5],...L('qwertyuiop[]'),['\\','\\',1.5]],
+    [['Caps','caps',1.75],...L("asdfghjkl;'"),['Enter','enter',2.25]],
+    [['Shift','shift',2.25],...L('zxcvbnm,./'),['Shift','shift',2.75]],
+    [['Ctrl','ctrl',1.5],['Fn','fn',1],['⊞','win',1.25],['Alt','alt',1.25],['','space',4.5],['Alt','alt',1.25],['Ctrl','ctrl',1.25],['←','left',1],['↑↓','updown',1],['→','right',1]]
+  ]; })();
+const KBD_MOD = ['ctrl','shift','alt','win','fn'];
+// ชื่อปุ่มสำหรับเขียนเป็นข้อความ เช่น Ctrl+C
+const kbdName = k => ({ctrl:'Ctrl',shift:'Shift',alt:'Alt',win:'⊞ Windows',fn:'Fn',esc:'Esc',prtsc:'PrtSc',del:'Delete',bksp:'Backspace',tab:'Tab',caps:'Caps Lock',enter:'Enter',space:'Spacebar',left:'←',right:'→',updown:'↑↓'})[k] || k.toUpperCase();
+// เรียงปุ่มเสริมก่อนเสมอ: ctrl → shift → alt → win → fn → ปุ่มหลัก
+const kbdKey = ks => [...new Set(ks)].sort((a,b)=>{ const i=KBD_MOD.indexOf(a), j=KBD_MOD.indexOf(b); return (i<0?9:i)-(j<0?9:j) || a.localeCompare(b); }).join('+');
+const kbdTxt = ks => kbdKey(ks).split('+').map(kbdName).join('+');
+function kbdSvg(){
+  const U=20, T='font-family="Kanit,sans-serif"';
+  let s=`<div class="kbdw"><svg viewBox="0 0 304 128" class="hsvg kbd"><rect x="0" y="0" width="304" height="128" rx="8" fill="#3a3a48"/>`, y=3;
+  KBD_ROWS.forEach((row,r)=>{ const h=r===0?15:20; let x=2;
+    row.forEach(([lb,k,w])=>{ const W=w*U, mod=KBD_MOD.includes(k), fs=lb.length>3?6:lb.length>1?7:9.5;
+      s+=`<rect x="${x+1}" y="${y+1}" width="${W-2}" height="${h-2}" rx="3" fill="${mod?'#e9e2ff':'#fdfdff'}" stroke="#9a96b8" stroke-width=".6"/>`;
+      s+=`<text x="${x+W/2}" y="${y+h/2+fs/2.8}" text-anchor="middle" font-size="${fs}" font-weight="${mod?800:600}" fill="${mod?'#5b3fc4':'#333'}" ${T}>${lb}</text>`;
+      s+=`<rect class="hit" data-k="${k}" x="${x+1}" y="${y+1}" width="${W-2}" height="${h-2}" rx="3"/>`;
+      x+=W; });
+    y+=h+(r===0?3:1); });
+  return s+'</svg></div><div class="kbdw-hint">⬅️ เลื่อนแป้นพิมพ์ซ้าย–ขวา ดูปุ่มที่เหลือ ➡️</div>';
+}
+// ไฮไลต์ปุ่มในภาพ (ปุ่มซ้ำซ้าย/ขวา เช่น Ctrl ติดทั้งคู่)
+function kbdMark(box,ks,cls){ box.querySelectorAll('.hit').forEach(el=>el.classList.toggle(cls,ks.includes(el.dataset.k))); }
+let kbdOn=[];
+function drawKbd(){
+  $('figKbd').innerHTML=kbdSvg();
+  $('chipsKbd').innerHTML=KBD_DEMO.map(c=>`<button class="chip" data-c="${c}">${kbdTxt(c.split('+'))}</button>`).join('');
+  $('figKbd').onclick=e=>{ const el=e.target.closest('.hit'); if(!el) return; const k=el.dataset.k;
+    kbdOn=kbdOn.includes(k)?kbdOn.filter(x=>x!==k):[...kbdOn,k]; kbdShow(); };
+  $('chipsKbd').onclick=e=>{ const el=e.target.closest('[data-c]'); if(!el) return; kbdOn=el.dataset.c.split('+'); kbdShow(); };
+}
+function kbdShow(){
+  kbdMark($('figKbd'),kbdOn,'sel');
+  $('chipsKbd').querySelectorAll('[data-c]').forEach(el=>el.classList.toggle('sel',el.dataset.c===kbdKey(kbdOn)));
+  const k=kbdKey(kbdOn), C=KBD_COMBO[k], I=kbdOn.length===1&&KBD_INFO[kbdOn[0]];
+  let h;
+  if(!kbdOn.length) h='👆 แตะปุ่มบนแป้นพิมพ์ ดูว่าปุ่มนั้นทำอะไร · แตะหลายปุ่ม = กดพร้อมกัน';
+  else if(C) h=`<b>${kbdTxt(kbdOn)}</b> = ${C[0]}`+(C[1]?`<br>${C[1]}`:'');
+  else if(I) h=`<b>${I[0]}</b>`+(I[1]?` <i class="gp" style="background:#7a5cff">${I[1]}</i>`:'')+`<br>${I[2]}`;
+  else if(kbdOn.length===1) h=`ปุ่ม <b>${kbdTxt(kbdOn)}</b> · ลองแตะ <b>Ctrl</b> เพิ่มอีกปุ่ม ดูว่าได้ปุ่มลัดอะไร`;
+  else h=`<b>${kbdTxt(kbdOn)}</b> · ชุดนี้ไม่มีในบทเรียน ลองชุดอื่นจากปุ่มด้านล่าง`;
+  $('infoKbd').innerHTML=h+(kbdOn.length?' <button class="tab" style="margin-left:6px;padding:2px 10px" onclick="kbdOn=[];kbdShow()">↺ ล้าง</button>':'');
+  pop($('infoKbd'));
+}
+// ปุ่มเดี่ยว: [ชื่อ, อังกฤษ, คำอธิบาย]
+const KBD_INFO = {
+  ctrl:['ปุ่ม Ctrl','Control','ปุ่ม<b>เสริม</b>ที่ใช้บ่อยที่สุด · กดเดี่ยว ๆ ไม่เกิดอะไร · <b>กดค้าง</b> แล้วกดตัวอักษร = สั่งงาน เช่น Ctrl+C คัดลอก · มีทั้ง<b>ซ้ายและขวา</b> ใช้ปุ่มไหนก็ได้'],
+  shift:['ปุ่ม Shift','Shift','กดค้างแล้วพิมพ์ = <b>ตัวพิมพ์ใหญ่</b> (A) หรือ<b>ตัวบน</b>ของปุ่ม · ภาษาไทยได้ตัวบน เช่น ฟ → ฤ · ใช้คู่ Ctrl ในปุ่มลัด 3 ปุ่ม'],
+  alt:['ปุ่ม Alt','Alternate','ปุ่มเสริมอีกตัว · <b>กดเดี่ยว ๆ ในโปรแกรม Office</b> = มีตัวอักษรเล็ก ๆ ขึ้นบนริบบอน (<b>Key Tips</b>) · กดค้างคู่ปุ่มอื่น เช่น <b>Alt+Tab</b> สลับหน้าต่าง'],
+  win:['ปุ่ม Windows','Windows logo key','ปุ่มรูป<b>หน้าต่าง 4 ช่อง</b> ⊞ (หน้าไทยของ Microsoft เรียก <b>แป้น Windows</b> ก็มี) · <b>กดเดี่ยว</b> = เปิด<b>เมนูเริ่ม</b> (Start) · กดค้างคู่ปุ่มอื่น = สั่ง Windows เช่น ⊞+D ไปหน้าเดสก์ท็อป'],
+  fn:['ปุ่ม Fn','Function','มีบน<b>โน้ตบุ๊ก</b> · ปุ่มแถวบนสุดมักทำได้ 2 อย่าง เช่น F2 กับปุ่มลดเสียง · <b>กด Fn ค้าง</b> = ใช้อีกหน้าที่หนึ่งของปุ่ม · คอมตั้งโต๊ะส่วนมากไม่มี'],
+  esc:['ปุ่ม Esc','Escape','<b>ยกเลิก / ออก</b> · ปิดกล่องที่เด้งขึ้นมา · ออกจากการฉาย PowerPoint · ออกจากโหมดเต็มจอ'],
+  f1:['ปุ่ม F1','Function key 1','เปิด<b>วิธีใช้ (Help)</b> ของโปรแกรมนั้น · F1–F12 = ปุ่ม<b>ฟังก์ชัน</b> แต่ละโปรแกรมให้หน้าที่ต่างกัน'],
+  f2:['ปุ่ม F2','F2','<b>Excel</b> = แก้ไขข้อความในช่อง · <b>File Explorer</b> = เปลี่ยนชื่อไฟล์ที่เลือก'],
+  f5:['ปุ่ม F5','F5','<b>PowerPoint</b> = เริ่มฉายตั้งแต่สไลด์แรก · <b>Word / Excel</b> = ไปที่ (Go To) · ⚠️ ปุ่มเดียว คนละงาน'],
+  f7:['ปุ่ม F7','F7','<b>ตรวจการสะกด</b> (Word · Excel)'],
+  f12:['ปุ่ม F12','F12','<b>บันทึกเป็น</b> (Save As) · ได้ไฟล์ใหม่อีกชื่อ ไฟล์เดิมยังอยู่ (Word · Excel)'],
+  prtsc:['ปุ่ม Print Screen','PrtSc','<b>จับภาพหน้าจอ</b> · Windows 11 กับ 10 ทำงานไม่เหมือนกัน (บางส่วน/ทั้งจอ) และตั้งค่าเปลี่ยนได้ · อยากเลือกจับบางส่วนแน่ ๆ ใช้ ⊞+Shift+S'],
+  del:['ปุ่ม Delete','Delete','ลบตัวอักษร<b>ด้านขวา</b>ของเคอร์เซอร์ · ลบไฟล์/ของที่เลือก'],
+  bksp:['ปุ่ม Backspace','Backspace','ลบตัวอักษร<b>ด้านซ้าย</b>ของเคอร์เซอร์ (ถอยหลังลบ) · ต่างจาก Delete ที่ลบด้านขวา'],
+  tab:['ปุ่ม Tab','Tab','เว้นระยะ<b>ย่อหน้า</b> · ในตาราง/ฟอร์ม = ไป<b>ช่องถัดไป</b> · คู่ Alt (Alt+Tab) = สลับหน้าต่าง'],
+  caps:['ปุ่ม Caps Lock','Caps Lock','ล็อกให้พิมพ์<b>ตัวพิมพ์ใหญ่</b>ทุกตัว · กดอีกครั้ง = ปลด · พิมพ์รหัสผ่านผิดบ่อยเพราะลืมปุ่มนี้'],
+  enter:['ปุ่ม Enter','Enter','ตกลง / <b>ขึ้นบรรทัดใหม่</b> · Excel = ลงไปช่องข้างล่าง'],
+  space:['Spacebar','Spacebar','<b>เว้นวรรค</b> · ตอนฉาย PowerPoint = ไปถัดไป'],
+  left:['ปุ่มลูกศร','Arrow keys','เลื่อน<b>เคอร์เซอร์</b> หรือช่องที่เลือก ทีละ 1 · ตอนฉาย PowerPoint → ไปถัดไป ← ย้อนกลับ'],
+  right:['ปุ่มลูกศร','Arrow keys','เลื่อน<b>เคอร์เซอร์</b> หรือช่องที่เลือก ทีละ 1 · ตอนฉาย PowerPoint → ไปถัดไป ← ย้อนกลับ'],
+  updown:['ปุ่มลูกศร ขึ้น/ลง','Arrow keys','เลื่อนขึ้น/ลงทีละบรรทัด (ภาพนี้ย่อสองปุ่มไว้ช่องเดียว)']
+};
+// ปุ่มลัด: คีย์เรียงแบบ kbdKey → [ได้อะไร, หมายเหตุ]
+const KBD_COMBO = {
+  'ctrl+c':['<b>คัดลอก</b> (Copy) · ของเดิมยังอยู่ ได้สำเนาไว้วาง',''],
+  'ctrl+x':['<b>ตัด</b> (Cut) · ของเดิม<b>ย้าย</b>ออกไปรอวาง','จำ: X เหมือน<b>กรรไกร</b> ✂️'],
+  'ctrl+v':['<b>วาง</b> (Paste) · เอาของที่คัดลอก/ตัดไว้มาวาง',''],
+  'ctrl+z':['<b>เลิกทำ</b> (Undo) · ย้อนสิ่งที่เพิ่งทำ 1 ขั้น','กดซ้ำ = ย้อนต่อไปอีกเรื่อย ๆ · ลบผิด กดอันนี้ก่อนตกใจ 😅'],
+  'ctrl+y':['<b>ทำซ้ำ</b> (Redo) · เอาสิ่งที่เพิ่งเลิกทำกลับคืน','⚠️ Excel เขียนว่า ทำซ้ำคำสั่งหรือการกระทำสุดท้าย (Repeat)'],
+  'ctrl+a':['<b>เลือกทั้งหมด</b> (Select All)',''],
+  'ctrl+s':['<b>บันทึก</b> (Save) ทับไฟล์เดิม','ไฟล์ใหม่ที่ยังไม่มีชื่อ จะถามชื่อก่อน'],
+  'ctrl+p':['<b>พิมพ์</b> (Print) · เปิดหน้าสั่งพิมพ์',''],
+  'ctrl+f':['<b>ค้นหา</b> (Find)',''],
+  'ctrl+b':['<b>ตัวหนา</b> (Bold)',''],
+  'ctrl+i':['<b>ตัวเอียง</b> (Italic)',''],
+  'ctrl+u':['<b>ขีดเส้นใต้</b> (Underline)',''],
+  'ctrl+o':['<b>เปิด</b> (Open) ไฟล์',''],
+  'ctrl+k':['แทรก<b>ไฮเปอร์ลิงก์</b> (Hyperlink)',''],
+  'alt+tab':['<b>สลับหน้าต่าง</b>ที่เปิดอยู่','กด Alt ค้าง แล้วกด Tab ทีละครั้งเพื่อเลือก ปล่อยมือ = ไปหน้าต่างนั้น'],
+  'alt+f4':['<b>ปิดหน้าต่าง</b>ที่ใช้งานอยู่','ไม่มีหน้าต่างเปิดอยู่ = ถามว่าจะปิดเครื่องไหม'],
+  'win+d':['<b>แสดงและซ่อนเดสก์ท็อป</b>','กดซ้ำ = หน้าต่างกลับมา'],
+  'win+l':['<b>ล็อกคอมพิวเตอร์</b> · ลุกจากโต๊ะแล้วคนอื่นใช้ไม่ได้','L = Lock'],
+  'win+e':['<b>เปิด File Explorer</b> (ดูไฟล์ในเครื่อง)','E = Explorer'],
+  'shift+win+s':['<b>จับภาพหน้าจอบางส่วน</b> · ลากเลือกกรอบได้',''],
+  'win+v':['เปิด<b>ประวัติคลิปบอร์ด</b> · เห็นของที่คัดลอกไว้หลายชิ้น','ต้องเปิดใช้ครั้งแรกก่อน'],
+  'ctrl+d':['ปุ่มเดียว <b>คนละงาน</b> ⚠️','Word = เปิดกล่อง<b>ฟอนต์</b> · Excel = <b>เติมด้านล่าง</b> (คัดลอกช่องบนลงมา) · PowerPoint = <b>ทำซ้ำวัตถุ</b>ที่เลือก'],
+  'ctrl+1':['ปุ่มเดียว <b>คนละงาน</b> ⚠️','Word = ระยะห่าง<b>เดี่ยว</b> · Excel = เปิดกล่อง<b>จัดรูปแบบเซลล์</b>'],
+  'f5':['ปุ่มเดียว <b>คนละงาน</b> ⚠️','PowerPoint = <b>เริ่มฉาย</b>ตั้งแต่สไลด์แรก · Word / Excel = <b>ไปที่</b> (Go To)'],
+  'ctrl+e':['ปุ่มเดียว <b>คนละงาน</b> ⚠️','Word · PowerPoint = จัด<b>กึ่งกลาง</b> · Excel = <b>เติมแบบรวดเร็ว</b> (Flash Fill)'],
+  'ctrl+m':['ปุ่มเดียว <b>คนละงาน</b> ⚠️','PowerPoint = <b>สไลด์ใหม่</b> · Word = <b>เยื้องย่อหน้า</b>'],
+  'shift+f5':['PowerPoint: เริ่มฉาย<b>จากสไลด์ที่เปิดอยู่</b>',''],
+  'alt+f5':['PowerPoint: เริ่มฉายใน<b>มุมมองผู้นำเสนอ</b>',''],
+  'alt+=':['Excel: <b>ผลรวมอัตโนมัติ</b> (SUM)',''],
+  'alt+enter':['Excel: ขึ้น<b>บรรทัดใหม่ในช่องเดียวกัน</b>','']
+};
+const KBD_DEMO = ['ctrl+c','ctrl+x','ctrl+v','ctrl+z','ctrl+y','ctrl+a','ctrl+s','ctrl+p','alt+tab','win+d','win+l','ctrl+d'];
+drawKbd();
+
 /* ============ future tech (outside → inside) ============ */
 // ช่องบนหน้าจอ: [ไอคอน, ชื่อบนภาพ, ชื่อเต็ม, เทคโนโลยี, สีป้าย, คำอธิบาย]
 const FUT = {
@@ -3898,6 +4127,51 @@ const BANK = {
     {p:'🛑', q:'อยากจบการฉาย กลับไปหน้าแก้งาน กดปุ่มใด', c:['Esc','B','Enter','Spacebar'], w:'Esc = จบการฉาย · Enter/Spacebar = ไปถัดไป'},
     {p:'🔢', q:'กำลังฉายอยู่ อยากกระโดดไปสไลด์ที่ 7 ทันที ทำอย่างไร', c:['พิมพ์ 7 แล้วกด Enter','กด F7','กด Ctrl+7','กด P 7 ครั้ง'], w:'พิมพ์เลขสไลด์ แล้วกด Enter · P = ย้อนกลับ'}
   ],
+  ok1: [
+    {t:'key', k:['ctrl','c'], q:'อยากคัดลอกข้อความที่เลือกไว้ (ของเดิมยังอยู่) กดปุ่มไหน? ⌨️', w:'Ctrl+C = คัดลอก (Copy) · C = Copy'},
+    {t:'key', k:['ctrl','x'], q:'อยากตัดข้อความไปวางที่อื่น (ของเดิมหายไป) กดปุ่มไหน? ⌨️', w:'Ctrl+X = ตัด (Cut) · X เหมือนกรรไกร ✂️'},
+    {t:'key', k:['ctrl','v'], q:'คัดลอกมาแล้ว อยากวางตรงนี้ กดปุ่มไหน? ⌨️', w:'Ctrl+V = วาง (Paste) · C X V อยู่ติดกันแถวล่าง'},
+    {t:'key', k:['ctrl','z'], q:'เผลอลบข้อความทั้งย่อหน้า อยากย้อนกลับ กดปุ่มไหน? ⌨️', w:'Ctrl+Z = เลิกทำ (Undo) · กดซ้ำ = ย้อนต่ออีก'},
+    {t:'key', k:['ctrl','y'], alt:[['f4']], q:'ใน Word กดเลิกทำเกินไป 1 ครั้ง อยากเอากลับคืน กดปุ่มไหน? ⌨️', w:'Ctrl+Y = ทำซ้ำ (Redo) · คู่กับ Ctrl+Z · ใน Word กด F4 ก็ได้'},
+    {t:'key', k:['ctrl','a'], q:'อยากเลือกข้อความทั้งเอกสารในทีเดียว กดปุ่มไหน? ⌨️', w:'Ctrl+A = เลือกทั้งหมด (Select All) · A = All'},
+    {t:'key', k:['ctrl','s'], alt:[['shift','f12']], q:'ใน Word พิมพ์งานมานาน อยากบันทึกไว้ก่อนไฟดับ กดปุ่มไหน? ⌨️', w:'Ctrl+S = บันทึก (Save) · S = Save · Shift+F12 ก็ได้'},
+    {t:'key', k:['ctrl','p'], alt:[['ctrl','shift','f12']], q:'ใน Word อยากเปิดหน้าสั่งพิมพ์ออกเครื่องพิมพ์ กดปุ่มไหน? ⌨️', w:'Ctrl+P = พิมพ์ (Print) · P = Print'},
+    {t:'key', k:['ctrl','f'], q:'อยากหาคำว่า "ปุ๋ย" ในเอกสารยาว ๆ กดปุ่มไหน? ⌨️', w:'Ctrl+F = ค้นหา (Find) · F = Find'},
+    {t:'key', k:['ctrl','b'], q:'ใน Word อยากทำให้คำที่เลือกเป็นตัวหนา กดปุ่มไหน? ⌨️', w:'Ctrl+B = ตัวหนา (Bold)'},
+    {t:'key', k:['ctrl','i'], q:'ใน Word อยากทำให้คำที่เลือกเป็นตัวเอียง กดปุ่มไหน? ⌨️', w:'Ctrl+I = ตัวเอียง (Italic)'},
+    {t:'key', k:['ctrl','u'], q:'ใน Word อยากขีดเส้นใต้คำที่เลือก กดปุ่มไหน? ⌨️', w:'Ctrl+U = ขีดเส้นใต้ (Underline)'},
+    {t:'key', k:['esc'], q:'มีกล่องเด้งขึ้นมา อยากยกเลิก ปิดกล่องนั้น กดปุ่มเดียวปุ่มไหน? ⌨️', w:'Esc (Escape) = ยกเลิก / ออก · ปุ่มซ้ายบนสุด'}
+  ],
+  ok2: [
+    {t:'key', k:['alt','tab'], alt:[['alt','esc'],['win','tab'],['ctrl','alt','tab']], q:'เปิด Word กับ Excel ไว้พร้อมกัน อยากสลับไปอีกหน้าต่าง กดปุ่มไหน? ⌨️', w:'Alt+Tab = สลับหน้าต่างที่เปิดอยู่ (กด Alt ค้าง แล้วกด Tab ซ้ำเพื่อเลือก) · ⊞+Tab ก็ดูหน้าต่างทั้งหมดได้'},
+    {t:'key', k:['win','d'], alt:[['win','m']], q:'อยากซ่อนทุกหน้าต่าง ไปดูหน้าเดสก์ท็อปทันที กดปุ่มไหน? ⌨️', w:'ปุ่ม Windows ⊞ + D = แสดงและซ่อนเดสก์ท็อป · กดซ้ำ = กลับมา · ⊞+M (ย่อทุกหน้าต่าง) ก็เห็นเดสก์ท็อปเหมือนกัน'},
+    {t:'key', k:['win','l'], q:'จะลุกไปเข้าห้องน้ำ ไม่อยากให้ใครแอบใช้เครื่อง กดปุ่มไหน? ⌨️', w:'ปุ่ม Windows ⊞ + L = ล็อกคอมพิวเตอร์ · L = Lock'},
+    {t:'key', k:['win','e'], q:'อยากเปิดหน้าต่างดูไฟล์ในเครื่อง (File Explorer) กดปุ่มไหน? ⌨️', w:'ปุ่ม Windows ⊞ + E = เปิด File Explorer'},
+    {t:'key', k:['alt','f4'], alt:[['ctrl','w'],['ctrl','f4']], q:'อยากปิดหน้าต่างที่ใช้งานอยู่ ด้วยแป้นพิมพ์ กดปุ่มไหน? ⌨️', w:'Alt+F4 = ปิดหน้าต่างที่ใช้งานอยู่ · Ctrl+W หรือ Ctrl+F4 = ปิดเอกสารที่เปิดอยู่ ก็ได้'},
+    {t:'key', k:['shift','win','s'], alt:[['prtsc']], q:'อยากจับภาพหน้าจอแค่บางส่วน (ลากเลือกกรอบ) กดปุ่มไหน? ⌨️', w:'ปุ่ม Windows ⊞ + Shift + S = จับภาพหน้าจอบางส่วน · Windows 11 กด PrtSc เฉย ๆ ก็ได้แบบเดียวกัน'},
+    {t:'key', k:['ctrl','m'], q:'ใน PowerPoint อยากแทรกสไลด์ใหม่ กดปุ่มไหน? ⌨️', w:'Ctrl+M = แทรกสไลด์ใหม่ (PowerPoint) · ใน Word ปุ่มเดียวกันคือ เยื้องย่อหน้า'},
+    {t:'key', k:['f5'], q:'ใน PowerPoint อยากเริ่มฉายตั้งแต่สไลด์แรก กดปุ่มเดียวปุ่มไหน? ⌨️', w:'F5 = เริ่มฉายตั้งแต่สไลด์แรก (PowerPoint) · ใน Word/Excel คือ ไปที่'},
+    {t:'key', k:['ctrl','e'], q:'ใน Word อยากจัดข้อความให้อยู่กึ่งกลางบรรทัด กดปุ่มไหน? ⌨️', w:'Ctrl+E = กึ่งกลาง (Word) · ใน Excel ปุ่มเดียวกันคือ เติมแบบรวดเร็ว'},
+    {p:'⚠️', q:'Ctrl+D ใน Excel ทำอะไร', c:['เติมด้านล่าง (คัดลอกช่องบนลงมา)','เปิดกล่องฟอนต์','ลบแถว','บันทึกไฟล์'], w:'Excel Ctrl+D = เติมด้านล่าง · Word Ctrl+D = กล่องฟอนต์ · ปุ่มเดียว คนละงาน'},
+    {p:'⚠️', q:'Ctrl+1 ใน Excel ทำอะไร', c:['เปิดกล่องจัดรูปแบบเซลล์','ระยะห่างเดี่ยวของย่อหน้า','ไปแผ่นงานที่ 1','เลือกคอลัมน์ A'], w:'Excel Ctrl+1 = จัดรูปแบบเซลล์ · Word Ctrl+1 = ระยะห่างเดี่ยว'},
+    {p:'⚠️', q:'กด F5 ใน PowerPoint กับใน Word ได้ผลต่างกันอย่างไร', c:['PowerPoint เริ่มฉาย · Word ไปที่ (Go To)','ทั้งสองโปรแกรมเริ่มฉาย','PowerPoint บันทึก · Word พิมพ์','ทั้งสองโปรแกรมรีเฟรชหน้า'], w:'F5 = PowerPoint เริ่มฉายตั้งแต่สไลด์แรก · Word/Excel = ไปที่'},
+    {p:'🔁', q:'ข้อใดเป็นปุ่มลัดของ Windows (ใช้ได้ไม่ว่าเปิดโปรแกรมอะไร)', c:['ปุ่ม Windows ⊞ + L ล็อกคอมพิวเตอร์','Ctrl+M สไลด์ใหม่','Alt+= ผลรวมอัตโนมัติ','Shift+F5 ฉายจากสไลด์ปัจจุบัน'], w:'ปุ่ม Windows ⊞ = คำสั่งของ Windows · ที่เหลือเป็นของ PowerPoint/Excel'}
+  ],
+  ok3: [
+    {t:'key', k:['f12'], q:'ใน Word อยากบันทึกเป็นไฟล์ใหม่อีกชื่อ (บันทึกเป็น) กดปุ่มเดียวปุ่มไหน? ⌨️', w:'F12 = บันทึกเป็น (Save As)'},
+    {t:'key', k:['f7'], q:'ใน Word อยากตรวจตัวสะกดทั้งเอกสาร กดปุ่มเดียวปุ่มไหน? ⌨️', w:'F7 = ตรวจการสะกด (เปิดบานหน้าต่างตัวแก้ไข)'},
+    {t:'key', k:['f2'], q:'ใน Excel อยากแก้ข้อความในช่องโดยไม่พิมพ์ใหม่ทั้งช่อง กดปุ่มเดียวปุ่มไหน? ⌨️', w:'F2 = แก้ไขช่อง (Excel)'},
+    {t:'key', k:['alt','='], q:'ใน Excel อยากใส่ผลรวมอัตโนมัติใต้ตัวเลข กดปุ่มไหน? ⌨️', w:'Alt+= = ผลรวมอัตโนมัติ (SUM)'},
+    {t:'key', k:['alt','enter'], q:'ใน Excel อยากขึ้นบรรทัดใหม่ แต่ยังอยู่ช่องเดิม กดปุ่มไหน? ⌨️', w:'Alt+Enter = บรรทัดใหม่ในช่องเดียวกัน · Enter เฉย ๆ = ลงไปช่องถัดไป'},
+    {t:'key', k:['shift','f5'], q:'ใน PowerPoint อยากเริ่มฉายจากสไลด์ที่เปิดอยู่ (ไม่ใช่แผ่นแรก) กดปุ่มไหน? ⌨️', w:'Shift+F5 = ฉายจากสไลด์ปัจจุบัน · F5 เฉย ๆ = จากแผ่นแรก'},
+    {t:'key', k:['f1'], q:'ไม่รู้ว่าคำสั่งนี้ใช้ยังไง อยากเปิดวิธีใช้ (Help) ของโปรแกรม กดปุ่มเดียวปุ่มไหน? ⌨️', w:'F1 = วิธีใช้ (Help)'},
+    {p:'➕', q:'ปุ่มลัด Ctrl+C ต้องกดอย่างไร', c:['กด Ctrl ค้างไว้ แล้วกด C','กด Ctrl แล้วกด + แล้วกด C','กด C ก่อน แล้วกด Ctrl','กด Ctrl สองครั้งแล้วกด C'], w:'+ แปลว่า "พร้อมกัน" ไม่ต้องกดปุ่ม + · กดปุ่มเสริมค้างก่อนเสมอ'},
+    {p:'💻', q:'บนโน้ตบุ๊ก กด F5 แล้วไม่ได้ผล กลายเป็นปุ่มปรับเสียง/แสงจอแทน ควรลองทำอย่างไร', c:['กด Fn ค้างไว้ แล้วกด F5','กด Ctrl ค้างไว้ แล้วกด F5','กด Shift ค้างไว้ แล้วกด F5','ปุ่ม F5 เสียแล้ว'], w:'ปุ่มแถวบนของโน้ตบุ๊กมักทำได้ 2 อย่าง · Fn ค้าง = สลับไปใช้อีกหน้าที่'},
+    {p:'🍎', q:'บนเครื่อง Mac คัดลอกด้วยปุ่มลัดใด', c:['⌘ Command + C','Ctrl+C','Alt+C','Fn+C'], w:'Mac ใช้ปุ่ม ⌘ Command แทน Ctrl ของ Windows'},
+    {p:'🔤', q:'ในโปรแกรม Office กดปุ่ม Alt เฉย ๆ ครั้งเดียว เกิดอะไรขึ้น', c:['มีตัวอักษรเล็ก ๆ ขึ้นบนริบบอน ให้กดเลือกคำสั่ง','ปิดโปรแกรมทันที','บันทึกไฟล์','สลับไปหน้าต่างอื่น'], w:'Alt เดี่ยว = Key Tips ตัวอักษรเล็กบนริบบอน · สลับหน้าต่างต้อง Alt+Tab · ปิดต้อง Alt+F4'},
+    {p:'↩️', q:'กด Ctrl+Z 3 ครั้งติดกัน ได้ผลอย่างไร', c:['ย้อนสิ่งที่ทำไป 3 ขั้น','ย้อนแค่ 1 ขั้นเหมือนกดครั้งเดียว','ปิดโปรแกรม','บันทึก 3 ครั้ง'], w:'Ctrl+Z กดซ้ำ = ย้อนต่อไปทีละขั้น'},
+    {p:'📋', q:'Ctrl+C กับ Ctrl+X ต่างกันอย่างไร', c:['C ของเดิมยังอยู่ · X ของเดิมหายไปรอวาง','C ของเดิมหาย · X ของเดิมยังอยู่','เหมือนกันทุกอย่าง','C ใช้กับรูป · X ใช้กับข้อความ'], w:'คัดลอก = ได้สำเนา ของเดิมอยู่ · ตัด = ย้าย ของเดิมหาย'}
+  ],
   oh1: [
     {p:'⌨️', q:'โปรแกรมใดเกิดมาแทน "เครื่องพิมพ์ดีด" ในสำนักงาน', c:['Microsoft Word','Microsoft Excel','Microsoft PowerPoint','Google Chrome'], w:'Word = พิมพ์เอกสาร'},
     {p:'📒', q:'โปรแกรมใดเหมาะกับงานตารางตัวเลข คำนวณรายรับรายจ่าย', c:['Microsoft Excel','Microsoft Word','Microsoft PowerPoint','Windows'], w:'Excel = คำนวณ'},
@@ -3984,7 +4258,10 @@ const LEVELS = [
   {ch:'ofx', id:'ox3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'$ ตรึงช่อง ข้อผิดพลาด # นามสกุล ปุ่มลัด', cls:'c2'},
   {ch:'ofp', id:'op1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'👆 แตะบนจอ PowerPoint', cls:'c6'},
   {ch:'ofp', id:'op2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'การเปลี่ยน ภาพเคลื่อนไหว มุมมอง', cls:'c5'},
-  {ch:'ofp', id:'op3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ต้นแบบสไลด์ นามสกุล ปุ่มลัด', cls:'c2'}
+  {ch:'ofp', id:'op3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ต้นแบบสไลด์ นามสกุล ปุ่มลัด', cls:'c2'},
+  {ch:'ofk', id:'ok1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'⌨️ กดบนแป้นพิมพ์', cls:'c6'},
+  {ch:'ofk', id:'ok2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'Windows · ปุ่มเดียวกันคนละโปรแกรม', cls:'c5'},
+  {ch:'ofk', id:'ok3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'Word Excel PowerPoint · ปุ่ม F · Fn', cls:'c2'}
 ];
 const CHS = {
   pc:{n:'คอมพิวเตอร์', i:'🕰️', scr:'pc'},
@@ -3999,7 +4276,8 @@ const CHS = {
   ofs:{n:'🏆 หน้าจอโปรแกรม', i:'🖥️', scr:'ofs'},
   ofw:{n:'🏆 Word', i:'📝', scr:'ofw'},
   ofx:{n:'🏆 Excel', i:'📊', scr:'ofx'},
-  ofp:{n:'🏆 PowerPoint', i:'📽️', scr:'ofp'}
+  ofp:{n:'🏆 PowerPoint', i:'📽️', scr:'ofp'},
+  ofk:{n:'🏆 ปุ่มลัด', i:'⌨️', scr:'ofk'}
 };
 let curCh='hw';
 const chLevels = () => LEVELS.filter(L=>L.ch===curCh);
@@ -4110,6 +4388,16 @@ function showQ(){
     $('q-pic').onclick=e=>{ const el=e.target.closest('.hit'); if(el&&!game.tapped){ game.tapped=true; tapAnswer(el,q); } };
     game.tapped=false; return;
   }
+  if(q.t==='key'){ // เกมกดปุ่มลัดบนแป้นพิมพ์ (บท O6): แตะทีละปุ่ม แล้วกดตกลง
+    game.keys=[]; game.tapped=false;
+    $('q-pic').innerHTML=kbdSvg();
+    $('q-pic').onclick=e=>{ const el=e.target.closest('.hit'); if(!el||game.tapped) return; const k=el.dataset.k;
+      game.keys=game.keys.includes(k)?game.keys.filter(x=>x!==k):[...game.keys,k];
+      kbdMark($('q-pic'),game.keys,'sel'); $('q-kb').textContent=game.keys.length?'กดอยู่: '+kbdTxt(game.keys):'ยังไม่ได้แตะปุ่ม'; };
+    box.innerHTML=`<div id="q-kb" class="center" style="font-weight:700;margin:4px 0">ยังไม่ได้แตะปุ่ม</div>
+      <div class="center"><button class="btn go" onclick="keyAnswer()">✅ ตกลง</button> <button class="tab" onclick="game.keys=[];kbdMark($('q-pic'),[],'sel');$('q-kb').textContent='ยังไม่ได้แตะปุ่ม'">↺ ล้าง</button></div>`;
+    return;
+  }
   $('q-pic').onclick=null;
   q.choices.forEach((val,i)=>{
     const b=document.createElement('button');
@@ -4153,6 +4441,23 @@ function tapAnswer(el,q){
     el.classList.add('bad'); $('q-pic').querySelector(`.hit[data-k="${q.k}"]`).classList.add('ok');
     game.hearts--; $('q-hearts').textContent=heartsTxt();
     $('q-fb').textContent=`❌ ตรงนั้นคือ ${(TAPSCR[q.g]?TAPSCR[q.g][1]:OFS)[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
+    if(!q.boss && !save.wrong.includes(key)) save.wrong.push(key);
+  }
+  afterAnswer(q);
+}
+function keyAnswer(){
+  const q=game.qs[game.idx]; if(game.tapped) return;
+  if(!game.keys.length){ $('q-kb').textContent='👆 แตะปุ่มบนแป้นพิมพ์ก่อน แล้วค่อยกดตกลง'; return; }
+  game.tapped=true; $('q-choices').querySelectorAll('button').forEach(b=>b.disabled=true);
+  const key=qKey(chLevels()[game.lv].id,q), mine=kbdKey(game.keys), ok=[q.k,...(q.alt||[])].some(a=>kbdKey(a)===mine);
+  if(ok){
+    kbdMark($('q-pic'),game.keys,'ok'); game.score++; $('q-score').textContent=game.score;
+    $('q-fb').textContent=`✅ ถูกต้อง ${kbdTxt(game.keys)} เก่งมาก!`; $('q-fb').style.color='#39c14a';
+    save.wrong=save.wrong.filter(k=>k!==key); miniConfetti();
+  } else {
+    kbdMark($('q-pic'),game.keys.filter(k=>!q.k.includes(k)),'bad'); kbdMark($('q-pic'),q.k,'ok');
+    game.hearts--; $('q-hearts').textContent=heartsTxt();
+    $('q-fb').textContent=`❌ ที่กดคือ ${kbdTxt(game.keys)} · ที่ถูกคือ ${kbdTxt(q.k)} (ปุ่มสีเขียว)`; $('q-fb').style.color='#ff5f5f';
     if(!q.boss && !save.wrong.includes(key)) save.wrong.push(key);
   }
   afterAnswer(q);

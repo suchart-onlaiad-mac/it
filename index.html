@@ -2094,12 +2094,49 @@ function go(id){
   $(id).classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
   const r=$('ch-retry'); if(r) r.style.display=(town&&CHS[town.ch].scr===id)?'block':'none';
+  if(!keepLayers) collapseLayers(id); keepLayers=false; // กลับเข้าบทเมื่อไหร่ เริ่มที่ 🌱 เสมอ
+  refreshLayerPlay(id);
 }
 function home(){ go('home'); }
-function openLayer(id,btn){
-  $(id).classList.remove('hide');
-  btn.style.display='none';
-  setTimeout(()=>$(id).scrollIntoView({behavior:'smooth',block:'start'}),50);
+
+/* ============ ชั้น 🌿🌳: กดเปิด/ซ่อน · ลองเล่นท้ายชั้น (ด่าน 1/2/3 = ชั้น 🌱🌿🌳) ============ */
+const LNM=['ชั้นเมล็ด','ชั้นต้นกล้า','ชั้นต้นไม้ใหญ่'], LIC=['🌱','🌿','🌳'];
+let keepLayers=false;
+const moreBtn = id => document.querySelector(`.more[onclick^="openLayer('${id}'"]`);
+function markMore(id,open){
+  const b=moreBtn(id); if(!b) return;
+  if(!b.dataset.t) b.dataset.t=b.innerHTML;
+  const n=+id.slice(-1)-1;
+  b.innerHTML=open?`⬆️ ซ่อน${LNM[n]} ${LIC[n]}`:b.dataset.t;
+}
+function openLayer(id){
+  const el=$(id);
+  if(!el.classList.contains('hide')) return closeLayer(id);
+  el.classList.remove('hide'); markMore(id,true);
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+function closeLayer(id){ // ซ่อน 🌿 = ซ่อน 🌳 ด้วย (ปุ่มเปิด 🌳 อยู่ใน 🌿)
+  const scr=id.slice(0,-2);
+  for(let k=+id.slice(-1);k<=3;k++){ const el=$(scr+'L'+k); if(el){ el.classList.add('hide'); markMore(scr+'L'+k,false); } }
+  const b=moreBtn(id); if(b) setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'center'}),50);
+}
+function collapseLayers(scr){
+  [2,3].forEach(k=>{ const el=$(scr+'L'+k); if(el){ el.classList.add('hide'); markMore(scr+'L'+k,false); } });
+}
+function readLayer(scr,i){ // จากหน้าผลเกม → กลับไปอ่านชั้น i (0=🌱) เปิดชั้นที่ต้องผ่านไว้ให้
+  keepLayers=true; go(scr); collapseLayers(scr);
+  for(let k=2;k<=i+1;k++){ $(scr+'L'+k).classList.remove('hide'); markMore(scr+'L'+k,true); }
+  if(i>0) setTimeout(()=>$(scr+'L'+(i+1)).scrollIntoView({behavior:'smooth',block:'start'}),400);
+}
+function layerPlay(ch,i){ openGame(ch); if(isOpen(i)) startGame(i); } // ยังล็อก → อยู่หน้าแผนที่ด่าน
+function refreshLayerPlay(scr){
+  document.querySelectorAll(`#${scr} .lp button`).forEach(b=>{
+    const i=+b.dataset.i, Ls=LEVELS.filter(L=>L.ch===b.dataset.ch), st=save.stars[Ls[i].id]||0,
+      open=i===0||(save.stars[Ls[i-1].id]||0)>0;
+    b.textContent=!open?`🔒 ${LNM[i]} ${LIC[i]} · เล่นผ่าน${LNM[i-1]}ก่อนนะ`
+      :st?`🎮 เล่นอีกรอบ · ${LNM[i]} ${LIC[i]} ${'⭐'.repeat(st)}`:`🎮 ลองเล่นดู ${LNM[i]} ${LIC[i]} เข้าใจแค่ไหน`;
+    b.style.opacity=open?'':'.6';
+  });
 }
 
 /* mascot reacts on click */
@@ -4587,6 +4624,23 @@ const CHS = {
   ofk:{n:'🏆 ปุ่มลัด', i:'⌨️', scr:'ofk'}
 };
 let curCh='hw';
+// ท้ายทุกชั้น: ปุ่มลองเล่นด่านของชั้นนั้น · ท้าย 🌿🌳: ปุ่มซ่อนชั้น · ปุ่ม 🎮 เดิมท้ายบท = แผนที่ด่านรวม
+Object.entries(CHS).forEach(([ch,C])=>{
+  const L3=$(C.scr+'L3'); if(!L3) return;
+  const play=i=>`<div class="center lp" style="margin-top:14px"><button class="btn go" data-ch="${ch}" data-i="${i}" onclick="layerPlay('${ch}',${i})"></button></div>`;
+  const hideB=k=>`<button class="more" onclick="closeLayer('${C.scr}L${k}')">⬆️ ซ่อน${LNM[k-1]} ${LIC[k-1]}</button>`;
+  moreBtn(C.scr+'L2').insertAdjacentHTML('beforebegin',play(0));
+  moreBtn(C.scr+'L3').insertAdjacentHTML('beforebegin',play(1)+hideB(2));
+  const menu=L3.querySelector('[onclick^="openGame"]');
+  menu.closest('.center').insertAdjacentHTML('beforebegin',play(2));
+  menu.className='btn alt'; menu.textContent='🗺️ ดูด่านทั้งหมดของบทนี้';
+  L3.insertAdjacentHTML('beforeend',hideB(3));
+});
+function nextCh(ch){ // ทางอ่านกว้างก่อน: บทถัดไปตามลำดับหน้าแรก · จบ 8 บท → ด่านพิเศษ Office
+  const K=Object.keys(CHS), i=K.indexOf(ch);
+  if(ch==='fut') return {scr:'office', lab:'ไปด่านพิเศษ 🏆 Office'};
+  return K[i+1]?{scr:CHS[K[i+1]].scr, lab:'ไปบทถัดไป · '+CHS[K[i+1]].i+' '+CHS[K[i+1]].n.replace('🏆 ','')}:null;
+}
 const chLevels = () => LEVELS.filter(L=>L.ch===curCh);
 function openGame(ch){ if(ch) curCh=ch; go('game'); backToGameMenu(); }
 const PER_ROUND=5, PASS=4;
@@ -4768,11 +4822,16 @@ function startGame(lv){
   game={lv, mode:'round', qs:shuffle(picked).map(prep), idx:0, score:0, hearts:3};
   showPlay();
 }
-function startChallenge(lv){
-  const L=chLevels()[lv];
+const OTHER_N=3; // ท้าทายต่อ: ดึงข้อจากชั้นอื่นของบทเดียวกัน ชั้นละไม่เกิน 3 ข้อ
+function challengePool(lv){ // ข้อที่เหลือของด่านนี้ → ข้อชั้นอื่น (layer/src บอกที่มา) → 👹 ท้ายสุด
+  const Ls=chLevels(), L=Ls[lv];
   const rest=restOf[L.id]||BANK[L.id];   // reload แล้วไม่รู้ว่ารอบก่อนถามข้อไหน → ใช้ทั้งคลัง
+  const other=Ls.flatMap((O,i)=>i===lv?[]:shuffle(BANK[O.id]).slice(0,OTHER_N).map(q=>({...q, layer:i, src:O.id})));
   const boss=(BOSS[L.id]||[]).map(q=>({...q, boss:true}));
-  game={lv, mode:'challenge', qs:[...shuffle(rest), ...shuffle(boss)].map(prep), idx:0, score:0, hearts:3};
+  return [...shuffle(rest), ...shuffle(other), ...shuffle(boss)];
+}
+function startChallenge(lv){
+  game={lv, mode:'challenge', qs:challengePool(lv).map(prep), idx:0, score:0, hearts:3};
   town=null; $('ch-retry').style.display='none';
   showPlay();
 }
@@ -4794,7 +4853,7 @@ function showPlay(){
 const TAPSCR={wd:[wdSvg,WD], xl:[xlSvg,XL], pp:[ppSvg,PP]};
 function showQ(){
   const q=game.qs[game.idx], N=game.qs.length;
-  $('q-count').textContent=game.mode==='round'?`ข้อ ${game.idx+1} / ${N}`:(q.boss?'👹 ปราบเซียน':'🔥 ท้าทาย')+` ${game.idx+1} / ${N}`;
+  $('q-count').textContent=game.mode==='round'?`ข้อ ${game.idx+1} / ${N}`:(q.boss?'👹 ปราบเซียน':'🔥 ท้าทาย'+(q.layer!=null?` · ข้อจาก${LNM[q.layer]} ${LIC[q.layer]}`:''))+` ${game.idx+1} / ${N}`;
   $('q-score').textContent=game.score;
   $('q-hearts').textContent=heartsTxt();
   $('q-prog').style.width=(game.idx/N*100)+'%';
@@ -4837,7 +4896,7 @@ function afterAnswer(q){
 function answer(btn,val,q){
   const btns=[...document.querySelectorAll('#q-choices .choice')];
   btns.forEach(b=>b.disabled=true);
-  const key=qKey(chLevels()[game.lv].id,q);
+  const key=qKey(q.src||chLevels()[game.lv].id,q);
   if(val===q.ans){
     btn.classList.add('correct');
     game.score++; $('q-score').textContent=game.score;
@@ -4854,7 +4913,7 @@ function answer(btn,val,q){
   afterAnswer(q);
 }
 function tapAnswer(el,q){
-  const key=qKey(chLevels()[game.lv].id,q), ok=el.dataset.k===q.k||(q.alt||[]).includes(el.dataset.k);
+  const key=qKey(q.src||chLevels()[game.lv].id,q), ok=el.dataset.k===q.k||(q.alt||[]).includes(el.dataset.k);
   if(ok){
     el.classList.add('ok'); game.score++; $('q-score').textContent=game.score;
     $('q-fb').textContent='✅ ถูกต้อง เก่งมาก!'; $('q-fb').style.color='#39c14a';
@@ -4871,7 +4930,7 @@ function keyAnswer(){
   const q=game.qs[game.idx]; if(game.tapped) return;
   if(!game.keys.length){ $('q-kb').textContent='👆 แตะปุ่มบนแป้นพิมพ์ก่อน แล้วค่อยกดตกลง'; return; }
   game.tapped=true; $('q-choices').querySelectorAll('button').forEach(b=>b.disabled=true);
-  const key=qKey(chLevels()[game.lv].id,q), mine=kbdKey(game.keys), noFn=kbdKey(game.keys.filter(x=>x!=='fn')),
+  const key=qKey(q.src||chLevels()[game.lv].id,q), mine=kbdKey(game.keys), noFn=kbdKey(game.keys.filter(x=>x!=='fn')),
     ok=[q.k,...(q.alt||[])].some(a=>kbdKey(a)===mine||(!a.includes('fn')&&kbdKey(a)===noFn)); // โน้ตบุ๊กกด Fn ร่วมปุ่ม F ได้ (หน้า Microsoft แนะนำเอง) → ไม่หักคะแนน
   if(ok){
     kbdMark($('q-pic'),game.keys,'ok'); game.score++; $('q-score').textContent=game.score;
@@ -4903,11 +4962,17 @@ function endGame(){
   $('e-stars').textContent = '⭐'.repeat(starN)+'☆'.repeat(3-starN);
   const next=chLevels()[game.lv+1];
   $('e-msg').textContent = !pass?'เกือบแล้ว ลองใหม่นะ 💪' : starN===3?'สุดยอด! ไม่พลาดเลย 🏆':'ผ่านด่านแล้ว! 😄';
-  $('e-detail').textContent = `ทำถูก ${s} จาก ${PER_ROUND} ข้อ`+(pass&&next&&!(save.stars[L.id]>0)?` · ปลดล็อก ${next.name} 🔓`:'')+(!pass?` · ต้องถูก ${PASS} ข้อขึ้นไป`:'');
+  const lv=game.lv, scr=CHS[curCh].scr, nx=nextCh(curCh);
+  $('e-detail').textContent = `ทำถูก ${s} จาก ${PER_ROUND} ข้อ`+(pass&&next&&!(save.stars[L.id]>0)?` · ปลดล็อก ${next.name} 🔓`:'')+(!pass?` · ต้องถูก ${PASS} ข้อขึ้นไป · ลองอ่าน${LNM[lv]}อีกรอบ แล้วกลับมาเล่นใหม่`:'');
   if(starN>(save.stars[L.id]||0)){ save.stars[L.id]=starN; persist(); showStars(); }
-  const left=(restOf[L.id]||[]).length+(BOSS[L.id]||[]).length;
-  endBtns((pass&&left?`<button class="btn fire" onclick="startChallenge(${game.lv})">🔥 ท้าทายต่อ (อีก ${left} ข้อ)</button>`:'')
-    +`<button class="btn alt" onclick="go(CHS[curCh].scr)">📖 ทบทวนบทเรียน</button>`);
+  const left=challengePool(lv).length;
+  // ผ่าน → ชวนอ่านกว้างก่อน (บทถัดไป) หรือลงลึกชั้นถัดไป · ไม่ผ่าน → พากลับไปชั้นที่เพิ่งเล่น
+  endBtns(pass
+    ? (nx?`<button class="btn go" onclick="go('${nx.scr}')">▶ ${nx.lab}</button>`:'')
+      +(lv<2?`<button class="btn alt" onclick="readLayer('${scr}',${lv+1})">${LIC[lv+1]} อ่าน${LNM[lv+1]}ต่อ</button>`
+           :`<button class="btn alt" onclick="go('${scr}')">📖 ทบทวนบทเรียน</button>`)
+      +(left?`<button class="btn fire" onclick="startChallenge(${lv})">🔥 ท้าทายต่อ (อีก ${left} ข้อ)</button>`:'')
+    : `<button class="btn alt" onclick="readLayer('${scr}',${lv})">📖 กลับไปอ่าน${LNM[lv]} ${LIC[lv]}</button>`);
   if(pass) bigConfetti();
 }
 function endChallenge(){

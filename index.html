@@ -225,6 +225,7 @@
   .cmp .it b{display:block; font-size:17px; margin-top:4px}
   .cmp .it span{display:block; font-size:14px; color:#6a64a6; margin-top:4px; line-height:1.5}
   .cmp .it span b{display:inline; font-size:inherit; margin:0; color:var(--ink)}
+  .cmp .it span .kw{display:inline; font-size:inherit; margin:0; color:#6b3fd6; line-height:inherit}
   .cmp .it .pill{display:inline-block; margin-top:8px; font-size:12.5px; font-weight:600; color:#fff; border-radius:50px; padding:3px 12px}
   .p-in{background:var(--blue)} .p-pr{background:var(--pink)} .p-st{background:var(--orange)} .p-out{background:var(--green)}
 
@@ -253,6 +254,10 @@
   .lv .st{margin-left:auto; font-size:20px; letter-spacing:2px; white-space:nowrap}
   .lv.locked{background:#cfcbe6 !important; cursor:not-allowed} .lv.locked:hover{transform:none}
   .hearts{font-size:18px; letter-spacing:2px}
+  .btn.fire{background:linear-gradient(135deg,#ff5f3c,#ffb020)}
+  #ch-retry{position:fixed; left:50%; bottom:16px; transform:translateX(-50%); z-index:50; display:none;
+    box-shadow:0 6px 18px rgba(0,0,0,.25); max-width:calc(100vw - 32px)}
+  .lv .bd{font-size:15px; margin-left:4px}
   .choices.txt{grid-template-columns:1fr}
   .choices.txt .choice{font-size:17px; text-align:left; padding:14px 16px; line-height:1.45}
   .why{background:#f7f5ff; border-radius:14px; padding:12px 14px; margin-top:12px; font-size:15px; line-height:1.6; display:none}
@@ -281,6 +286,13 @@
   .chip.sel{background:linear-gradient(135deg,var(--yellow),var(--orange)); border-color:transparent}
   .info{background:#fff; border-radius:16px; padding:12px 14px; margin-top:10px; font-size:15.5px; line-height:1.6; min-height:52px;
     border:3px solid #ffe2a8; text-align:center}
+  .info .deep{text-align:left; margin-top:8px; border-top:1.5px dashed #d9d2f2; padding-top:8px}
+  .info .dbtn{border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:14.5px; color:#6b3fd6;
+    background:#efe8ff; border-radius:50px; padding:6px 14px; margin-top:6px}
+  .info .d2{background:#f7f3ff; border-radius:12px; padding:8px 10px}
+  .info .d3{margin:8px 0 4px 18px; padding:0} .info .d3 li{margin:3px 0}
+  .info .dlink{display:inline-block; margin-top:4px; font-size:14px; color:#2a6fd6; word-break:break-word}
+  .kw{color:#6b3fd6; border-bottom:2px dotted #a98bf0; cursor:pointer; font-weight:700}
   .info .gp{font-style:normal; color:#fff; font-size:12.5px; font-weight:600; border-radius:50px; padding:2px 10px; margin-left:4px; white-space:nowrap}
   .map{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-top:8px}
   .grp{border-radius:18px; padding:12px; color:#fff}
@@ -620,7 +632,7 @@
 
         <!-- 1) outside -->
         <div class="step-h"><span class="sn">1</span> 👀 มองจากภายนอก: จอมีส่วนอะไรบ้าง</div>
-        <p class="tip">เลือกโปรแกรม แล้ว<b>แตะวงกลมตัวเลข</b> (หรือแตะตรงไหนบนจอก็ได้) 👆 · เรียงจาก<b>บนลงล่าง</b></p>
+        <p class="tip">เลือกโปรแกรม แล้ว<b>แตะวงกลมตัวเลข</b> (หรือแตะตรงไหนบนจอก็ได้) 👆 · เรียงจาก<b>บนลงล่าง</b> · การ์ดไหนมีปุ่ม <b>🔎 รู้ลึกอีกชั้น</b> กดลงไปได้อีก 2 ชั้น · คำ<span class="kw">สีม่วง</span>ในบทก็แตะได้</p>
         <div class="tabs" id="ofsTabs">
           <button class="tab on" onclick="drawOfs('word',this)">📝 Word</button>
           <button class="tab" onclick="drawOfs('excel',this)">📊 Excel</button>
@@ -633,7 +645,7 @@
         <!-- 2) inside -->
         <div class="step-h"><span class="sn">2</span> 🔍 สลับโปรแกรมดู: ตรงไหนเหมือน ตรงไหนต่าง</div>
         <div class="cmp">
-          <div class="it"><div class="e">🟰</div><b>เหมือนกันทุกโปรแกรม</b><span>ขอบ<b>บน</b>: แถบชื่อเรื่อง · ปุ่มย่อ ขยาย ปิด · แท็บไฟล์ · ริบบอน<br>ขอบ<b>ล่าง</b>: แถบสถานะ · ตัวเลื่อนย่อ/ขยาย</span></div>
+          <div class="it"><div class="e">🟰</div><b>เหมือนกันทุกโปรแกรม</b><span>ขอบ<b>บน</b>: แถบชื่อเรื่อง · ปุ่มย่อ ขยาย ปิด · <span class="kw" onclick="ofsKw('file')">แท็บไฟล์</span> · <span class="kw" onclick="ofsKw('ribbon')">ริบบอน</span><br>ขอบ<b>ล่าง</b>: <span class="kw" onclick="ofsKw('status')">แถบสถานะ</span> · ตัวเลื่อนย่อ/ขยาย</span></div>
           <div class="it"><div class="e">🔀</div><b>ต่างกันแค่ตรงกลาง</b><span>📝 Word = <b>หน้ากระดาษ</b><br>📊 Excel = <b>ตารางช่อง ๆ</b><br>📽️ PowerPoint = <b>สไลด์</b> (มีสไลด์เล็กเรียงด้านซ้าย)<br>และ<b>แท็บบางแท็บ</b>บนริบบอน</span></div>
         </div>
         <div class="memo">🔑 จำง่าย ๆ: <b>บน = สั่งงาน</b> (ริบบอน) · <b>กลาง = ทำงาน</b> · <b>ล่าง = บอกสถานะ</b> (แถบสถานะ)</div>
@@ -688,7 +700,7 @@
         <div class="tw"><table class="t">
           <tr><th>กด</th><th>ได้อะไร</th></tr>
           <tr><td><b>Ctrl+F1</b></td><td>ย่อ/ขยายริบบอน (ซ่อนปุ่ม เหลือแต่ชื่อแท็บ จอทำงานกว้างขึ้น)</td></tr>
-          <tr><td><b>Alt</b></td><td>ตัวอักษรเล็ก ๆ โผล่บนแท็บ เรียกว่า <b>เคล็ดลับแป้น</b> (KeyTips) · กดตัวอักษรตามนั้นเพื่อเปิดแท็บ เช่น Word: <b>H</b> = หน้าแรก · <b>N</b> = แทรก</td></tr>
+          <tr><td><b>Alt</b></td><td>ตัวอักษรเล็ก ๆ โผล่บนแท็บ เรียกว่า <b>เคล็ดลับแป้นพิมพ์</b> (KeyTips) · กดตัวอักษรตามนั้นเพื่อเปิดแท็บ เช่น Word: <b>H</b> = หน้าแรก · <b>N</b> = แทรก</td></tr>
           <tr><td><b>Alt+Q</b></td><td>ไปที่กล่องค้นหา พิมพ์ถามหาคำสั่ง (รุ่นก่อนเรียกช่อง <b>บอกฉัน</b> · Tell Me)</td></tr>
         </table></div>
 
@@ -1565,7 +1577,7 @@
         <div class="stars" id="e-stars">⭐⭐⭐</div>
         <div class="msg" id="e-msg">เก่งมาก!</div>
         <div class="detail" id="e-detail">ทำถูก 5 จาก 5 ข้อ</div>
-        <div class="center" style="margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
+        <div class="center" id="e-btns" style="margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
           <button class="btn go" onclick="backToGameMenu()">🗺️ แผนที่ด่าน</button>
           <button class="btn alt" onclick="go(CHS[curCh].scr)">📖 ทบทวนบทเรียน</button>
         </div>
@@ -1573,9 +1585,11 @@
     </div>
   </div>
 
+  <button class="btn fire" id="ch-retry" onclick="retryChallenge()">🔥 ท้าทายใหม่</button>
+
   <footer>
     🦉 สื่อการเรียนรู้ "ไอทีง่ายนิดเดียว" · เปิดได้ทุกอุปกรณ์<br>
-    ครบ 8 บท · เกม 24 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
+    ครบ 8 บท + ห้องเรียน Office · เกม 30 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
   </footer>
 </div>
 
@@ -1594,6 +1608,7 @@ function go(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   $(id).classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
+  const r=$('ch-retry'); if(r) r.style.display=(town&&CHS[town.ch].scr===id)?'block':'none';
 }
 function home(){ go('home'); }
 function openLayer(id,btn){
@@ -2224,14 +2239,64 @@ function drawOfs(prog,btn){
   $('figOfs').innerHTML=ofsSvg(prog,true);
   $('chipsOfs').innerHTML=Object.keys(OFS).map((k,i)=>`<button class="chip" data-k="${k}">${i+1}. ${OFS[k][0]}</button>`).join('');
   $('infoOfs').innerHTML='👆 แตะวงกลมตัวเลข หรือแตะตรงไหนบนจอก็ได้ ดูว่าส่วนนั้นชื่ออะไร ทำอะไร';
-  const pick=k=>{
+  const pick=ofsPick=k=>{
     ['figOfs','chipsOfs'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
     const O=OFS[k];
-    $('infoOfs').innerHTML=`<b>${O[0]}</b> <i class="gp" style="background:${OFP[prog].c}">${O[1]}</i><br>${O[2]}`;
+    $('infoOfs').innerHTML=`<b>${O[0]}</b> <i class="gp" style="background:${OFP[prog].c}">${O[1]}</i><br>${O[2]}`
+      +(OFS_DEEP[k]?`<div class="deep" id="ofsDeep"><button class="dbtn" onclick="ofsDeep('${k}',2)">🔎 รู้ลึกอีกชั้น</button></div>`:'');
     pop($('infoOfs'));
   };
   ['figOfs','chipsOfs'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
 }
+let ofsPick=()=>{};
+// คำสำคัญกดลงลึก 3 ชั้น (มติ 03-11 · นำร่อง O2): ชั้น 1 = การ์ดเดิมบนภาพ → ชั้น 2 mid → ชั้น 3 full + ลิงก์แหล่ง
+// ข้อปราบเซียน (BOSS) ออกจากเนื้อหาชั้น 2–3 เท่านั้น · h = คีย์ส่วนที่ซ่อนคำตอบ
+const OFS_DEEP = {
+  ribbon:{mid:'แผงปุ่มคำสั่งทั้งหมด จัดเป็น <b>แท็บ → กลุ่ม → คำสั่ง</b> · ซ่อน ยุบ หรือปรับแต่งเองได้',
+    full:['ยุบริบบอนได้ 3 ทาง: <b>ดับเบิลคลิกชื่อแท็บ</b> · คลิกขวาที่แท็บ → ยุบ Ribbon · กด <b>Ctrl+F1</b>',
+      'ตัวเลือกการแสดง Ribbon (มุมขวาล่าง) ในแอปบนคอมมี 3 แบบ: <b>โหมดเต็มหน้าจอ · แสดงแท็บเท่านั้น · แสดง Ribbon เสมอ</b> · ฉบับเว็บมีมากกว่า เช่น <b>Ribbon เส้นเดียว</b>',
+      'โหมดเต็มหน้าจอ ริบบอนหายไป → กด <b>Alt</b> หรือปุ่ม (...) มุมขวาบน เรียกกลับมาชั่วคราว',
+      'กด Alt แล้วกดตัวอักษร (<b>เคล็ดลับแป้นพิมพ์</b>): <b>F</b> ไฟล์ · <b>H</b> หน้าแรก · <b>N</b> แทรก · <b>W</b> มุมมอง · PowerPoint: <b>K</b> การเปลี่ยน · <b>A</b> ภาพเคลื่อนไหว · <b>S</b> การนำเสนอสไลด์',
+      'ปรับแต่งเอง: คลิกขวาที่ว่างบนริบบอน → กำหนด Ribbon เอง · แท็บเดิมซ่อนได้แต่<b>ลบไม่ได้</b> ลบได้เฉพาะ<b>แท็บที่สร้างเอง</b> · เอาคำสั่งออกจากกลุ่มเดิมไม่ได้ ต้อง<b>สร้างกลุ่มใหม่</b>แทน'],
+    link:['https://support.microsoft.com/th-th/office/foundations-experiences/show-or-hide-the-ribbon-in-office','Microsoft: แสดงหรือซ่อน Ribbon (ภาษาไทย)']},
+  file:{mid:'กดแล้วทั้งจอเปลี่ยนเป็นหน้า <b>Backstage</b> ใช้ทำงานกับ<b>ทั้งไฟล์</b> ไม่ใช่แก้เนื้อหาข้างใน',
+    full:['เมนูซ้าย: สร้าง · เปิด · บันทึกเป็น (หรือ บันทึกสำเนา) · พิมพ์ · แชร์ · มุมล่างซ้าย: บัญชี · คำติชม · ตัวเลือก',
+      'ปกติใช้ <b>บันทึกเป็น</b> · ถ้าไฟล์อยู่บน OneDrive และเปิด<b>บันทึกอัตโนมัติ</b>ไว้ เมนูจะเปลี่ยนเป็น <b>บันทึกสำเนา</b>',
+      'ออกจาก Backstage: ลูกศรย้อนกลับมุมซ้ายบน หรือกด <b>Esc</b> · เปิดด้วยแป้นพิมพ์: <b>Alt+F</b>',
+      'ชี้ที่ชื่อไฟล์ในรายการล่าสุด แล้วกด<b>หมุด</b> 📌 = ปักไว้ให้อยู่ในรายการตลอด',
+      '⚠️ <b>ลบไฟล์</b> = ลบไฟล์ทิ้งจริง · <b>เอาออกจากรายการ</b> = แค่ถอดชื่อออกจากรายการ ไฟล์ยังอยู่',
+      'แท็บไฟล์ <b>ย้ายที่ไม่ได้ และซ่อนไม่ได้</b> แม้จะปรับแต่งริบบอนเอง'],
+    link:['https://support.microsoft.com/th-th/office/collab-files/start-backstage-with-the-file-tab','Microsoft: เริ่ม Backstage ด้วยแท็บไฟล์ (ภาษาไทย)']},
+  launch:{mid:'ลูกศรเล็กมุมขวาล่างของกลุ่ม · กดแล้วได้กล่องตั้งค่าที่มีตัวเลือก<b>ครบกว่า</b>ปุ่มบนริบบอน',
+    full:['มีใน<b>กลุ่มจำนวนมาก แต่ไม่ใช่ทุกกลุ่ม</b> · หน้าของ Microsoft ยกตัวอย่างกลุ่ม <b>การจัดแนว</b> ใน Excel'],
+    link:['https://support.microsoft.com/th-th/topic/bffe13c0-aa28-4dbd-8805-6d8cdcb3cb8b','Microsoft: ตัวเปิดใช้กล่องโต้ตอบอยู่ที่ใด (ภาษาไทย)']},
+  qat:{mid:'แถบปุ่มเล็กที่<b>ใส่คำสั่งที่ใช้บ่อยเองได้</b> กดได้ตลอด ไม่ว่ากำลังเปิดแท็บไหนอยู่',
+    full:['เพิ่มคำสั่ง: คลิกขวาที่ปุ่มบนริบบอน → <b>เพิ่มลงในแถบเครื่องมือด่วน</b>',
+      'วางได้ 2 ที่: <b>เหนือ</b>ริบบอน หรือ<b>ใต้</b>ริบบอน · ป้ายชื่อคำสั่งแสดงได้<b>เฉพาะตอนอยู่ใต้ริบบอน</b>',
+      '<b>แสดงหลายแถวไม่ได้</b> · ใส่ได้เฉพาะคำสั่ง ใส่<b>ค่าในรายการ</b> (เช่น ค่าระยะห่างแต่ละค่า) ไม่ได้',
+      'ตั้งค่าละเอียด: ไฟล์ › ตัวเลือก › แถบเครื่องมือด่วน'],
+    link:['https://support.microsoft.com/th-th/office/customize-the-quick-access-toolbar','Microsoft: กำหนดแถบเครื่องมือด่วนเอง (ภาษาไทย)']},
+  status:{mid:'แถบล่างสุด บอกสถานะงาน · <b>คลิกขวา</b>ที่แถบนี้ เลือกได้ว่าจะให้แสดงอะไร',
+    full:['Excel: เลือกเซลล์ตัวเลข 2 ช่องขึ้นไป → แสดง <b>ค่าเฉลี่ย · จำนวน (Count) · ผลรวม (Sum)</b> ทันที · ส่วน<b>ต่ำสุด · สูงสุด</b>ไม่ได้เลือกไว้ ต้องคลิกขวาเปิดเอง',
+      'Excel มุมซ้ายบอกโหมดเซลล์: <b>พร้อม</b> · <b>ป้อน</b> (กำลังพิมพ์) · <b>แก้ไข</b> (กด F2) · <b>ชี้</b> (คลิกเซลล์ระหว่างสร้างสูตร)',
+      'Excel กด <b>F8</b> แถบนี้ขึ้นคำว่า "ขยายส่วนที่เลือก"',
+      'Word: กดที่ตัวเลข<b>จำนวนคำ</b> → เห็นจำนวนอักขระ บรรทัด และย่อหน้าเพิ่ม',
+      'กด <b>F6</b> ย้ายไปที่แถบสถานะได้โดยไม่ใช้เมาส์'],
+    link:['https://support.microsoft.com/th-th/excel/excel-status-bar-options','Microsoft: ตัวเลือกแถบสถานะของ Excel (ภาษาไทย)']},
+  search:{mid:'พิมพ์สิ่งที่อยากทำ เช่น "ใส่เลขหน้า" แล้วโปรแกรมพาไปหาคำสั่ง · กด <b>Alt+Q</b> ไปที่ช่องนี้ทันที',
+    full:['Office บางรุ่นเรียกช่องนี้ว่า <b>บอกฉัน</b> (Tell me)',
+      'Alt+Q อยู่ในตารางปุ่มลัดริบบอนของ Microsoft ชุดเดียวกับเคล็ดลับแป้นพิมพ์ (Alt+H หน้าแรก · Alt+N แทรก …)'],
+    link:['https://support.microsoft.com/th-th/accessibility/windows/use-the-keyboard-to-work-with-the-ribbon','Microsoft: การใช้คีย์บอร์ดเพื่อทำงานกับ Ribbon (ภาษาไทย)']}
+};
+function ofsDeep(k,lv){
+  const D=OFS_DEEP[k], box=$('ofsDeep');
+  box.innerHTML = `<div class="d2">🔎 ${D.mid}</div>`
+    +(lv<3?`<button class="dbtn" onclick="ofsDeep('${k}',3)">📖 อ่านฉบับเต็ม</button>`
+          :`<ul class="d3">${D.full.map(f=>`<li>${f}</li>`).join('')}</ul>`
+           +(D.link?`<a class="dlink" href="${D.link[0]}" target="_blank" rel="noopener">${D.link[1]} ↗</a>`:''));
+  pop(box);
+}
+function ofsKw(k){ ofsPick(k); $('infoOfs').scrollIntoView({behavior:'smooth',block:'center'}); }
 drawOfs('word');
 
 /* ============ future tech (outside → inside) ============ */
@@ -2915,7 +2980,7 @@ const BANK = {
     {p:'💾', q:'ปุ่มบันทึก เลิกทำ ทำซ้ำ ที่กดได้ทันทีมุมซ้ายบน อยู่ในส่วนใด', c:['แถบเครื่องมือด่วน','แถบสถานะ','ตัวเปิดใช้กล่องโต้ตอบ','พื้นที่ทำงาน'], w:'Quick Access Toolbar รวมปุ่มที่ใช้บ่อย'},
     {p:'🖼️', q:'คลิกเลือกรูปภาพในเอกสาร แล้วมีแท็บใหม่โผล่ขึ้นมา คือแท็บใด', c:['รูปแบบรูปภาพ','การส่งจดหมาย','สูตร','การเปลี่ยน'], w:'แท็บรูปแบบรูปภาพ (Picture Format) โผล่เมื่อเลือกรูป คลิกที่อื่นก็หายไป'},
     {p:'⌨️', q:'กดปุ่มลัดใด เพื่อย่อหรือขยายริบบอน', c:['Ctrl+F1','Ctrl+F4','Alt+F4','Ctrl+R'], w:'Ctrl+F1 ยุบ/ขยายริบบอน · Alt+F4 คือปิดหน้าต่าง ระวังสับสน'},
-    {p:'🔤', q:'กดปุ่ม Alt แล้วมีตัวอักษรเล็ก ๆ ขึ้นบนแท็บ เรียกว่าอะไร', c:['เคล็ดลับแป้น (KeyTips)','ปุ่มลัดด่วน (Hotbar)','ตัวช่วยพิมพ์ (AutoText)','ป้ายคำสั่ง (Tooltip)'], w:'เคล็ดลับแป้น กดตัวอักษรตามนั้นเพื่อเปิดแท็บโดยไม่ใช้เมาส์'},
+    {p:'🔤', q:'กดปุ่ม Alt แล้วมีตัวอักษรเล็ก ๆ ขึ้นบนแท็บ เรียกว่าอะไร', c:['เคล็ดลับแป้นพิมพ์ (KeyTips)','ปุ่มลัดด่วน (Hotbar)','ตัวช่วยพิมพ์ (AutoText)','ป้ายคำสั่ง (Tooltip)'], w:'เคล็ดลับแป้นพิมพ์ กดตัวอักษรตามนั้นเพื่อเปิดแท็บโดยไม่ใช้เมาส์'},
     {p:'❓', q:'ลืมว่าคำสั่งอยู่ตรงไหน วิธีใดหาได้เร็วที่สุด', c:['พิมพ์ถามในกล่องค้นหาด้านบน (Alt+Q)','ปิดโปรแกรมแล้วเปิดใหม่','กดทุกแท็บไล่หาทีละปุ่ม','ซูมจอให้ใหญ่ขึ้น'], w:'กล่องค้นหา (Microsoft Search) พาไปหาคำสั่งให้'}
   ],
   os3: [
@@ -3040,17 +3105,49 @@ function renderLevels(){
     const open=isOpen(i), st=save.stars[L.id]||0;
     b.className='lv '+L.cls+(open?'':' locked');
     b.innerHTML=`<span class="n">${open?L.icon:'🔒'}</span><span><b>${L.name}</b><small>${open?L.sub:'ผ่านด่านก่อนหน้าเพื่อปลดล็อก'}</small></span>
-      <span class="st">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</span>`;
+      <span class="st">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}${(save.boss||{})[L.id]?'<span class="bd" title="พิชิตข้อปราบเซียนครบ">🏆</span>':''}</span>`;
     if(open) b.onclick=()=>startGame(i);
     box.appendChild(b);
   });
 }
 
 /* ============ Quiz Game ============ */
-let game={qs:[],idx:0,score:0,hearts:3,lv:0};
+let game={qs:[],idx:0,score:0,hearts:3,lv:0,mode:'round'};
+// มติเกม 03-11: ผ่านด่าน → 🔥 ท้าทายต่อ (ข้อที่เหลือในคลัง + 👹 ข้อปราบเซียน) หัวใจ 3 ดวงใหม่ · ดาวคิดจาก 5 ข้อแรกเท่านั้น
+const BOSS={
+  os1:[
+    {t:'tap', g:'word', k:'file', h:'file', q:'ในบรรดาแท็บทั้งหมด แท็บไหน "ย้ายที่ไม่ได้ และซ่อนไม่ได้" แม้ปรับแต่งริบบอนเอง? แตะเลย 👆', w:'แท็บไฟล์ ย้ายและซ่อนไม่ได้ · แท็บอื่นที่ติดมากับโปรแกรมซ่อนได้'},
+    {t:'tap', g:'excel', k:'status', alt:['zoom'], h:'status', q:'เลือกเซลล์ตัวเลข 2 ช่องขึ้นไป Excel บอกผลรวม (Sum) ให้ทันทีที่ส่วนไหน? แตะเลย 👆', w:'แถบสถานะ แสดงค่าเฉลี่ย จำนวน และผลรวมให้อัตโนมัติ'},
+    {t:'tap', g:'excel', k:'status', alt:['zoom'], h:'status', q:'กด F8 ใน Excel แล้วคำว่า "ขยายส่วนที่เลือก" จะขึ้นที่ส่วนไหน? แตะเลย 👆', w:'แถบสถานะ บอกโหมดที่กำลังใช้อยู่'},
+    {t:'tap', g:'word', k:'qat', h:'qat', q:'ส่วนไหน "แสดงหลายแถวไม่ได้" และจะโชว์ป้ายชื่อคำสั่งได้เฉพาะตอนย้ายไปไว้ใต้ริบบอน? แตะเลย 👆', w:'แถบเครื่องมือด่วน ใส่คำสั่งที่ใช้บ่อยเองได้ แต่มีได้แถวเดียว'},
+    {t:'tap', g:'ppt', k:'file', h:'file', q:'อยากปักหมุดไฟล์ไว้ในรายการล่าสุดตลอด ต้องเริ่มกดที่ส่วนไหน? แตะเลย 👆', w:'แท็บไฟล์ → หน้า Backstage → ชี้ชื่อไฟล์แล้วกดหมุด'},
+    {t:'tap', g:'excel', k:'search', h:'search', q:'Office บางรุ่นเรียกส่วนนี้ว่า "บอกฉัน" (Tell me) อยู่ตรงไหน? แตะเลย 👆', w:'กล่องค้นหา พิมพ์ถามหาคำสั่งได้ · ปุ่มลัด Alt+Q'},
+    {t:'tap', g:'word', k:'ribbon', h:'ribbon', q:'ดับเบิลคลิกที่ชื่อแท็บ ส่วนไหนจะยุบหายไป เหลือแต่ชื่อแท็บ? แตะเลย 👆', w:'ริบบอนยุบได้ด้วยการดับเบิลคลิกแท็บ หรือกด Ctrl+F1'}],
+  os2:[
+    {p:'🗑️', h:'ribbon', q:'แท็บแบบไหน "ลบทิ้ง" ได้', c:['แท็บที่เราสร้างเอง','แท็บหน้าแรก','แท็บแทรก','แท็บไฟล์'], w:'แท็บที่ติดมากับโปรแกรมทำได้แค่ซ่อน ลบได้เฉพาะแท็บที่สร้างเอง'},
+    {p:'⚠️', h:'file', q:'ในหน้า Backstage คำสั่งใด "ลบไฟล์ออกไปจริง ๆ"', c:['ลบไฟล์','เอาออกจากรายการ','ปักหมุด','บันทึกสำเนา'], w:'เอาออกจากรายการ แค่ถอดชื่อออก ไฟล์ยังอยู่ · ลบไฟล์ คือทิ้งจริง'},
+    {p:'💾', h:'file', q:'เปิดไฟล์จาก OneDrive ที่เปิด "บันทึกอัตโนมัติ" ไว้ ในหน้า Backstage คำสั่ง "บันทึกเป็น" จะเปลี่ยนชื่อเป็นอะไร', c:['บันทึกสำเนา','บันทึกทับ','บันทึกด่วน','บันทึกถาวร'], w:'บันทึกอัตโนมัติเปิดอยู่ จะเห็น บันทึกสำเนา แทน บันทึกเป็น · ไฟล์ในเครื่องยังใช้ บันทึกเป็น'},
+    {p:'⌨️', h:'file', q:'อยู่ในหน้า Backstage แล้วอยากกลับไปทำงานต่อ กดแป้นใด', c:['Esc','Enter','Delete','Tab'], w:'Esc หรือลูกศรย้อนกลับมุมซ้ายบน'},
+    {p:'🔤', h:'ribbon', q:'กด Alt แล้วกดตัวอักษรใด จึงเปิดหน้าไฟล์ (Backstage)', c:['F','H','N','W'], w:'Alt+F = ไฟล์ · H = หน้าแรก · N = แทรก · W = มุมมอง'},
+    {p:'📽️', h:'ribbon', q:'ใน PowerPoint กด Alt แล้วกด K จะไปแท็บใด', c:['การเปลี่ยน','ภาพเคลื่อนไหว','การนำเสนอสไลด์','ออกแบบ'], w:'K = การเปลี่ยน · A = ภาพเคลื่อนไหว · S = การนำเสนอสไลด์'},
+    {p:'🧩', h:'ribbon', q:'ไม่อยากได้คำสั่งบางตัวในกลุ่มที่ติดมากับโปรแกรม ต้องทำอย่างไร', c:['สร้างกลุ่มใหม่ ใส่เฉพาะคำสั่งที่ต้องการแทน','ลากคำสั่งทิ้งออกจากกลุ่ม','คลิกขวาที่คำสั่งแล้วกดลบ','เปลี่ยนชื่อคำสั่งให้ว่าง'], w:'คำสั่งในกลุ่มเดิมเอาออกไม่ได้ ต้องสร้างกลุ่มใหม่ของเราเอง'}],
+  os3:[
+    {p:'🎛️', h:'ribbon', q:'ตัวเลือกการแสดง Ribbon ใน Word/Excel/PowerPoint บนคอม ข้อใด "ไม่ใช่" หนึ่งใน 3 แบบ', c:['Ribbon เส้นเดียว','โหมดเต็มหน้าจอ','แสดงแท็บเท่านั้น','แสดง Ribbon เสมอ'], w:'Ribbon เส้นเดียว มีในฉบับเว็บ ไม่ใช่แอปบนคอม'},
+    {p:'🫥', h:'ribbon', q:'ตั้งเป็นโหมดเต็มหน้าจอแล้วริบบอนหาย กดแป้นใดเรียกกลับมาชั่วคราวได้', c:['Alt','Shift','Tab','Delete'], w:'กด Alt หรือปุ่ม (...) มุมขวาบน · กลับไปที่เอกสาร ริบบอนจะซ่อนอีก'},
+    {p:'📊', h:'status', q:'เลือกเซลล์ตัวเลขหลายช่องใน Excel ค่าใด "ไม่" แสดงบนแถบสถานะตามค่าเริ่มต้น', c:['ค่าต่ำสุด (Min)','ผลรวม (Sum)','ค่าเฉลี่ย','จำนวน (Count)'], w:'ต่ำสุด/สูงสุด ต้องคลิกขวาที่แถบสถานะเปิดเอง'},
+    {p:'✏️', h:'status', q:'Excel: กด F2 แก้ข้อความในเซลล์ มุมซ้ายของแถบสถานะขึ้นคำว่าอะไร', c:['แก้ไข','พร้อม','ป้อน','ชี้'], w:'พร้อม = รอคำสั่ง · ป้อน = กำลังพิมพ์ · แก้ไข = กด F2 · ชี้ = คลิกเซลล์ระหว่างสร้างสูตร'},
+    {p:'📝', h:'status', q:'ใน Word กดที่ตัวเลขจำนวนคำบนแถบสถานะ จะเห็นอะไรเพิ่ม', c:['จำนวนอักขระ บรรทัด และย่อหน้า','คำแปลภาษาอังกฤษ','รายชื่อคนที่แก้ไฟล์','เวลาที่ใช้พิมพ์'], w:'กล่องนับคำ บอกจำนวนอักขระ บรรทัด ย่อหน้า'},
+    {p:'⭐', h:'qat', q:'ข้อใด "ใส่ลงแถบเครื่องมือด่วนไม่ได้"', c:['ค่าในรายการ เช่น ค่าระยะห่างแต่ละค่า','ปุ่มบันทึก','ปุ่มพิมพ์','ปุ่มเลิกทำ'], w:'ใส่ได้เฉพาะคำสั่ง ใส่ค่าที่อยู่ในรายการไม่ได้'},
+    {p:'⌨️', h:'status', q:'กดแป้นใดย้ายไปที่แถบสถานะได้โดยไม่ใช้เมาส์', c:['F6','F2','F5','F12'], w:'F6 · ส่วน F2 = แก้เซลล์ใน Excel · F5 = เริ่มนำเสนอใน PowerPoint'}]
+};            // ข้อปราบเซียนรายด่าน {id:[...]} — ไม่ปนรอบ 5 ข้อแรก
+let restOf={};            // ข้อที่ยังไม่ได้ถามในรอบล่าสุดของแต่ละด่าน
+let town=null;            // {ch, lv} หัวใจหมดแล้วกลับไปอ่านบท
 
 function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function qKey(lvId,q){ return lvId+'|'+q.q; }
+const prep = q => ({...q, choices:q.c?shuffle(q.c):[], ans:q.c?q.c[0]:q.k});
+const isLast = () => game.hearts<=0 || game.idx>=game.qs.length-1;
+const heartsTxt = () => '❤️'.repeat(game.hearts)+'🤍'.repeat(3-game.hearts);
 
 function startGame(lv){
   const L=chLevels()[lv], pool=BANK[L.id];
@@ -3058,18 +3155,38 @@ function startGame(lv){
   const wrong=shuffle(pool.filter(q=>save.wrong.includes(qKey(L.id,q))));
   const rest=shuffle(pool.filter(q=>!wrong.includes(q)));
   const picked=[...wrong.slice(0,2), ...rest].slice(0,PER_ROUND);
-  game={lv, qs:shuffle(picked).map(q=>({...q, choices:q.c?shuffle(q.c):[], ans:q.c?q.c[0]:q.k})), idx:0, score:0, hearts:3};
+  restOf[L.id]=pool.filter(q=>!picked.includes(q));
+  game={lv, mode:'round', qs:shuffle(picked).map(prep), idx:0, score:0, hearts:3};
+  showPlay();
+}
+function startChallenge(lv){
+  const L=chLevels()[lv];
+  const rest=restOf[L.id]||BANK[L.id];   // reload แล้วไม่รู้ว่ารอบก่อนถามข้อไหน → ใช้ทั้งคลัง
+  const boss=(BOSS[L.id]||[]).map(q=>({...q, boss:true}));
+  game={lv, mode:'challenge', qs:[...shuffle(rest), ...shuffle(boss)].map(prep), idx:0, score:0, hearts:3};
+  town=null; $('ch-retry').style.display='none';
+  showPlay();
+}
+function goTown(){ // 🏘️ กลับเมืองเตรียมเสบียง
+  town={ch:curCh, lv:game.lv};
+  go(CHS[curCh].scr);
+}
+function retryChallenge(){ // 🔥 ท้าทายใหม่ หลังอ่านบท
+  if(!town) return;
+  const t=town; curCh=t.ch; go('game'); startChallenge(t.lv);
+}
+function showPlay(){
   $('game-menu').style.display='none';
   $('game-end').style.display='none';
   $('game-play').style.display='block';
   showQ();
 }
 function showQ(){
-  const q=game.qs[game.idx];
-  $('q-count').textContent=`ข้อ ${game.idx+1} / ${PER_ROUND}`;
+  const q=game.qs[game.idx], N=game.qs.length;
+  $('q-count').textContent=game.mode==='round'?`ข้อ ${game.idx+1} / ${N}`:(q.boss?'👹 ปราบเซียน':'🔥 ท้าทาย')+` ${game.idx+1} / ${N}`;
   $('q-score').textContent=game.score;
-  $('q-hearts').textContent='❤️'.repeat(game.hearts)+'🤍'.repeat(3-game.hearts);
-  $('q-prog').style.width=(game.idx/PER_ROUND*100)+'%';
+  $('q-hearts').textContent=heartsTxt();
+  $('q-prog').style.width=(game.idx/N*100)+'%';
   $('q-pic').textContent=q.p||'';
   $('q-text').textContent=q.q;
   $('q-fb').textContent=''; $('q-why').style.display='none'; $('q-next').style.display='none';
@@ -3087,6 +3204,12 @@ function showQ(){
     box.appendChild(b);
   });
 }
+function afterAnswer(q){
+  persist();
+  $('q-why').innerHTML='💡 '+q.w+(q.boss&&q.h&&OFS[q.h]?`<br>🔎 คำตอบซ่อนอยู่ที่คำ <b>${OFS[q.h][0]}</b> ในบท (แตะแล้วกด รู้ลึกอีกชั้น)`:''); $('q-why').style.display='block';
+  $('q-next').textContent=isLast()?'ดูผล 🏁':'ข้อต่อไป ➡️';
+  $('q-next').style.display='inline-block';
+}
 function answer(btn,val,q){
   const btns=[...document.querySelectorAll('#q-choices .choice')];
   btns.forEach(b=>b.disabled=true);
@@ -3099,41 +3222,39 @@ function answer(btn,val,q){
     miniConfetti();
   } else {
     btn.classList.add('wrong');
-    game.hearts--; $('q-hearts').textContent='❤️'.repeat(game.hearts)+'🤍'.repeat(3-game.hearts);
+    game.hearts--; $('q-hearts').textContent=heartsTxt();
     $('q-fb').textContent='❌ ยังไม่ถูกนะ'; $('q-fb').style.color='#ff5f5f';
     btns[q.choices.indexOf(q.ans)].classList.add('correct');
-    if(!save.wrong.includes(key)) save.wrong.push(key);
+    if(!q.boss && !save.wrong.includes(key)) save.wrong.push(key);
   }
-  persist();
-  $('q-why').innerHTML='💡 '+q.w; $('q-why').style.display='block';
-  $('q-next').textContent=(game.hearts<=0||game.idx>=PER_ROUND-1)?'ดูผล 🏁':'ข้อต่อไป ➡️';
-  $('q-next').style.display='inline-block';
+  afterAnswer(q);
 }
 function tapAnswer(el,q){
-  const key=qKey(chLevels()[game.lv].id,q), ok=el.dataset.k===q.k;
+  const key=qKey(chLevels()[game.lv].id,q), ok=el.dataset.k===q.k||(q.alt||[]).includes(el.dataset.k);
   if(ok){
     el.classList.add('ok'); game.score++; $('q-score').textContent=game.score;
     $('q-fb').textContent='✅ ถูกต้อง เก่งมาก!'; $('q-fb').style.color='#39c14a';
     save.wrong=save.wrong.filter(k=>k!==key); miniConfetti();
   } else {
     el.classList.add('bad'); $('q-pic').querySelector(`.hit[data-k="${q.k}"]`).classList.add('ok');
-    game.hearts--; $('q-hearts').textContent='❤️'.repeat(game.hearts)+'🤍'.repeat(3-game.hearts);
+    game.hearts--; $('q-hearts').textContent=heartsTxt();
     $('q-fb').textContent=`❌ ตรงนั้นคือ ${OFS[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
-    if(!save.wrong.includes(key)) save.wrong.push(key);
+    if(!q.boss && !save.wrong.includes(key)) save.wrong.push(key);
   }
-  persist();
-  $('q-why').innerHTML='💡 '+q.w; $('q-why').style.display='block';
-  $('q-next').textContent=(game.hearts<=0||game.idx>=PER_ROUND-1)?'ดูผล 🏁':'ข้อต่อไป ➡️';
-  $('q-next').style.display='inline-block';
+  afterAnswer(q);
 }
 function nextQ(){
   game.idx++;
-  if(game.hearts<=0 || game.idx>=PER_ROUND) endGame();
+  if(game.hearts<=0 || game.idx>=game.qs.length) endGame();
   else showQ();
+}
+function endBtns(html){
+  $('e-btns').innerHTML=html+`<button class="btn go" onclick="backToGameMenu()">🗺️ แผนที่ด่าน</button>`;
 }
 function endGame(){
   $('game-play').style.display='none';
   $('game-end').style.display='block';
+  if(game.mode==='challenge') return endChallenge();
   const s=game.score, L=chLevels()[game.lv];
   const pass = s>=PASS && game.hearts>0;
   const starN = !pass?0 : s>=5?3 : 2;
@@ -3142,12 +3263,33 @@ function endGame(){
   $('e-msg').textContent = !pass?'เกือบแล้ว ลองใหม่นะ 💪' : starN===3?'สุดยอด! ไม่พลาดเลย 🏆':'ผ่านด่านแล้ว! 😄';
   $('e-detail').textContent = `ทำถูก ${s} จาก ${PER_ROUND} ข้อ`+(pass&&next&&!(save.stars[L.id]>0)?` · ปลดล็อก ${next.name} 🔓`:'')+(!pass?` · ต้องถูก ${PASS} ข้อขึ้นไป`:'');
   if(starN>(save.stars[L.id]||0)){ save.stars[L.id]=starN; persist(); showStars(); }
+  const left=(restOf[L.id]||[]).length+(BOSS[L.id]||[]).length;
+  endBtns((pass&&left?`<button class="btn fire" onclick="startChallenge(${game.lv})">🔥 ท้าทายต่อ (อีก ${left} ข้อ)</button>`:'')
+    +`<button class="btn alt" onclick="go(CHS[curCh].scr)">📖 ทบทวนบทเรียน</button>`);
   if(pass) bigConfetti();
+}
+function endChallenge(){
+  const L=chLevels()[game.lv], N=game.qs.length, alive=game.hearts>0;
+  const hasBoss=game.qs.some(q=>q.boss);
+  if(!alive){
+    $('e-stars').textContent='💔';
+    $('e-msg').textContent='หัวใจหมดแล้ว ไปเตรียมเสบียงก่อนนะ 🎒';
+    $('e-detail').textContent=`ตอบไป ${game.idx} จาก ${N} ข้อ (ถูก ${game.score}) · กลับไปอ่านบท แล้วกด 🔥 ท้าทายใหม่ ได้หัวใจ 3 ดวงเต็ม`;
+    endBtns(`<button class="btn alt" onclick="goTown()">🏘️ กลับเมืองเตรียมเสบียง</button>`);
+    return;
+  }
+  if(hasBoss){ save.boss=save.boss||{}; save.boss[L.id]=1; persist(); }
+  $('e-stars').textContent=hasBoss?'🏆':'🔥';
+  $('e-msg').textContent=hasBoss?'พิชิตข้อปราบเซียนครบ! ได้ตรา 🏆':'ฝ่าครบทุกข้อในคลังแล้ว! 🔥';
+  $('e-detail').textContent=`ตอบถูก ${game.score} จาก ${N} ข้อ · หัวใจเหลือ ${game.hearts}`;
+  endBtns(`<button class="btn alt" onclick="go(CHS[curCh].scr)">📖 ทบทวนบทเรียน</button>`);
+  bigConfetti();
 }
 function backToGameMenu(){
   $('game-end').style.display='none';
   $('game-play').style.display='none';
   $('game-menu').style.display='block';
+  town=null; $('ch-retry').style.display='none';
   renderLevels();
 }
 

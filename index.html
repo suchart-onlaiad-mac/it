@@ -2671,6 +2671,32 @@ function ofhStep(){
 }
 ofhScene('born',document.querySelector('#ofhTabs .tab'));
 
+/* ============ ภาพจอ Office ภาษาไทย / English ============ */
+// เปลี่ยนเฉพาะป้ายของโปรแกรมบนภาพ (แท็บ กลุ่ม แถบสถานะ ชื่อไฟล์เริ่มต้น) · เนื้องานในเอกสารคงภาษาไทย
+// ความกว้างช่องแท็บยังคิดจากชื่อไทย → พื้นที่แตะของเกมไม่ขยับ
+const UI_EN={'ไฟล์':'File','หน้าแรก':'Home','แทรก':'Insert','ออกแบบ':'Design','เค้าโครง':'Layout','อ้างอิง':'References',
+  'เค้าโครงหน้ากระดาษ':'Page Layout','สูตร':'Formulas','ข้อมูล':'Data','การเปลี่ยน':'Transitions','ภาพเคลื่อนไหว':'Animations','การนำเสนอสไลด์':'Slide Show',
+  '🔍 ค้นหา':'🔍 Search','คลิปบอร์ด':'Clipboard','ฟอนต์':'Font','ย่อหน้า':'Paragraph','สไตล์':'Styles',
+  'เอกสาร1':'Document1','สมุดงาน1':'Book1','งานนำเสนอ1':'Presentation1','ปกติ':'Normal','หัวเรื่อง 1':'Heading 1','ชื่อเรื่อง':'Title',
+  'การนำทาง':'Navigation','หน้า 1 จาก 2':'Page 1 of 2','หน้า 1 จาก 1 · 25 คำ':'Page 1 of 1 · 25 words','125 คำ':'125 words',
+  'การจัดแนว':'Alignment','ตัวเลข':'Number','ผลรวมอัตโนมัติ':'AutoSum','การแก้ไข':'Editing','แผ่น1':'Sheet1','แผ่น2':'Sheet2','พร้อม':'Ready',
+  'ค่าเฉลี่ย:':'Average:','จำนวน:':'Count:','ผลรวม:':'Sum:',
+  'สไลด์ใหม่':'New Slide','รีเซ็ต':'Reset','สไลด์':'Slides','รูปวาด':'Drawing','คลิกเพื่อเพิ่มชื่อเรื่อง':'Click to add title',
+  'คลิกเพื่อเพิ่มบันทึกย่อ':'Click to add notes','สไลด์ 2 จาก 3':'Slide 2 of 3','สไลด์ 1 จาก 3':'Slide 1 of 3','≡ บันทึกย่อ':'≡ Notes','ซ่อนสไลด์':'Hide Slide'};
+let uiEn=false; try{ uiEn=localStorage.getItem('itUiEn')==='1'; }catch(e){}
+const U = t => uiEn&&UI_EN[t]||t;
+function uiLangBar(){
+  return `<div class="center uiln" style="margin:6px 0">ภาพหน้าจอ: <button class="tab${uiEn?'':' on'}" onclick="setUiEn(false)">🇹🇭 ไทย</button> <button class="tab${uiEn?' on':''}" onclick="setUiEn(true)">🇬🇧 English</button></div>`;
+}
+function setUiEn(v){
+  uiEn=v; try{ localStorage.setItem('itUiEn',v?'1':'0'); }catch(e){}
+  document.querySelectorAll('.uiln').forEach(el=>el.outerHTML=uiLangBar());
+  drawOfs(ofsProg); drawWd(); drawXl(); drawPp();
+}
+// โจทย์เกมแตะที่ยกชื่อบนจอมาในเครื่องหมายคำพูด → เติมชื่ออังกฤษต่อท้ายเมื่อดูจอ English
+const qUi = t => uiEn?Object.keys(UI_EN).reduce((s,k)=>s.split(`"${k}"`).join(`"${k}" (${UI_EN[k]})`),t):t;
+['figOfs','figWd','figXl','figPp'].forEach(id=>$(id).insertAdjacentHTML('beforebegin',uiLangBar()));
+
 /* ============ office 2 · program screen (outside → inside) ============ */
 // วาดหน้าจอ 1 ภาพ ใช้ทั้งบทเรียนและเกม os1 · prog = word | excel | ppt
 const OFP = {
@@ -2706,28 +2732,28 @@ function ofsSvg(prog, badges){
   <rect x="0" y="0" width="320" height="22" rx="10" fill="${P.c}"/><rect x="0" y="12" width="320" height="10" fill="${P.c}"/>
   <rect x="6" y="5" width="20" height="12" rx="6" fill="#ffffff66"/><circle cx="20" cy="11" r="4" fill="${W}"/>
   <text x="32" y="15" font-size="10" fill="${W}">💾</text><text x="49" y="15.5" font-size="11" fill="${W}" font-weight="700">↶</text><text x="63" y="15.5" font-size="11" fill="${W}" font-weight="700">↷</text>
-  <text x="122" y="15" text-anchor="middle" font-size="${prog==='ppt'?7:8.5}" fill="${W}" ${T}>${P.file} - ${P.n}</text>
-  <rect x="170" y="5" width="72" height="12" rx="6" fill="#ffffff33" stroke="#ffffff88"/><text x="176" y="14" font-size="7.5" fill="${W}" ${T}>🔍 ค้นหา</text>
+  <text x="122" y="15" text-anchor="middle" font-size="${prog==='ppt'?7:8.5}" fill="${W}" ${T}>${U(P.file)} - ${P.n}</text>
+  <rect x="170" y="5" width="72" height="12" rx="6" fill="#ffffff33" stroke="#ffffff88"/><text x="176" y="14" font-size="7.5" fill="${W}" ${T}>${U('🔍 ค้นหา')}</text>
   <text x="256" y="15" font-size="11" fill="${W}">–</text><rect x="275" y="7" width="8" height="8" fill="none" stroke="${W}" stroke-width="1.3"/><text x="298" y="15.5" font-size="11" fill="${W}" font-weight="700">✕</text>
   <rect x="0" y="22" width="320" height="19" fill="#fafafa"/>
-  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>ไฟล์</text>`;
+  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>${U('ไฟล์')}</text>`;
   let x=34;
   P.tabs.forEach((t,i)=>{ const w=t.length*4.9+12;
-    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?P.c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${t}</text>`;
+    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?P.c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${U(t)}</text>`;
     if(i===0) s+=`<rect x="${x+4}" y="38" width="${w-8}" height="2" fill="${P.c}"/>`;
     x+=w; });
   s+=`<rect x="2" y="42" width="316" height="41" rx="4" fill="#fff" stroke="#e2e2e8"/>
-    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>คลิปบอร์ด</text>
+    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('คลิปบอร์ด')}</text>
     <line x1="46" y1="46" x2="46" y2="80" stroke="#e2e2e8"/>
     <rect x="52" y="47" width="62" height="10" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="55" y="54.5" font-size="6.5" fill="#333">TH Sarabun New</text>
     <text x="54" y="70" font-size="10" font-weight="900" fill="#333">B</text><text x="66" y="70" font-size="10" font-style="italic" fill="#333">I</text><text x="76" y="70" font-size="10" text-decoration="underline" fill="#333">U</text><text x="90" y="70" font-size="10" fill="#c00">A</text>
-    <text x="84" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ฟอนต์</text>
+    <text x="84" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('ฟอนต์')}</text>
     <rect x="129" y="72" width="9" height="9" rx="1" fill="#fff" stroke="#888" stroke-width=".8"/><path d="M131 74 L136 79 M136 75.5 L136 79 L132.5 79" stroke="#333" stroke-width="1" fill="none"/>
     <line x1="146" y1="46" x2="146" y2="80" stroke="#e2e2e8"/>
     ${[0,1,2,3].map(i=>`<rect x="${154+i*13}" y="59" width="9" height="1.4" fill="#555"/><rect x="${154+i*13}" y="62" width="${i===1?5:9}" height="1.4" fill="#555"/><rect x="${154+i*13}" y="65" width="9" height="1.4" fill="#555"/>`).join('')}
-    <text x="180" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ย่อหน้า</text>
+    <text x="180" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('ย่อหน้า')}</text>
     <line x1="214" y1="46" x2="214" y2="80" stroke="#e2e2e8"/>
-    <text x="236" y="66" text-anchor="middle" font-size="14">🎨</text><text x="236" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>สไตล์</text>
+    <text x="236" y="66" text-anchor="middle" font-size="14">🎨</text><text x="236" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('สไตล์')}</text>
     <rect x="2" y="86" width="316" height="120" fill="#e9e9ee"/>`;
   if(prog==='word') s+=`<rect x="92" y="90" width="136" height="116" fill="#fff" stroke="#d6d6de"/>
     ${[0,1,2,3,4,5,6,7].map(i=>`<rect x="104" y="${102+i*11}" width="${i%4===3?70:112}" height="3" rx="1.5" fill="#c9cbd6"/>`).join('')}
@@ -2741,11 +2767,11 @@ function ofsSvg(prog, badges){
     <rect x="20" y="98" width="30" height="12" fill="none" stroke="${P.c}" stroke-width="1.8"/>`;
   else s+=`${[0,1,2].map(i=>`<rect x="10" y="${92+i*36}" width="44" height="30" rx="2" fill="#fff" stroke="${i===0?P.c:'#d6d6de'}" stroke-width="${i===0?1.6:1}"/><text x="6" y="${100+i*36}" font-size="6" fill="#555">${i+1}</text>`).join('')}
     <rect x="66" y="92" width="200" height="112" fill="#fff" stroke="#d6d6de"/>
-    <rect x="96" y="118" width="140" height="18" rx="2" fill="none" stroke="#bbb" stroke-dasharray="3 2"/><text x="166" y="130" text-anchor="middle" font-size="8" fill="#999" ${T}>คลิกเพื่อเพิ่มชื่อเรื่อง</text>
+    <rect x="96" y="118" width="140" height="18" rx="2" fill="none" stroke="#bbb" stroke-dasharray="3 2"/><text x="166" y="130" text-anchor="middle" font-size="8" fill="#999" ${T}>${U('คลิกเพื่อเพิ่มชื่อเรื่อง')}</text>
     <rect x="116" y="146" width="100" height="12" rx="2" fill="none" stroke="#bbb" stroke-dasharray="3 2"/>`;
   const st={word:'หน้า 1 จาก 1 · 25 คำ', excel:'พร้อม', ppt:'สไลด์ 1 จาก 3'}[prog];
   s+=`<rect x="0" y="208" width="320" height="28" rx="10" fill="${P.c}"/><rect x="0" y="208" width="320" height="10" fill="${P.c}"/>
-  <text x="10" y="225" font-size="8.5" fill="${W}" ${T}>${st}</text>
+  <text x="10" y="225" font-size="8.5" fill="${W}" ${T}>${U(st)}</text>
   <rect x="160" y="217" width="7" height="9" rx="1" fill="none" stroke="${W}"/><rect x="172" y="217" width="9" height="9" rx="1" fill="none" stroke="${W}"/><rect x="186" y="217" width="9" height="9" rx="1" fill="#ffffff55" stroke="${W}"/>
   <text x="204" y="225" font-size="10" fill="${W}">−</text><rect x="214" y="221" width="54" height="1.6" fill="${W}"/><rect x="239" y="216" width="4" height="11" rx="1" fill="${W}"/><text x="272" y="225" font-size="10" fill="${W}">+</text><text x="283" y="225" font-size="8" fill="${W}">100%</text>`;
   Object.entries(OFS_HIT).forEach(([k,[hx,hy,hw,hh]])=>{ s+=`<rect class="hit" data-k="${k}" x="${hx}" y="${hy}" width="${hw}" height="${hh}" rx="4"/>`; });
@@ -2843,42 +2869,42 @@ function wdSvg(badges){
   <text x="140" y="15" text-anchor="middle" font-size="8.5" fill="${W}" ${T}>จดหมายเชิญ - Word</text>
   <text x="256" y="15" font-size="11" fill="${W}">–</text><rect x="275" y="7" width="8" height="8" fill="none" stroke="${W}" stroke-width="1.3"/><text x="298" y="15.5" font-size="11" fill="${W}" font-weight="700">✕</text>
   <rect x="0" y="22" width="320" height="19" fill="#fafafa"/>
-  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>ไฟล์</text>`;
+  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>${U('ไฟล์')}</text>`;
   let x=34;
   OFP.word.tabs.forEach((t,i)=>{ const w=t.length*4.9+12;
-    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${t}</text>`;
+    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${U(t)}</text>`;
     if(i===0) s+=`<rect x="${x+4}" y="38" width="${w-8}" height="2" fill="${c}"/>`;
     x+=w; });
   // ริบบอนแท็บหน้าแรก: คลิปบอร์ด · ฟอนต์ · ย่อหน้า (ปุ่มจัดแนว 4 แบบ) · สไตล์
   s+=`<rect x="2" y="42" width="316" height="41" rx="4" fill="#fff" stroke="#e2e2e8"/>
-    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>คลิปบอร์ด</text>
+    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('คลิปบอร์ด')}</text>
     <line x1="46" y1="46" x2="46" y2="80" stroke="#e2e2e8"/>
     <rect x="52" y="47" width="62" height="10" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="55" y="54.5" font-size="6.5" fill="#333">TH Sarabun New</text>
     <rect x="118" y="47" width="20" height="10" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="122" y="54.5" font-size="6.5" fill="#333">16</text>
     <text x="54" y="70" font-size="10" font-weight="900" fill="#333">B</text><text x="66" y="70" font-size="10" font-style="italic" fill="#333">I</text><text x="76" y="70" font-size="10" text-decoration="underline" fill="#333">U</text><text x="90" y="70" font-size="10" fill="#c00">A</text>
-    <text x="96" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ฟอนต์</text>
+    <text x="96" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('ฟอนต์')}</text>
     <line x1="146" y1="46" x2="146" y2="80" stroke="#e2e2e8"/>
     ${[0,2,4,-1].map((off,i)=>{const X=152+i*15; // ชิดซ้าย · กึ่งกลาง · ชิดขวา · จัดชิดขอบ
       return [0,1,2,3].map(r=>`<rect x="${X+(r%2&&off>=0?off:0)}" y="${57+r*3}" width="${r%2&&off>=0?5:9}" height="1.4" fill="#555"/>`).join('');}).join('')}
-    <text x="180" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ย่อหน้า</text>
+    <text x="180" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('ย่อหน้า')}</text>
     <line x1="214" y1="46" x2="214" y2="80" stroke="#e2e2e8"/>
-    ${['ปกติ','หัวเรื่อง 1','ชื่อเรื่อง'].map((t,i)=>`<rect x="${220+i*32}" y="48" width="29" height="20" rx="2" fill="${i===0?'#eef3fd':'#fff'}" stroke="#d6d6de"/><text x="${234.5+i*32}" y="61" text-anchor="middle" font-size="${i===1?5.5:6.5}" fill="${i===1?c:'#333'}" ${i>0?'font-weight="700"':''} ${T}>${t}</text>`).join('')}
-    <text x="266" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>สไตล์</text>`;
+    ${['ปกติ','หัวเรื่อง 1','ชื่อเรื่อง'].map((t,i)=>`<rect x="${220+i*32}" y="48" width="29" height="20" rx="2" fill="${i===0?'#eef3fd':'#fff'}" stroke="#d6d6de"/><text x="${234.5+i*32}" y="61" text-anchor="middle" font-size="${i===1?5.5:6.5}" fill="${i===1?c:'#333'}" ${i>0?'font-weight="700"':''} ${T}>${U(t)}</text>`).join('')}
+    <text x="266" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('สไตล์')}</text>`;
   // ไม้บรรทัด · บานหน้าต่างนำทาง · หน้ากระดาษ
   s+=`<rect x="2" y="84" width="316" height="124" fill="#e9e9ee"/>
     <rect x="62" y="85" width="256" height="10" fill="#fff" stroke="#d6d6de"/><rect x="62" y="85" width="40" height="10" fill="#dcdce4"/><rect x="278" y="85" width="40" height="10" fill="#dcdce4"/>
     ${Array.from({length:17},(_,i)=>`<line x1="${102+i*11}" y1="${i%2?92:89}" x2="${102+i*11}" y2="95" stroke="#888" stroke-width=".7"/>`).join('')}
     <path d="M99 85 L105 85 L102 89 Z" fill="#666"/>
     <rect x="2" y="85" width="56" height="122" fill="#fff" stroke="#d6d6de"/>
-    <text x="30" y="96" text-anchor="middle" font-size="7" font-weight="700" fill="#333" ${T}>การนำทาง</text>
-    <rect x="6" y="100" width="48" height="9" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="9" y="107" font-size="5.5" fill="#888" ${T}>🔍 ค้นหา</text>
+    <text x="30" y="96" text-anchor="middle" font-size="7" font-weight="700" fill="#333" ${T}>${U('การนำทาง')}</text>
+    <rect x="6" y="100" width="48" height="9" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="9" y="107" font-size="5.5" fill="#888" ${T}>${U('🔍 ค้นหา')}</text>
     ${['เรียนเชิญ','กำหนดการ','แผนที่'].map((t,i)=>`<rect x="6" y="${114+i*13}" width="48" height="10" rx="2" fill="${i===0?'#dbe7fb':'transparent'}"/><text x="9" y="${121+i*13}" font-size="6.5" fill="#333" ${T}>${t}</text>`).join('')}
     <rect x="102" y="98" width="176" height="110" fill="#fff" stroke="#d6d6de"/>
     <text x="190" y="112" text-anchor="middle" font-size="8" font-weight="700" fill="#333" ${T}>เรียนเชิญ</text>
     ${[0,1,2,3,4,5,6].map(i=>`<rect x="${i===0?122:114}" y="${120+i*10}" width="${i===3||i===6?90:(i===0?144:152)}" height="3" rx="1.5" fill="#c9cbd6"/>`).join('')}
     <rect x="205" y="178" width="1.2" height="8" fill="#333"/>`;
   s+=`<rect x="0" y="208" width="320" height="28" rx="10" fill="${c}"/><rect x="0" y="208" width="320" height="10" fill="${c}"/>
-  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>หน้า 1 จาก 2</text><text x="76" y="225" font-size="8.5" fill="${W}" ${T}>125 คำ</text>
+  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>${U('หน้า 1 จาก 2')}</text><text x="76" y="225" font-size="8.5" fill="${W}" ${T}>${U('125 คำ')}</text>
   <text x="146" y="226" font-size="9" fill="${W}">📖</text><rect x="161" y="217" width="9" height="10" rx="1" fill="#ffffff55" stroke="${W}"/><rect x="176" y="217" width="14" height="10" rx="1" fill="none" stroke="${W}"/>
   <text x="206" y="225" font-size="10" fill="${W}">−</text><rect x="216" y="221" width="52" height="1.6" fill="${W}"/><rect x="240" y="216" width="4" height="11" rx="1" fill="${W}"/><text x="272" y="225" font-size="10" fill="${W}">+</text><text x="283" y="225" font-size="8" fill="${W}">100%</text>`;
   Object.entries(WD_HIT).forEach(([k,[hx,hy,hw,hh]])=>{ s+=`<rect class="hit" data-k="${k}" x="${hx}" y="${hy}" width="${hw}" height="${hh}" rx="4"/>`; });
@@ -3023,29 +3049,29 @@ function xlSvg(badges){
   <text x="140" y="15" text-anchor="middle" font-size="8.5" fill="${W}" ${T}>รายรับรายจ่าย - Excel</text>
   <text x="256" y="15" font-size="11" fill="${W}">–</text><rect x="275" y="7" width="8" height="8" fill="none" stroke="${W}" stroke-width="1.3"/><text x="298" y="15.5" font-size="11" fill="${W}" font-weight="700">✕</text>
   <rect x="0" y="22" width="320" height="19" fill="#fafafa"/>
-  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>ไฟล์</text>`;
+  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>${U('ไฟล์')}</text>`;
   let x=34;
   [...OFP.excel.tabs,'ข้อมูล'].forEach((t,i)=>{ const w=t.length*4.9+12;
-    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${t}</text>`;
+    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${U(t)}</text>`;
     if(i===0) s+=`<rect x="${x+4}" y="38" width="${w-8}" height="2" fill="${c}"/>`;
     x+=w; });
   // ริบบอนแท็บหน้าแรก: คลิปบอร์ด · ฟอนต์ · การจัดแนว · ตัวเลข · การแก้ไข (Σ)
   s+=`<rect x="2" y="42" width="316" height="41" rx="4" fill="#fff" stroke="#e2e2e8"/>
-    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>คลิปบอร์ด</text>
+    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('คลิปบอร์ด')}</text>
     <line x1="46" y1="46" x2="46" y2="80" stroke="#e2e2e8"/>
     <text x="56" y="66" font-size="10" font-weight="900" fill="#333">B</text><text x="68" y="66" font-size="10" font-style="italic" fill="#333">I</text><text x="78" y="66" font-size="10" text-decoration="underline" fill="#333">U</text><text x="92" y="66" font-size="10" fill="#c00">A</text>
-    <text x="78" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ฟอนต์</text>
+    <text x="78" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('ฟอนต์')}</text>
     <line x1="110" y1="46" x2="110" y2="80" stroke="#e2e2e8"/>
     ${[0,2,4].map((off,i)=>{const X=118+i*14; return [0,1,2,3].map(r=>`<rect x="${X+(r%2?off:0)}" y="${55+r*3}" width="${r%2?5:9}" height="1.4" fill="#555"/>`).join('');}).join('')}
     <rect x="160" y="54" width="9" height="11" fill="none" stroke="#555" stroke-width=".8"/>
-    <text x="140" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>การจัดแนว</text>
+    <text x="140" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('การจัดแนว')}</text>
     <line x1="174" y1="46" x2="174" y2="80" stroke="#e2e2e8"/>
     <text x="182" y="66" font-size="9" fill="#333">%</text><text x="196" y="66" font-size="11" font-weight="700" fill="#333">,</text><text x="206" y="65" font-size="6.5" fill="#333">.00</text>
-    <text x="204" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ตัวเลข</text>
+    <text x="204" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('ตัวเลข')}</text>
     <line x1="234" y1="46" x2="234" y2="80" stroke="#e2e2e8"/>
     <rect x="240" y="47" width="74" height="22" rx="3" fill="#eef7f1" stroke="#cfe6d7"/>
-    <text x="252" y="64" text-anchor="middle" font-size="15" font-weight="700" fill="${c}">Σ</text><text x="284" y="61" text-anchor="middle" font-size="6.5" fill="#333" ${T}>ผลรวมอัตโนมัติ</text>
-    <text x="276" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>การแก้ไข</text>`;
+    <text x="252" y="64" text-anchor="middle" font-size="15" font-weight="700" fill="${c}">Σ</text><text x="284" y="61" text-anchor="middle" font-size="6.5" fill="#333" ${T}>${U('ผลรวมอัตโนมัติ')}</text>
+    <text x="276" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('การแก้ไข')}</text>`;
   // กล่องชื่อ · fx · แถบสูตร
   s+=`<rect x="2" y="85" width="50" height="12" rx="2" fill="#fff" stroke="#c8c8d0"/><text x="8" y="94" font-size="7.5" fill="#333">D2</text><text x="46" y="94" font-size="6" fill="#888">▾</text>
     <text x="64" y="94.5" text-anchor="middle" font-size="8" font-style="italic" fill="#555">fx</text>
@@ -3065,14 +3091,14 @@ function xlSvg(badges){
   s+=`<rect x="200" y="123" width="60" height="39" fill="none" stroke="${c}" stroke-width="1.8"/><rect x="257" y="159" width="5.5" height="5.5" fill="${c}" stroke="#fff" stroke-width=".8"/>`;
   // แท็บแผ่นงาน · ปุ่ม +
   s+=`<rect x="2" y="196" width="316" height="12" fill="#e9e9ee"/>
-    <rect x="6" y="196" width="40" height="11" fill="#fff"/><rect x="6" y="205.5" width="40" height="1.5" fill="${c}"/><text x="26" y="204" text-anchor="middle" font-size="7" font-weight="700" fill="${c}" ${T}>แผ่น1</text>
-    <text x="66" y="204" text-anchor="middle" font-size="7" fill="#555" ${T}>แผ่น2</text>
+    <rect x="6" y="196" width="40" height="11" fill="#fff"/><rect x="6" y="205.5" width="40" height="1.5" fill="${c}"/><text x="26" y="204" text-anchor="middle" font-size="7" font-weight="700" fill="${c}" ${T}>${U('แผ่น1')}</text>
+    <text x="66" y="204" text-anchor="middle" font-size="7" fill="#555" ${T}>${U('แผ่น2')}</text>
     <circle cx="103" cy="202" r="5" fill="#fff" stroke="#999"/><text x="103" y="205" text-anchor="middle" font-size="8" fill="#555">+</text>`;
   // แถบสถานะ: ค่าเฉลี่ย · จำนวน · ผลรวม ของช่วงที่เลือก
   const sel=XLD.inc.map((v,i)=>v-XLD.exp[i]), sm=sel.reduce((a,b)=>a+b,0);
   s+=`<rect x="0" y="208" width="320" height="28" rx="10" fill="${c}"/><rect x="0" y="208" width="320" height="10" fill="${c}"/>
-  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>พร้อม</text>
-  <text x="312" y="225" text-anchor="end" font-size="8" fill="${W}" ${T}>ค่าเฉลี่ย: ${nf(sm/sel.length)}   จำนวน: ${sel.length}   ผลรวม: ${nf(sm)}</text>`;
+  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>${U('พร้อม')}</text>
+  <text x="312" y="225" text-anchor="end" font-size="8" fill="${W}" ${T}>${U('ค่าเฉลี่ย:')} ${nf(sm/sel.length)}   ${U('จำนวน:')} ${sel.length}   ${U('ผลรวม:')} ${nf(sm)}</text>`;
   Object.entries(XL_HIT).forEach(([k,[hx,hy,hw,hh]])=>{ s+=`<rect class="hit" data-k="${k}" x="${hx}" y="${hy}" width="${hw}" height="${hh}" rx="3"/>`; });
   if(badges) Object.keys(XL).forEach((k,i)=>{ const [bx,by,px,py]=XL_BD[k];
     if(bx!==px||by!==py) s+=`<line x1="${bx}" y1="${by}" x2="${px}" y2="${py}" stroke="#ff6ec7" stroke-width="1.6" stroke-dasharray="3 2"/>`;
@@ -3242,33 +3268,33 @@ function ppSvg(badges){
   <text x="140" y="15" text-anchor="middle" font-size="8.5" fill="${W}" ${T}>ปลูกข้าว - PowerPoint</text>
   <text x="256" y="15" font-size="11" fill="${W}">–</text><rect x="275" y="7" width="8" height="8" fill="none" stroke="${W}" stroke-width="1.3"/><text x="298" y="15.5" font-size="11" fill="${W}" font-weight="700">✕</text>
   <rect x="0" y="22" width="320" height="19" fill="#fafafa"/>
-  <text x="13" y="35" text-anchor="middle" font-size="7" fill="#444" ${T}>ไฟล์</text>`;
+  <text x="13" y="35" text-anchor="middle" font-size="7" fill="#444" ${T}>${U('ไฟล์')}</text>`;
   let x=26;
   ['หน้าแรก','แทรก','ออกแบบ','การเปลี่ยน','ภาพเคลื่อนไหว','การนำเสนอสไลด์'].forEach((t,i)=>{ const w=t.replace(/[ัิ-ฺ็-๎]/g,'').length*4.6+8;
     const k=i===3?'trans':i===4?'anim':'';
-    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="7" fill="${i===0?c:k?'#222':'#444'}" ${i===0||k?'font-weight="700"':''} ${T}>${t}</text>`;
+    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="7" fill="${i===0?c:k?'#222':'#444'}" ${i===0||k?'font-weight="700"':''} ${T}>${U(t)}</text>`;
     if(i===0) s+=`<rect x="${x+3}" y="38" width="${w-6}" height="2" fill="${c}"/>`;
     if(k){ PP_HIT[k]=[x,23,w,18]; PP_BD[k]=[x+w/2,-11,x+w/2,25]; }
     x+=w; });
   // ริบบอนแท็บหน้าแรก: คลิปบอร์ด · สไลด์ (สไลด์ใหม่ เค้าโครง) · ฟอนต์ · ย่อหน้า · วาด
   s+=`<rect x="2" y="42" width="316" height="41" rx="4" fill="#fff" stroke="#e2e2e8"/>
-    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>คลิปบอร์ด</text>
+    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('คลิปบอร์ด')}</text>
     <line x1="46" y1="46" x2="46" y2="80" stroke="#e2e2e8"/>
     <rect x="51" y="45" width="38" height="25" rx="3" fill="#fbeee9" stroke="#f0cfc3"/>
     <rect x="61" y="48" width="18" height="11" rx="1" fill="#fff" stroke="${c}"/><text x="76" y="58" font-size="9" font-weight="800" fill="${c}">+</text>
-    <text x="70" y="67" text-anchor="middle" font-size="6.2" fill="#333" ${T}>สไลด์ใหม่</text>
-    <rect x="94" y="48" width="9" height="7" rx="1" fill="none" stroke="#777" stroke-width=".8"/><text x="106" y="54.5" font-size="6" fill="#444" ${T}>เค้าโครง</text>
-    <text x="96" y="65" font-size="7" fill="#777">↺</text><text x="106" y="65" font-size="6" fill="#444" ${T}>รีเซ็ต</text>
-    <text x="90" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>สไลด์</text>
+    <text x="70" y="67" text-anchor="middle" font-size="6.2" fill="#333" ${T}>${U('สไลด์ใหม่')}</text>
+    <rect x="94" y="48" width="9" height="7" rx="1" fill="none" stroke="#777" stroke-width=".8"/><text x="106" y="54.5" font-size="6" fill="#444" ${T}>${U('เค้าโครง')}</text>
+    <text x="96" y="65" font-size="7" fill="#777">↺</text><text x="106" y="65" font-size="6" fill="#444" ${T}>${U('รีเซ็ต')}</text>
+    <text x="90" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('สไลด์')}</text>
     <line x1="134" y1="46" x2="134" y2="80" stroke="#e2e2e8"/>
     <text x="142" y="66" font-size="10" font-weight="900" fill="#333">B</text><text x="154" y="66" font-size="10" font-style="italic" fill="#333">I</text><text x="164" y="66" font-size="10" text-decoration="underline" fill="#333">U</text><text x="178" y="66" font-size="10" fill="#c00">A</text>
-    <text x="164" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ฟอนต์</text>
+    <text x="164" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('ฟอนต์')}</text>
     <line x1="194" y1="46" x2="194" y2="80" stroke="#e2e2e8"/>
     ${[0,1,2].map(i=>`<circle cx="${204+i*16}" cy="56" r="1.3" fill="#555"/><rect x="${207+i*16}" y="55.3" width="6" height="1.4" fill="#555"/><circle cx="${204+i*16}" cy="61" r="1.3" fill="#555"/><rect x="${207+i*16}" y="60.3" width="6" height="1.4" fill="#555"/>`).join('')}
-    <text x="226" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ย่อหน้า</text>
+    <text x="226" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('ย่อหน้า')}</text>
     <line x1="258" y1="46" x2="258" y2="80" stroke="#e2e2e8"/>
     <text x="270" y="66" text-anchor="middle" font-size="12">🔷</text><text x="294" y="66" text-anchor="middle" font-size="12">🎨</text>
-    <text x="284" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>รูปวาด</text>
+    <text x="284" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>${U('รูปวาด')}</text>
     <rect x="2" y="84" width="316" height="124" fill="#e9e9ee"/>`;
   // บานหน้าต่างรูปขนาดย่อ: 3 สไลด์ · สไลด์ 2 ถูกเลือก
   s+=`<rect x="2" y="84" width="58" height="124" fill="#f6f6f8"/><line x1="60" y1="84" x2="60" y2="208" stroke="#d6d6de"/>`;
@@ -3290,8 +3316,8 @@ function ppSvg(badges){
     <text x="70" y="197" font-size="7.5" fill="#555" ${T}>อย่าลืมบอกราคาปุ๋ยเดือนนี้</text>`;
   // แถบสถานะ: สไลด์ x จาก y · บันทึกย่อ · ปุ่มมุมมอง 4 ปุ่ม · ซูม
   s+=`<rect x="0" y="208" width="320" height="28" rx="10" fill="${c}"/><rect x="0" y="208" width="320" height="10" fill="${c}"/>
-  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>สไลด์ 2 จาก 3</text>
-  <text x="140" y="225" font-size="7.5" fill="${W}" ${T}>≡ บันทึกย่อ</text>
+  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>${U('สไลด์ 2 จาก 3')}</text>
+  <text x="140" y="225" font-size="7.5" fill="${W}" ${T}>${U('≡ บันทึกย่อ')}</text>
   <rect x="181" y="217" width="9" height="9" rx="1" fill="#ffffff55" stroke="${W}"/>
   <g stroke="${W}" fill="none" stroke-width=".8"><rect x="193" y="217" width="4" height="4"/><rect x="198" y="217" width="4" height="4"/><rect x="193" y="222" width="4" height="4"/><rect x="198" y="222" width="4" height="4"/></g>
   <path d="M206 217 h4 l2 2 h4 v7 h-10 z" fill="none" stroke="${W}" stroke-width=".8"/>
@@ -4862,6 +4888,7 @@ function showQ(){
   $('q-fb').textContent=''; $('q-why').style.display='none'; $('q-next').style.display='none';
   const box=$('q-choices'); box.innerHTML='';
   if(q.t==='tap'){ // เกมแตะบนภาพหน้าจอ (บท O2)
+    $('q-text').textContent=qUi(q.q);
     $('q-pic').innerHTML=TAPSCR[q.g]?TAPSCR[q.g][0](false):ofsSvg(q.g,false);
     $('q-pic').onclick=e=>{ const el=e.target.closest('.hit'); if(el&&!game.tapped){ game.tapped=true; tapAnswer(el,q); } };
     game.tapped=false; return;

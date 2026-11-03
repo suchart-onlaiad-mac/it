@@ -277,6 +277,10 @@
   .hsvg .bd.sel circle{fill:#ffd34e; stroke:#ff6ec7; r:12}
   .hsvg .bd.sel text{fill:var(--ink)}
   .hsvg .pt{cursor:pointer; transition:.15s}
+  .hsvg .pppush{animation:ppPush .7s ease-out}
+  .hsvg .ppfly{animation:ppFly .6s ease-out}
+  @keyframes ppPush{from{transform:translateX(240px)}to{transform:none}}
+  @keyframes ppFly{from{transform:translateY(26px);opacity:0}to{transform:none;opacity:1}}
   .hsvg .pt.sel{filter:drop-shadow(0 0 4px #ffd34e) drop-shadow(0 0 7px #ff6ec7)}
   .hsvg .bd circle{animation:beat 2.2s ease-in-out infinite}
   @keyframes beat{50%{stroke-width:5}}
@@ -507,7 +511,7 @@
         <button class="card c3" onclick="go('ofs')"><span class="ico">🖥️</span>2. หน้าจอโปรแกรม<small>ส่วนที่ทุกโปรแกรมมีเหมือนกัน</small></button>
         <button class="card c8" onclick="go('ofw')"><span class="ico">📝</span>3. Word<small>พิมพ์เอกสาร จดหมาย</small></button>
         <button class="card c6" onclick="go('ofx')"><span class="ico">📊</span>4. Excel<small>ตาราง สูตร คำนวณ</small></button>
-        <button class="card c7 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📽️</span>5. PowerPoint<small>สไลด์นำเสนอ</small></button>
+        <button class="card c7" onclick="go('ofp')"><span class="ico">📽️</span>5. PowerPoint<small>สไลด์นำเสนอ</small></button>
         <button class="card c2 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">⌨️</span>6. ปุ่มลัด<small>ทำงานไวขึ้น · ออกสอบบ่อย</small></button>
       </div>
     </div>
@@ -952,6 +956,126 @@
         </table></div>
         <p class="tip">⌨️ ตารางปุ่มลัดของ Microsoft อิง<b>แป้นพิมพ์แบบสหรัฐฯ</b> (ภาษาอังกฤษ)</p>
         <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofx')">🎮 ทดสอบความเข้าใจ</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= OFFICE 5 · POWERPOINT ================= -->
+  <div class="screen" id="ofp">
+    <button class="backbtn" onclick="go('office')">⬅️ กลับห้องเรียน Office</button>
+    <div class="panel">
+      <h2>📽️ PowerPoint · โปรแกรมนำเสนองาน</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p><b>PowerPoint</b> = โปรแกรม<b>นำเสนองาน</b> (Presentation) 📽️ · ทำ<b>สไลด์</b>ไว้ฉายขึ้นจอตอนประชุม อบรม · เหมือน<b>ฟลิปชาร์ต</b> 📋 ที่พลิกทีละแผ่น · ไฟล์ 1 ไฟล์ = <b>งานนำเสนอ</b> 1 ชุด ข้างในมีหลาย<b>สไลด์</b></p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 มองจากภายนอก: จอ PowerPoint มีอะไรที่โปรแกรมอื่นไม่มี</div>
+        <p class="tip">ส่วนที่ทุกโปรแกรมมีเหมือนกัน เรียนไปแล้วในบท<b>หน้าจอโปรแกรม</b> · บทนี้ดู<b>ของเฉพาะ PowerPoint</b> · <b>แตะวงกลมตัวเลข</b> หรือแตะตรงไหนบนจอก็ได้ 👆 · คำ<span class="kw">สีม่วง</span>ในบทก็แตะได้</p>
+        <div class="fig" id="figPp"></div>
+        <div class="chips" id="chipsPp"></div>
+        <div class="info" id="infoPp">👆 แตะวงกลมตัวเลข ดูว่าส่วนนั้นชื่ออะไร ทำอะไร</div>
+        <div class="memo">📍 จอ PowerPoint แบ่ง <b>3 บาน</b>: ซ้าย = <span class="kw" onclick="ppKw('thumbs')">บานหน้าต่างรูปขนาดย่อ</span> (สไลด์ทุกแผ่น) · กลาง = <b>สไลด์</b>ที่กำลังแก้ · ล่าง = <span class="kw" onclick="ppKw('notes')">บานหน้าต่างบันทึกย่อ</span> (โพยคนพูด)</div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> 🔍 ลองกดดู: <span class="kw" onclick="ppKw('trans')">การเปลี่ยน</span> กับ <span class="kw" onclick="ppKw('anim')">ภาพเคลื่อนไหว</span> ต่างกันยังไง</div>
+        <div class="tabs" id="fxTabs">
+          <button class="tab on" onclick="drawFx('tr',this)">🔀 การเปลี่ยน</button>
+          <button class="tab" onclick="drawFx('an',this)">✨ ภาพเคลื่อนไหว</button>
+        </div>
+        <div class="fig" id="figFx"></div>
+        <div class="center" style="margin:6px 0">
+          <button class="tab" onclick="fxClick()">👆 คลิก (ไปต่อ)</button>
+          <button class="tab" onclick="fxN=0;drawFx()">↺ เริ่มใหม่</button>
+        </div>
+        <div class="info" id="infoFx"></div>
+        <div class="memo">🔑 <b>การเปลี่ยน</b> (Transition) = ลูกเล่น<b>ทั้งแผ่น</b> ตอน<b>เปลี่ยนสไลด์</b> · <b>ภาพเคลื่อนไหว</b> (Animation) = ลูกเล่นของ<b>ชิ้นงานบนสไลด์</b> แผ่นเดิม · คนละแท็บ คนละเรื่อง</div>
+        <button class="more" onclick="openLayer('ofpL2',this)">🌿 อยากรู้อีกนิด · แท็บของ PowerPoint · ภาพเคลื่อนไหว 4 แบบ · มุมมอง ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="ofpL2">
+        <h3>🌿 ชั้นต้นกล้า · แท็บ ลูกเล่น มุมมอง</h3>
+        <p><b>1) แท็บของ PowerPoint</b> · หาคำสั่งไม่เจอ ถามตัวเองว่า "งานนี้<b>ใส่ของ</b> · <b>แต่งทั้งชุด</b> · <b>ลูกเล่น</b> · หรือ<b>ฉาย</b>"</p>
+        <div class="tw"><table class="t">
+          <tr><th>แท็บ</th><th>ใช้ทำอะไร</th><th>ตัวอย่างคำสั่ง</th></tr>
+          <tr><td>🏠 <b>หน้าแรก</b></td><td>งานประจำ (ใช้บ่อยสุด)</td><td>สไลด์ใหม่ · เค้าโครง · ฟอนต์ · ย่อหน้า</td></tr>
+          <tr><td>➕ <b>แทรก</b></td><td><b>ใส่ของเพิ่ม</b></td><td>ตาราง · รูปภาพ · ลิงก์ · วิดีโอ เสียง</td></tr>
+          <tr><td>🎨 <b>ออกแบบ</b></td><td>แต่ง<b>ทั้งชุด</b>ให้เข้ากัน</td><td>ธีม · ขนาดสไลด์</td></tr>
+          <tr><td>🔀 <b>การเปลี่ยน</b></td><td>ลูกเล่น<b>ระหว่างสไลด์</b></td><td>แบบการเปลี่ยน · นำไปใช้กับทั้งหมด</td></tr>
+          <tr><td>✨ <b>ภาพเคลื่อนไหว</b></td><td>ลูกเล่น<b>ชิ้นงานบนสไลด์</b></td><td>บานหน้าต่างภาพเคลื่อนไหว · ตัวคัดวางภาพเคลื่อนไหว</td></tr>
+          <tr><td>▶️ <b>การนำเสนอสไลด์</b></td><td><b>ฉาย</b>และตั้งค่าการฉาย</td><td>ตั้งแต่ต้น · ใช้มุมมองของผู้นำเสนอ</td></tr>
+          <tr><td>✅ <b>รีวิว</b></td><td><b>ตรวจงาน</b></td><td>ตัวสะกด · ข้อคิดเห็น</td></tr>
+          <tr><td>👁️ <b>มุมมอง</b></td><td>เปลี่ยน<b>วิธีมอง</b></td><td>ต้นแบบสไลด์ · หน้าบันทึกย่อ · เค้าร่าง</td></tr>
+        </table></div>
+        <div class="memo ex">🎯 กับดัก: <b>ธีม</b> (ชุดสี ฟอนต์ พื้นหลังสำเร็จรูป) อยู่แท็บ<b>ออกแบบ</b> · แต่<b>ต้นแบบสไลด์</b> อยู่แท็บ<b>มุมมอง</b> · ชื่อคล้ายกันว่า "แต่งทั้งชุด" แต่อยู่คนละแท็บ</div>
+
+        <p style="margin-top:14px"><b>2) ภาพเคลื่อนไหว 4 แบบ</b> · ดูสีไอคอนก็รู้ว่าแบบไหน</p>
+        <div class="tw"><table class="t">
+          <tr><th>แบบ</th><th>สีไอคอน</th><th>ใช้ตอน</th></tr>
+          <tr><td><b>เข้า</b> (Entrance)</td><td>🟢 เขียว</td><td>ให้ชิ้นงาน<b>โผล่เข้ามา</b>บนสไลด์</td></tr>
+          <tr><td><b>เน้น</b> (Emphasis)</td><td>🟡 เหลือง</td><td>ชิ้นงานอยู่แล้ว ให้<b>กระพริบ หมุน ขยาย</b> เรียกสายตา</td></tr>
+          <tr><td><b>ออก</b> (Exit)</td><td>🔴 แดง</td><td>ให้ชิ้นงาน<b>หายไป</b>จากสไลด์</td></tr>
+          <tr><td><b>เส้นทางการเคลื่อนไหว</b> (Motion Paths)</td><td>〰️ เส้น</td><td>ให้ชิ้นงาน<b>เดินตามเส้น</b>ที่วาดไว้</td></tr>
+        </table></div>
+        <p class="tip">⏱️ ช่อง <b>เริ่ม</b> เลือกได้ 3 แบบ: <b>เมื่อคลิก</b> (รอเราคลิก) · <b>พร้อมกับก่อนหน้า</b> (บางหน้าเขียน กับก่อนหน้า · ขึ้นพร้อมชิ้นก่อน) · <b>หลังจากก่อนหน้า</b> (ชิ้นก่อนจบแล้วขึ้นเองต่อทันที) · อยากใส่ลูกเล่นเหมือนกันให้อีกชิ้น ใช้<b>ตัวคัดวางภาพเคลื่อนไหว</b></p>
+
+        <p style="margin-top:14px"><b>3) มุมมอง</b> · งานเดิม มองได้หลายแบบ</p>
+        <div class="tw"><table class="t">
+          <tr><th>มุมมอง</th><th>เห็นอะไร</th><th>เปิดที่</th></tr>
+          <tr><td><b>ปกติ</b></td><td>3 บานแบบในภาพด้านบน ใช้<b>แก้งาน</b></td><td>แถบสถานะ · แท็บมุมมอง</td></tr>
+          <tr><td><b>ตัวเรียงลำดับสไลด์</b></td><td>ทุกแผ่นเรียงเป็น<b>ตาราง</b> ลากสลับลำดับง่าย</td><td>แถบสถานะ · แท็บมุมมอง</td></tr>
+          <tr><td><b>การอ่าน</b></td><td>เต็มหน้าต่าง มีปุ่มพลิกง่าย ๆ ไว้<b>ดูเอง</b></td><td>แถบสถานะ · แท็บมุมมอง</td></tr>
+          <tr><td><b>การนำเสนอสไลด์</b></td><td><b>ฉายเต็มจอ</b>ให้คนดู</td><td>แถบสถานะ · F5 · แท็บการนำเสนอสไลด์</td></tr>
+          <tr><td><b>มุมมองผู้นำเสนอ</b></td><td>คนพูดเห็น<b>โพย + สไลด์ถัดไป</b> · คนดูเห็นแค่สไลด์</td><td>Alt+F5 · หรือติ๊ก <b>ใช้มุมมองของผู้นำเสนอ</b> ที่แท็บการนำเสนอสไลด์ แล้วกด ตั้งแต่ต้น</td></tr>
+          <tr><td><b>เค้าร่าง</b></td><td>เห็นแต่<b>ตัวหนังสือ</b>ทุกแผ่นเรียงลงมา</td><td>แท็บมุมมอง เท่านั้น</td></tr>
+          <tr><td><b>หน้าบันทึกย่อ</b></td><td>สไลด์ + โพย ในหน้ากระดาษ ไว้<b>พิมพ์</b></td><td>แท็บมุมมอง เท่านั้น</td></tr>
+        </table></div>
+        <div class="memo ex">🎯 กับดัก: <b>ปุ่มบันทึกย่อ</b> บนแถบสถานะ แค่เปิด/ปิดบานโพยใต้สไลด์ · ไม่ใช่<b>มุมมองหน้าบันทึกย่อ</b> · <b>เค้าร่าง</b>กับ<b>หน้าบันทึกย่อ</b> ไม่มีปุ่มบนแถบสถานะ</div>
+        <button class="more" onclick="openLayer('ofpL3',this)">🌳 เจาะลึก · ต้นแบบสไลด์ · ขนาดสไลด์ · นามสกุลไฟล์ · ปุ่มลัด ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="ofpL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · ใช้งานจริง</h3>
+        <p><b>1) ต้นแบบสไลด์</b> (Slide Master) · <b>แก้ที่เดียว มีผลทุกแผ่น</b> 🖨️ เช่น ใส่โลโก้สหกรณ์มุมขวาบนทุกสไลด์ · เปลี่ยนฟอนต์ทั้งชุด</p>
+        <p class="tip">เปิดที่แท็บ <b>มุมมอง › ต้นแบบสไลด์</b> · ด้านซ้ายแผ่น<b>บนสุดใหญ่</b> = ต้นแบบ · แผ่นเล็กข้างล่าง = <b>เค้าโครง</b> (Layout) แต่ละแบบ เช่น <b>สไลด์ชื่อเรื่อง</b> · <b>ชื่อเรื่องและเนื้อหา</b> · เค้าโครง = แบบวางกล่อง<b>พื้นที่ที่สำรองไว้</b>บนสไลด์</p>
+
+        <p style="margin-top:14px"><b>2) ขนาดสไลด์</b> · แท็บ <b>ออกแบบ › ขนาดสไลด์</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>แบบ</th><th>สัดส่วน</th><th>หมายเหตุ</th></tr>
+          <tr><td><b>จอกว้าง</b> (Widescreen)</td><td><b>16:9</b></td><td>ค่าเริ่มต้นปัจจุบัน · เท่าจอทีวี จอคอมทั่วไป</td></tr>
+          <tr><td><b>มาตรฐาน</b> (Standard)</td><td><b>4:3</b></td><td>แบบเก่า เกือบเป็นสี่เหลี่ยมจัตุรัส</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>3) นามสกุลไฟล์ของ PowerPoint</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>นามสกุล</th><th>คืออะไร</th></tr>
+          <tr><td><b>.pptx</b></td><td>ไฟล์ PowerPoint แบบปัจจุบัน (เริ่ม 2007)</td></tr>
+          <tr><td><b>.ppt</b></td><td>ไฟล์ PowerPoint รุ่นเก่า (97–2003)</td></tr>
+          <tr><td><b>.ppsx</b></td><td>เปิดแล้ว<b>ฉายเต็มจอทันที</b> ไม่เข้าหน้าแก้งาน (s = show)</td></tr>
+          <tr><td><b>.potx</b></td><td><b>เทมเพลต</b> (แม่แบบ) ไว้ใช้ซ้ำ</td></tr>
+          <tr><td><b>.pptm</b></td><td>มี<b>แมโคร</b> · ⚠️ ไฟล์แปลกที่มีแมโคร อย่าเปิดใช้</td></tr>
+          <tr><td><b>.pdf · .mp4</b></td><td>บันทึกเป็น PDF ไว้แจก · ทำเป็น<b>วิดีโอ</b>ที่ ไฟล์ › ส่งออก › สร้างวิดีโอ</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>4) ปุ่มลัดของ PowerPoint</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>กด</th><th>ได้อะไร</th></tr>
+          <tr><td><b>F5</b></td><td>เริ่มฉาย<b>ตั้งแต่สไลด์แรก</b></td></tr>
+          <tr><td><b>Shift+F5</b></td><td>เริ่มฉาย<b>จากสไลด์ที่เปิดอยู่</b></td></tr>
+          <tr><td><b>Alt+F5</b></td><td>เริ่มฉายใน<b>มุมมองผู้นำเสนอ</b> (เห็นโพย)</td></tr>
+          <tr><td><b>Ctrl+M</b></td><td>แทรก<b>สไลด์ใหม่</b></td></tr>
+          <tr><td><b>Esc</b></td><td><b>จบ</b>การฉาย</td></tr>
+          <tr><td><b>N · Enter · → · Spacebar</b></td><td>ไป<b>ถัดไป</b> (ภาพเคลื่อนไหวถัดไป หรือสไลด์ถัดไป)</td></tr>
+          <tr><td><b>P · ← · Backspace</b></td><td><b>ย้อน</b>กลับ</td></tr>
+          <tr><td><b>B</b> · <b>W</b></td><td>จอ<b>ดำ</b> (Black) · จอ<b>ขาว</b> (White) ชั่วคราว · กดซ้ำ = กลับมา</td></tr>
+          <tr><td>พิมพ์ <b>เลข</b> แล้ว <b>Enter</b></td><td>กระโดดไป<b>สไลด์เลขนั้น</b> เช่น 7 Enter</td></tr>
+        </table></div>
+        <p class="tip">⌨️ ปุ่มฉาย (N P B W Esc) ใช้ได้<b>ตอนกำลังฉาย</b>เท่านั้น · จำ <b>B = Black</b> ดำ · <b>W = White</b> ขาว</p>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofp')">🎮 ทดสอบความเข้าใจ</button></div>
       </div>
     </div>
   </div>
@@ -1833,7 +1957,7 @@
 
   <footer>
     🦉 สื่อการเรียนรู้ "ไอทีง่ายนิดเดียว" · เปิดได้ทุกอุปกรณ์<br>
-    ครบ 8 บท + ห้องเรียน Office · เกม 36 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
+    ครบ 8 บท + ห้องเรียน Office · เกม 39 ด่าน · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
   </footer>
 </div>
 
@@ -2794,6 +2918,152 @@ function drawCalc(m,btn){
 }
 drawXl(); drawCalc('f');
 
+/* ============ บท O5 · PowerPoint ============ */
+// พื้นที่แตะ [x,y,w,h] ของจอ PowerPoint · trans/anim ตั้งตามตำแหน่งแท็บที่วาดจริงใน ppSvg
+const PP_HIT = {
+  trans:[0,0,0,0], anim:[0,0,0,0], newsl:[50,43,40,39], thumbs:[0,86,60,120], title:[110,92,166,20], body:[110,114,166,62],
+  notes:[64,180,254,26], slno:[0,208,74,28], notesbtn:[136,208,40,28], views:[178,208,40,28], show:[218,208,14,28], zoom:[234,208,86,28]
+};
+// วงกลมตัวเลข [badgeX, badgeY, pointX, pointY]
+const PP_BD = {trans:[0,-11,0,24], anim:[0,-11,0,24], newsl:[62,-11,62,46], thumbs:[30,198,30,198], title:[296,100,276,100], body:[296,140,276,140],
+  notes:[296,193,296,193], slno:[36,248,36,228], notesbtn:[156,248,156,228], views:[196,248,196,228], show:[225,262,225,228], zoom:[284,248,284,228]};
+function ppSvg(badges){
+  const c=OFP.ppt.c, T='font-family="Kanit,sans-serif"', W='#fff';
+  let s=`<svg viewBox="${badges?'0 -22 320 296':'0 0 320 236'}" class="hsvg ofs">
+  <rect x="0" y="0" width="320" height="236" rx="10" fill="#f3f3f3" stroke="#cfcfd8"/>
+  <rect x="0" y="0" width="320" height="22" rx="10" fill="${c}"/><rect x="0" y="12" width="320" height="10" fill="${c}"/>
+  <text x="32" y="15" font-size="10" fill="${W}">💾</text><text x="49" y="15.5" font-size="11" fill="${W}" font-weight="700">↶</text>
+  <text x="140" y="15" text-anchor="middle" font-size="8.5" fill="${W}" ${T}>ปลูกข้าว - PowerPoint</text>
+  <text x="256" y="15" font-size="11" fill="${W}">–</text><rect x="275" y="7" width="8" height="8" fill="none" stroke="${W}" stroke-width="1.3"/><text x="298" y="15.5" font-size="11" fill="${W}" font-weight="700">✕</text>
+  <rect x="0" y="22" width="320" height="19" fill="#fafafa"/>
+  <text x="13" y="35" text-anchor="middle" font-size="7" fill="#444" ${T}>ไฟล์</text>`;
+  let x=26;
+  ['หน้าแรก','แทรก','ออกแบบ','การเปลี่ยน','ภาพเคลื่อนไหว','การนำเสนอสไลด์'].forEach((t,i)=>{ const w=t.replace(/[ัิ-ฺ็-๎]/g,'').length*4.6+8;
+    const k=i===3?'trans':i===4?'anim':'';
+    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="7" fill="${i===0?c:k?'#222':'#444'}" ${i===0||k?'font-weight="700"':''} ${T}>${t}</text>`;
+    if(i===0) s+=`<rect x="${x+3}" y="38" width="${w-6}" height="2" fill="${c}"/>`;
+    if(k){ PP_HIT[k]=[x,23,w,18]; PP_BD[k]=[x+w/2,-11,x+w/2,25]; }
+    x+=w; });
+  // ริบบอนแท็บหน้าแรก: คลิปบอร์ด · สไลด์ (สไลด์ใหม่ เค้าโครง) · ฟอนต์ · ย่อหน้า · วาด
+  s+=`<rect x="2" y="42" width="316" height="41" rx="4" fill="#fff" stroke="#e2e2e8"/>
+    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>คลิปบอร์ด</text>
+    <line x1="46" y1="46" x2="46" y2="80" stroke="#e2e2e8"/>
+    <rect x="51" y="45" width="38" height="25" rx="3" fill="#fbeee9" stroke="#f0cfc3"/>
+    <rect x="61" y="48" width="18" height="11" rx="1" fill="#fff" stroke="${c}"/><text x="76" y="58" font-size="9" font-weight="800" fill="${c}">+</text>
+    <text x="70" y="67" text-anchor="middle" font-size="6.2" fill="#333" ${T}>สไลด์ใหม่</text>
+    <rect x="94" y="48" width="9" height="7" rx="1" fill="none" stroke="#777" stroke-width=".8"/><text x="106" y="54.5" font-size="6" fill="#444" ${T}>เค้าโครง</text>
+    <text x="96" y="65" font-size="7" fill="#777">↺</text><text x="106" y="65" font-size="6" fill="#444" ${T}>รีเซ็ต</text>
+    <text x="90" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>สไลด์</text>
+    <line x1="134" y1="46" x2="134" y2="80" stroke="#e2e2e8"/>
+    <text x="142" y="66" font-size="10" font-weight="900" fill="#333">B</text><text x="154" y="66" font-size="10" font-style="italic" fill="#333">I</text><text x="164" y="66" font-size="10" text-decoration="underline" fill="#333">U</text><text x="178" y="66" font-size="10" fill="#c00">A</text>
+    <text x="164" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ฟอนต์</text>
+    <line x1="194" y1="46" x2="194" y2="80" stroke="#e2e2e8"/>
+    ${[0,1,2].map(i=>`<circle cx="${204+i*16}" cy="56" r="1.3" fill="#555"/><rect x="${207+i*16}" y="55.3" width="6" height="1.4" fill="#555"/><circle cx="${204+i*16}" cy="61" r="1.3" fill="#555"/><rect x="${207+i*16}" y="60.3" width="6" height="1.4" fill="#555"/>`).join('')}
+    <text x="226" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ย่อหน้า</text>
+    <line x1="258" y1="46" x2="258" y2="80" stroke="#e2e2e8"/>
+    <text x="270" y="66" text-anchor="middle" font-size="12">🔷</text><text x="294" y="66" text-anchor="middle" font-size="12">🎨</text>
+    <text x="284" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>รูปวาด</text>
+    <rect x="2" y="84" width="316" height="124" fill="#e9e9ee"/>`;
+  // บานหน้าต่างรูปขนาดย่อ: 3 สไลด์ · สไลด์ 2 ถูกเลือก
+  s+=`<rect x="2" y="84" width="58" height="124" fill="#f6f6f8"/><line x1="60" y1="84" x2="60" y2="208" stroke="#d6d6de"/>`;
+  [0,1,2].forEach(i=>{ const Y=92+i*36;
+    s+=`<text x="8" y="${Y+6}" font-size="6.5" fill="${i===1?c:'#555'}" ${i===1?'font-weight="700"':''}>${i+1}</text>
+      <rect x="14" y="${Y}" width="42" height="24" rx="1.5" fill="#fff" stroke="${i===1?c:'#d6d6de'}" stroke-width="${i===1?1.8:1}"/>`;
+    if(i===0) s+=`<rect x="22" y="${Y+8}" width="26" height="3" rx="1" fill="${c}"/><rect x="26" y="${Y+14}" width="18" height="2" rx="1" fill="#c9cbd6"/>`;
+    if(i===1) s+=`<rect x="18" y="${Y+4}" width="22" height="2.6" rx="1" fill="${c}"/>${[0,1,2].map(j=>`<rect x="20" y="${Y+10+j*4}" width="${[24,18,21][j]}" height="1.8" rx=".9" fill="#c9cbd6"/>`).join('')}`;
+    if(i===2) s+=`<text x="35" y="${Y+17}" text-anchor="middle" font-size="11">🌾</text>`;
+  });
+  // บานหน้าต่างสไลด์: สไลด์ 2 (เค้าโครง ชื่อเรื่องและเนื้อหา)
+  s+=`<rect x="110" y="88" width="166" height="90" fill="#fff" stroke="#cfcfd8"/>
+    <rect x="116" y="93" width="154" height="17" rx="1" fill="none" stroke="#999" stroke-dasharray="3 2"/>
+    <text x="120" y="105.5" font-size="10" font-weight="700" fill="${c}" ${T}>ขั้นตอนการปลูก 🌾</text>
+    <rect x="116" y="115" width="154" height="58" rx="1" fill="none" stroke="#bbb" stroke-dasharray="3 2"/>
+    ${['เตรียมดิน ไถ คราด','หว่านเมล็ดพันธุ์','ดูแลน้ำ ใส่ปุ๋ย'].map((t,j)=>`<circle cx="123" cy="${126+j*13}" r="1.6" fill="#555"/><text x="128" y="${129+j*13}" font-size="8" fill="#333" ${T}>${t}</text>`).join('')}`;
+  // บานหน้าต่างบันทึกย่อ
+  s+=`<rect x="64" y="182" width="254" height="24" fill="#fff" stroke="#d6d6de"/>
+    <text x="70" y="197" font-size="7.5" fill="#555" ${T}>อย่าลืมบอกราคาปุ๋ยเดือนนี้</text>`;
+  // แถบสถานะ: สไลด์ x จาก y · บันทึกย่อ · ปุ่มมุมมอง 4 ปุ่ม · ซูม
+  s+=`<rect x="0" y="208" width="320" height="28" rx="10" fill="${c}"/><rect x="0" y="208" width="320" height="10" fill="${c}"/>
+  <text x="8" y="225" font-size="8.5" fill="${W}" ${T}>สไลด์ 2 จาก 3</text>
+  <text x="140" y="225" font-size="7.5" fill="${W}" ${T}>≡ บันทึกย่อ</text>
+  <rect x="181" y="217" width="9" height="9" rx="1" fill="#ffffff55" stroke="${W}"/>
+  <g stroke="${W}" fill="none" stroke-width=".8"><rect x="193" y="217" width="4" height="4"/><rect x="198" y="217" width="4" height="4"/><rect x="193" y="222" width="4" height="4"/><rect x="198" y="222" width="4" height="4"/></g>
+  <path d="M206 217 h4 l2 2 h4 v7 h-10 z" fill="none" stroke="${W}" stroke-width=".8"/>
+  <rect x="220" y="217" width="10" height="9" rx="1" fill="none" stroke="${W}"/><path d="M223.5 219 L228 221.5 L223.5 224 Z" fill="${W}"/>
+  <text x="236" y="225" font-size="10" fill="${W}">−</text><rect x="245" y="221" width="40" height="1.6" fill="${W}"/><rect x="262" y="216" width="4" height="11" rx="1" fill="${W}"/><text x="288" y="225" font-size="10" fill="${W}">+</text><text x="297" y="225" font-size="7" fill="${W}">60%</text>`;
+  Object.entries(PP_HIT).forEach(([k,[hx,hy,hw,hh]])=>{ s+=`<rect class="hit" data-k="${k}" x="${hx}" y="${hy}" width="${hw}" height="${hh}" rx="3"/>`; });
+  if(badges) Object.keys(PP).forEach((k,i)=>{ const [bx,by,px,py]=PP_BD[k];
+    if(bx!==px||by!==py) s+=`<line x1="${bx}" y1="${by}" x2="${px}" y2="${py}" stroke="#ff6ec7" stroke-width="1.6" stroke-dasharray="3 2"/>`;
+    s+=`<g class="bd" data-k="${k}" transform="translate(${bx},${by})"><circle r="8.5"/><text y="4">${i+1}</text></g>`; });
+  return s+'</svg>';
+}
+// ลองกดดู: การเปลี่ยน (ทั้งแผ่น) vs ภาพเคลื่อนไหว (ทีละชิ้นบนแผ่น)
+const PPS = [
+  {t:'ปลูกข้าวให้ได้ผล 🌾', b:[]},
+  {t:'ขั้นตอนการปลูก', b:['เตรียมดิน ไถ คราด','หว่านเมล็ดพันธุ์','ดูแลน้ำ ใส่ปุ๋ย']},
+  {t:'เก็บเกี่ยว 🚜', b:['ข้าวเหลืองทั้งแปลง','เกี่ยวแล้วตากให้แห้ง']}
+];
+let fxMode='tr', fxN=0;
+function fxSlide(i,shown,cls){
+  const c=OFP.ppt.c, T='font-family="Kanit,sans-serif"', S=PPS[i];
+  let g=`<g class="${cls||''}"><rect x="40" y="8" width="240" height="135" rx="3" fill="#fff" stroke="#cfcfd8"/>`;
+  if(!S.b.length) g+=`<text x="160" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="${c}" ${T}>${S.t}</text><text x="160" y="94" text-anchor="middle" font-size="10" fill="#777" ${T}>สหกรณ์การเกษตร · อบรมสมาชิก</text>`;
+  else { g+=`<text x="54" y="34" font-size="14" font-weight="700" fill="${c}" ${T}>${S.t}</text>`;
+    S.b.forEach((t,j)=>{ if(j>=shown) return; const Y=62+j*24;
+      g+=`<g class="${fxMode==='an'&&j===shown-1&&cls!=='x'?'ppfly':''}"><circle cx="62" cy="${Y-4}" r="2.6" fill="#555"/><text x="72" y="${Y}" font-size="12" fill="#333" ${T}>${t}</text></g>`; }); }
+  return g+'</g>';
+}
+function drawFx(m,btn){
+  if(m){ fxMode=m; fxN=0; if(btn) document.querySelectorAll('#fxTabs .tab').forEach(t=>t.classList.toggle('on',t===btn)); }
+  const c=OFP.ppt.c, T='font-family="Kanit,sans-serif"';
+  let s=`<svg viewBox="0 0 320 168" class="hsvg"><defs><clipPath id="ppClip"><rect x="40" y="8" width="240" height="135" rx="3"/></clipPath></defs><rect x="0" y="0" width="320" height="150" rx="8" fill="#2b2b33"/><g clip-path="url(#ppClip)">`;
+  let tx;
+  if(fxMode==='tr'){ const cur=fxN%3, prev=(cur+2)%3, full=k=>PPS[k].b.length;
+    s+= fxN? fxSlide(prev,full(prev),'x')+fxSlide(cur,full(cur),'pppush') : fxSlide(0,0);
+    s+=`</g><text x="160" y="162" text-anchor="middle" font-size="9" fill="#555" ${T}>สไลด์ ${cur+1} จาก 3</text>`;
+    tx = fxN ? `🔀 <b>ทั้งแผ่น</b>เลื่อนเข้ามาแทนแผ่นเดิม = <b>การเปลี่ยน</b> (Transition) · เกิด<b>ระหว่างสไลด์</b> ตอนเปลี่ยนแผ่น · ตั้งที่แท็บ <b>การเปลี่ยน</b>`
+             : `กด 👆 <b>คลิก</b> ดูว่าตอนเปลี่ยนจากสไลด์หนึ่งไปอีกสไลด์ <b>ทั้งแผ่น</b>ขยับยังไง`;
+  } else { const n=Math.min(fxN,3);
+    s+=fxSlide(1,n)+`</g>`;
+    [0,1,2].forEach(j=>{ s+=`<rect x="${26}" y="${50+j*24}" width="11" height="11" rx="2" fill="${j<n?'#ccc':c}"/><text x="31.5" y="${58.5+j*24}" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">${j+1}</text>`; });
+    s+=`<text x="160" y="162" text-anchor="middle" font-size="9" fill="#555" ${T}>คลิก ${n} จาก 3 · สไลด์ยังเป็นแผ่นเดิม</text>`;
+    tx = n<3 ? `✨ ทีละคลิก ข้อความโผล่มา<b>ทีละบรรทัด</b> บน<b>สไลด์แผ่นเดิม</b> = <b>ภาพเคลื่อนไหว</b> (Animation) · ใส่ให้<b>วัตถุชิ้นเดียว</b>บนสไลด์ · ตั้งที่แท็บ <b>ภาพเคลื่อนไหว</b><br>เลขสีส้มด้านซ้าย = ลำดับที่จะขึ้น (เห็นตอนแก้งาน ไม่ขึ้นตอนนำเสนอ)`
+           : `ครบ 3 บรรทัดแล้ว · คลิกต่อจากนี้ = <b>ไปสไลด์ถัดไป</b> ซึ่งเป็นเรื่องของ<b>การเปลี่ยน</b> 🔀 · จำ: <b>การเปลี่ยน = ทั้งแผ่น · ภาพเคลื่อนไหว = ชิ้นบนแผ่น</b>`;
+  }
+  $('figFx').innerHTML=s+'</svg>';
+  $('infoFx').innerHTML=tx;
+}
+function fxClick(){ if(fxMode==='an'&&fxN>=3){ fxN=0; } else fxN++; drawFx(); }
+function drawPp(){
+  $('figPp').innerHTML=ppSvg(true);
+  $('chipsPp').innerHTML=Object.keys(PP).map((k,i)=>`<button class="chip" data-k="${k}">${i+1}. ${PP[k][0]}</button>`).join('');
+  const pick=ppPick=k=>{
+    ['figPp','chipsPp'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const O=PP[k];
+    $('infoPp').innerHTML=`<b>${O[0]}</b> <i class="gp" style="background:${OFP.ppt.c}">${O[1]}</i><br>${O[2]}`;
+    pop($('infoPp'));
+  };
+  ['figPp','chipsPp'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+let ppPick=()=>{};
+function ppKw(k){ ppPick(k); $('infoPp').scrollIntoView({behavior:'smooth',block:'center'}); }
+// ส่วนเฉพาะจอ PowerPoint: [ชื่อ, ชื่ออังกฤษ, คำอธิบาย] · เรียงจากบนลงล่าง
+const PP = {
+  trans:['แท็บการเปลี่ยน','Transitions','ใส่ลูกเล่น<b>ตอนเปลี่ยนจากสไลด์หนึ่งไปอีกสไลด์</b> มีผลกับ<b>ทั้งแผ่น</b> · ปุ่ม <b>นำไปใช้กับทั้งหมด</b> = ให้ทุกสไลด์ใช้ลูกเล่นเดียวกัน · ลองกดดูในข้อ 2 ด้านล่าง'],
+  anim:['แท็บภาพเคลื่อนไหว','Animations','ใส่ลูกเล่นให้<b>วัตถุบนสไลด์</b>ทีละชิ้น เช่น ข้อความ รูปภาพ ให้โผล่ทีละบรรทัด · สไลด์ยังเป็น<b>แผ่นเดิม</b> · มี<b>บานหน้าต่างภาพเคลื่อนไหว</b> ไว้ดูลำดับทั้งหมด'],
+  newsl:['สไลด์ใหม่','New Slide','อยู่แท็บ<b>หน้าแรก</b> กลุ่ม<b>สไลด์</b> · กด = ได้<b>สไลด์ใหม่</b>ต่อจากแผ่นที่เลือก · ปุ่มลัด <b>Ctrl+M</b> · กดลูกศรของปุ่ม = เลือก<b>เค้าโครง</b>ก่อน เช่น สไลด์ชื่อเรื่อง · ชื่อเรื่องและเนื้อหา'],
+  thumbs:['บานหน้าต่างรูปขนาดย่อ','Thumbnail pane','สไลด์<b>ทุกแผ่นย่อเล็ก</b>เรียงด้านซ้าย มีเลขลำดับ · คลิก = ไปแก้แผ่นนั้น · <b>ลากขึ้นลง = สลับลำดับ</b> · คลิกขวา = <b>ทำซ้ำสไลด์</b> (ได้แผ่นเหมือนกันอีกแผ่น)'],
+  title:['พื้นที่ที่สำรองไว้ (ชื่อเรื่อง)','Placeholder','<b>กล่องเส้นประ</b>ที่เค้าโครงเตรียมไว้ · คลิกแล้วพิมพ์<b>ชื่อเรื่อง</b>ได้เลย ไม่ต้องสร้างกล่องข้อความเอง · ชื่อทางการภาษาไทยคือ <b>พื้นที่ที่สำรองไว้</b>'],
+  body:['พื้นที่ที่สำรองไว้ (เนื้อหา)','Placeholder','กล่องเส้นประสำหรับ<b>เนื้อหา</b> · พิมพ์แล้วมี<b>จุดนำหน้า</b>ทุกบรรทัดให้เอง (ในธีมเริ่มต้น) · กด Enter = ขึ้นหัวข้อใหม่'],
+  notes:['บานหน้าต่างบันทึกย่อ','Notes pane','<b>โพยของคนพูด</b> 📝 จดว่าสไลด์นี้จะพูดอะไร · <b>คนดูไม่เห็น</b>ตอนฉาย · ผู้นำเสนอเห็นโพยใน<b>มุมมองผู้นำเสนอ</b> (Alt+F5)'],
+  slno:['หมายเลขสไลด์','Slide number','บอกว่ากำลังอยู่<b>สไลด์ที่เท่าไร จากทั้งหมดกี่แผ่น</b> · เหมือน Word บอก "หน้า 1 จาก 1"'],
+  notesbtn:['ปุ่มบันทึกย่อ','Notes','กด = <b>เปิด/ปิดบานหน้าต่างบันทึกย่อ</b> ใต้สไลด์ · ⚠️ คนละอย่างกับ<b>มุมมองหน้าบันทึกย่อ</b> ที่อยู่แท็บมุมมอง'],
+  views:['ปุ่มมุมมอง','View buttons','สลับวิธีมองงาน: <b>ปกติ</b> (ใช้แก้งาน) · <b>ตัวเรียงลำดับสไลด์</b> (เห็นทุกแผ่นเป็นตาราง จัดลำดับง่าย) · <b>การอ่าน</b> (ดูเต็มหน้าต่าง พลิกเองง่าย ๆ)'],
+  show:['ปุ่มการนำเสนอสไลด์','Slide Show','ปุ่ม ▶ สุดท้าย · <b>เริ่มฉายเต็มจอ จากสไลด์ที่เลือกอยู่</b> (เหมือนกด <b>Shift+F5</b>) · อยากเริ่มจากแผ่นแรก กด <b>F5</b> · จบการฉาย กด <b>Esc</b>'],
+  zoom:['แถบเลื่อนซูม','Zoom slider','ลาก = ย่อ/ขยาย<b>ภาพสไลด์บนจอ</b> (ขนาดสไลด์จริงไม่เปลี่ยน) · กด <b>Ctrl+Alt+O</b> = จัดพอดีกับหน้าต่าง']
+};
+drawPp(); drawFx('tr');
+
 /* ============ future tech (outside → inside) ============ */
 // ช่องบนหน้าจอ: [ไอคอน, ชื่อบนภาพ, ชื่อเต็ม, เทคโนโลยี, สีป้าย, คำอธิบาย]
 const FUT = {
@@ -3583,6 +3853,51 @@ const BANK = {
     {p:'↩️', q:'อยากขึ้นบรรทัดใหม่ภายในช่องเดียวกัน กดปุ่มใด', c:['Alt+Enter','Enter','Shift+Enter','Tab'], w:'Alt+Enter = บรรทัดใหม่ในช่อง · Enter เฉย ๆ = ลงไปช่องถัดไป'},
     {p:'⌨️', q:'Ctrl+D ใน Excel ทำอะไร', c:['เติมลง (คัดลอกช่องบนลงมา)','เปิดกล่องฟอนต์','ลบแถว','บันทึกไฟล์'], w:'Excel: Ctrl+D = เติมลง · ใน Word ปุ่มเดียวกันคือเปิดกล่องฟอนต์'}
   ],
+  op1: [
+    {t:'tap', g:'pp', k:'trans', q:'อยากให้ตอนเปลี่ยนแผ่น สไลด์ใหม่ค่อย ๆ เลื่อนเข้ามาแทน ต้องไปแท็บไหน? แตะเลย 👆', w:'แท็บการเปลี่ยน (Transitions) = ลูกเล่นทั้งแผ่น ตอนเปลี่ยนสไลด์'},
+    {t:'tap', g:'pp', k:'anim', q:'อยากให้ข้อความบนสไลด์โผล่ขึ้นมาทีละบรรทัด ต้องไปแท็บไหน? 👆', w:'แท็บภาพเคลื่อนไหว (Animations) = ลูกเล่นของชิ้นงานบนสไลด์'},
+    {t:'tap', g:'pp', k:'newsl', q:'อยากเพิ่มสไลด์อีกแผ่น ด้วยปุ่มบนริบบอน แตะปุ่มไหน? 👆', w:'สไลด์ใหม่ แท็บหน้าแรก กลุ่มสไลด์ · ปุ่มลัด Ctrl+M'},
+    {t:'tap', g:'pp', k:'thumbs', q:'อยากไปแก้สไลด์ที่ 3 คลิกตรงไหน? 👆', w:'บานหน้าต่างรูปขนาดย่อ ด้านซ้าย · คลิกแผ่นเล็ก = ไปแผ่นนั้น'},
+    {t:'tap', g:'pp', k:'thumbs', q:'แตะ "บานหน้าต่างรูปขนาดย่อ" (Thumbnail pane) 👆', w:'แถบสไลด์เล็ก ๆ เรียงด้านซ้าย'},
+    {t:'tap', g:'pp', k:'title', q:'อยากแก้ชื่อเรื่องของสไลด์นี้ คลิกตรงไหน? 👆', w:'กล่องเส้นประด้านบนสไลด์ = พื้นที่ที่สำรองไว้สำหรับชื่อเรื่อง'},
+    {t:'tap', g:'pp', k:'body', q:'อยากเพิ่มหัวข้อที่ 4 ต่อจาก "ดูแลน้ำ ใส่ปุ๋ย" คลิกในกล่องไหน? 👆', w:'กล่องเนื้อหา (พื้นที่ที่สำรองไว้) · คลิกท้ายบรรทัดแล้วกด Enter = หัวข้อใหม่'},
+    {t:'tap', g:'pp', k:'notes', q:'อยากจดโพยว่าสไลด์นี้จะพูดอะไร โดยคนดูไม่เห็น พิมพ์ตรงไหน? 👆', w:'บานหน้าต่างบันทึกย่อ ใต้สไลด์ · ตอนฉายคนดูไม่เห็น'},
+    {t:'tap', g:'pp', k:'notesbtn', q:'บานโพยใต้สไลด์หายไป อยากเปิดกลับมา กดปุ่มไหนบนแถบสถานะ? 👆', w:'ปุ่มบันทึกย่อ บนแถบสถานะ = เปิด/ปิดบานหน้าต่างบันทึกย่อ'},
+    {t:'tap', g:'pp', k:'slno', alt:['thumbs'], q:'อยากรู้ว่ากำลังอยู่สไลด์ที่เท่าไร ดูส่วนไหน? 👆', w:'แถบสถานะบอก "สไลด์ 2 จาก 3" · แผ่นที่มีกรอบสีในบานรูปขนาดย่อก็บอกได้เหมือนกัน'},
+    {t:'tap', g:'pp', k:'views', q:'อยากเห็นสไลด์ทุกแผ่นเรียงเป็นตาราง (มุมมองตัวเรียงลำดับสไลด์) กดกลุ่มปุ่มไหน? 👆', w:'ปุ่มมุมมองบนแถบสถานะ: ปกติ · ตัวเรียงลำดับสไลด์ · การอ่าน'},
+    {t:'tap', g:'pp', k:'show', q:'อยากเริ่มฉายเต็มจอ ด้วยปุ่มบนแถบสถานะ แตะปุ่มไหน? 👆', w:'ปุ่ม ▶ การนำเสนอสไลด์ · ฉายจากสไลด์ที่เลือกอยู่'},
+    {t:'tap', g:'pp', k:'zoom', q:'สไลด์บนจอเล็กไป อยากขยายดูให้ใหญ่ขึ้น (ไม่เปลี่ยนขนาดงานจริง) ใช้ส่วนไหน? 👆', w:'แถบเลื่อนซูม มุมขวาล่าง'}
+  ],
+  op2: [
+    {p:'📽️', q:'ไฟล์ PowerPoint 1 ไฟล์ เรียกว่าอะไร', c:['งานนำเสนอ (Presentation)','สมุดงาน (Workbook)','แผ่นงาน (Worksheet)','เซลล์ (Cell)'], w:'1 ไฟล์ = งานนำเสนอ 1 ชุด ข้างในมีหลายสไลด์'},
+    {p:'🔀', q:'ลูกเล่นตอนเปลี่ยนจากสไลด์หนึ่งไปอีกสไลด์ เรียกว่าอะไร', c:['การเปลี่ยน (Transition)','ภาพเคลื่อนไหว (Animation)','ธีม (Theme)','เค้าโครง (Layout)'], w:'การเปลี่ยน = ทั้งแผ่น ระหว่างสไลด์'},
+    {p:'✨', q:'อยากให้รูปภาพบนสไลด์ค่อย ๆ ลอยเข้ามา ใช้คำสั่งกลุ่มใด', c:['ภาพเคลื่อนไหว','การเปลี่ยน','ขนาดสไลด์','เค้าโครง'], w:'ภาพเคลื่อนไหว = ลูกเล่นของชิ้นงานบนสไลด์'},
+    {p:'🔁', q:'ตั้งการเปลี่ยนให้สไลด์แรกแล้ว อยากให้ทุกสไลด์ใช้แบบเดียวกัน กดปุ่มใด', c:['นำไปใช้กับทั้งหมด','ทำซ้ำสไลด์','สไลด์ใหม่','ตัวคัดวางภาพเคลื่อนไหว'], w:'นำไปใช้กับทั้งหมด (Apply To All) แท็บการเปลี่ยน'},
+    {p:'🎨', q:'"ธีม" (ชุดสี ฟอนต์ พื้นหลังสำเร็จรูป) อยู่แท็บใด', c:['ออกแบบ','มุมมอง','แทรก','การเปลี่ยน'], w:'ธีมอยู่แท็บออกแบบ · ต้นแบบสไลด์อยู่แท็บมุมมอง'},
+    {p:'🖼️', q:'อยากใส่ตารางลงบนสไลด์ ใช้แท็บใด', c:['แทรก','ออกแบบ','การเปลี่ยน','รีวิว'], w:'แทรก = ใส่ของเพิ่ม: ตาราง รูปภาพ ลิงก์ วิดีโอ'},
+    {p:'🟢', q:'ภาพเคลื่อนไหวแบบ "เข้า" (ให้ชิ้นงานโผล่เข้ามา) ไอคอนเป็นสีอะไร', c:['เขียว','แดง','เหลือง','น้ำเงิน'], w:'เข้า = เขียว · เน้น = เหลือง · ออก = แดง'},
+    {p:'🔴', q:'อยากให้ข้อความหายไปจากสไลด์ ใช้ภาพเคลื่อนไหวแบบใด', c:['ออก (Exit)','เข้า (Entrance)','เน้น (Emphasis)','การเปลี่ยน (Transition)'], w:'ออก = ทำให้หายไป ไอคอนสีแดง'},
+    {p:'⏱️', q:'อยากให้บรรทัด 2 ขึ้นเองทันทีหลังบรรทัด 1 ขึ้นเสร็จ โดยไม่ต้องคลิก ตั้งช่อง "เริ่ม" แบบใด', c:['หลังจากก่อนหน้า','เมื่อคลิก','พร้อมกับก่อนหน้า','นำไปใช้กับทั้งหมด'], w:'หลังจากก่อนหน้า = ชิ้นก่อนจบแล้วขึ้นต่อเอง · พร้อมกับก่อนหน้า = ขึ้นพร้อมกัน'},
+    {p:'📋', q:'อยากดูว่าบนสไลด์มีภาพเคลื่อนไหวอะไรบ้าง เรียงลำดับยังไง เปิดอะไร', c:['บานหน้าต่างภาพเคลื่อนไหว','บานหน้าต่างรูปขนาดย่อ','บานหน้าต่างบันทึกย่อ','ตัวเรียงลำดับสไลด์'], w:'บานหน้าต่างภาพเคลื่อนไหว แท็บภาพเคลื่อนไหว'},
+    {p:'🗂️', q:'มุมมองใดเห็นสไลด์ทุกแผ่นเรียงเป็นตาราง', c:['ตัวเรียงลำดับสไลด์','ปกติ','การอ่าน','หน้าบันทึกย่อ'], w:'ตัวเรียงลำดับสไลด์ (Slide Sorter) ลากสลับลำดับง่าย'},
+    {p:'✏️', q:'เปิด PowerPoint มาแก้งานตามปกติ (เห็นสไลด์เล็กด้านซ้าย สไลด์ใหญ่ตรงกลาง) เรียกมุมมองใด', c:['ปกติ','การนำเสนอสไลด์','การอ่าน','เค้าร่าง'], w:'มุมมองปกติ (Normal) ใช้แก้งาน'},
+    {p:'📝', q:'มุมมองใด ไม่มีปุ่มบนแถบสถานะ ต้องเปิดจากแท็บมุมมองเท่านั้น', c:['เค้าร่าง','ปกติ','ตัวเรียงลำดับสไลด์','การนำเสนอสไลด์'], w:'เค้าร่าง และหน้าบันทึกย่อ อยู่แท็บมุมมองเท่านั้น'}
+  ],
+  op3: [
+    {p:'🏷️', q:'อยากใส่โลโก้สหกรณ์ให้ขึ้นทุกสไลด์ โดยแก้ที่เดียว ใช้อะไร', c:['ต้นแบบสไลด์','บานหน้าต่างบันทึกย่อ','การเปลี่ยน','มุมมองการอ่าน'], w:'ต้นแบบสไลด์ (Slide Master) แก้ที่เดียว มีผลทุกแผ่น'},
+    {p:'👁️', q:'ต้นแบบสไลด์ เปิดจากแท็บใด', c:['มุมมอง','ออกแบบ','แทรก','หน้าแรก'], w:'มุมมอง › ต้นแบบสไลด์ · ระวังสับสนกับธีมที่อยู่แท็บออกแบบ'},
+    {p:'📐', q:'สไลด์ใหม่ของ PowerPoint ปัจจุบัน ขนาดเริ่มต้นเป็นสัดส่วนเท่าใด', c:['16:9 (จอกว้าง)','4:3 (มาตรฐาน)','1:1','A4 แนวตั้ง'], w:'ค่าเริ่มต้น = จอกว้าง 16:9 · 4:3 เป็นแบบเก่า'},
+    {p:'📏', q:'อยากเปลี่ยนสไลด์เป็นขนาด 4:3 ใช้คำสั่ง "ขนาดสไลด์" ในแท็บใด', c:['ออกแบบ','มุมมอง','หน้าแรก','การนำเสนอสไลด์'], w:'ออกแบบ › ขนาดสไลด์'},
+    {p:'💾', q:'ไฟล์ PowerPoint แบบปัจจุบัน มีนามสกุลใด', c:['.pptx','.xlsx','.docx','.mp4'], w:'.pptx · รุ่นเก่า 97–2003 คือ .ppt'},
+    {p:'▶️', q:'ไฟล์ PowerPoint นามสกุลใด ดับเบิลคลิกแล้วฉายเต็มจอทันที', c:['.ppsx','.pptx','.potx','.pptm'], w:'.ppsx (s = show) เปิดแล้วเข้าการนำเสนอสไลด์ทันที'},
+    {p:'📄', q:'ไฟล์เทมเพลต (แม่แบบ) ของ PowerPoint มีนามสกุลใด', c:['.potx','.ppsx','.pptm','.pdf'], w:'.potx = เทมเพลต · .pptm = มีแมโคร'},
+    {p:'⌨️', q:'กด F5 ใน PowerPoint ได้อะไร', c:['เริ่มฉายตั้งแต่สไลด์แรก','เริ่มฉายจากสไลด์ที่เปิดอยู่','แทรกสไลด์ใหม่','บันทึกไฟล์'], w:'F5 = ตั้งแต่แรก · Shift+F5 = จากสไลด์ปัจจุบัน'},
+    {p:'⌨️', q:'อยากเริ่มฉายจากสไลด์ที่กำลังเปิดอยู่ กดปุ่มใด', c:['Shift+F5','F5','Alt+F5','Ctrl+M'], w:'Shift+F5 = จากสไลด์ปัจจุบัน · Alt+F5 = มุมมองผู้นำเสนอ'},
+    {p:'➕', q:'Ctrl+M ใน PowerPoint ทำอะไร', c:['แทรกสไลด์ใหม่','เริ่มฉาย','จบการฉาย','เปิดต้นแบบสไลด์'], w:'Ctrl+M = สไลด์ใหม่'},
+    {p:'⬛', q:'กำลังฉายอยู่ อยากให้จอดำชั่วคราว (คนดูหันมาฟังเรา) กดปุ่มใด', c:['B','W','Esc','Enter'], w:'B = Black จอดำ · W = White จอขาว · กดซ้ำกลับมา'},
+    {p:'🛑', q:'อยากจบการฉาย กลับไปหน้าแก้งาน กดปุ่มใด', c:['Esc','B','Enter','Spacebar'], w:'Esc = จบการฉาย · Enter/Spacebar = ไปถัดไป'},
+    {p:'🔢', q:'กำลังฉายอยู่ อยากกระโดดไปสไลด์ที่ 7 ทันที ทำอย่างไร', c:['พิมพ์ 7 แล้วกด Enter','กด F7','กด Ctrl+7','กด P 7 ครั้ง'], w:'พิมพ์เลขสไลด์ แล้วกด Enter · P = ย้อนกลับ'}
+  ],
   oh1: [
     {p:'⌨️', q:'โปรแกรมใดเกิดมาแทน "เครื่องพิมพ์ดีด" ในสำนักงาน', c:['Microsoft Word','Microsoft Excel','Microsoft PowerPoint','Google Chrome'], w:'Word = พิมพ์เอกสาร'},
     {p:'📒', q:'โปรแกรมใดเหมาะกับงานตารางตัวเลข คำนวณรายรับรายจ่าย', c:['Microsoft Excel','Microsoft Word','Microsoft PowerPoint','Windows'], w:'Excel = คำนวณ'},
@@ -3666,7 +3981,10 @@ const LEVELS = [
   {ch:'ofw', id:'ow3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'หัวกระดาษ จดหมายเวียน นามสกุล ปุ่มลัด', cls:'c2'},
   {ch:'ofx', id:'ox1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'👆 แตะบนจอ Excel', cls:'c6'},
   {ch:'ofx', id:'ox2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'สูตร ฟังก์ชัน แท็บ', cls:'c5'},
-  {ch:'ofx', id:'ox3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'$ ตรึงช่อง ข้อผิดพลาด # นามสกุล ปุ่มลัด', cls:'c2'}
+  {ch:'ofx', id:'ox3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'$ ตรึงช่อง ข้อผิดพลาด # นามสกุล ปุ่มลัด', cls:'c2'},
+  {ch:'ofp', id:'op1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'👆 แตะบนจอ PowerPoint', cls:'c6'},
+  {ch:'ofp', id:'op2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'การเปลี่ยน ภาพเคลื่อนไหว มุมมอง', cls:'c5'},
+  {ch:'ofp', id:'op3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ต้นแบบสไลด์ นามสกุล ปุ่มลัด', cls:'c2'}
 ];
 const CHS = {
   pc:{n:'คอมพิวเตอร์', i:'🕰️', scr:'pc'},
@@ -3680,7 +3998,8 @@ const CHS = {
   ofh:{n:'🏆 ประวัติ Office', i:'📜', scr:'ofh'},
   ofs:{n:'🏆 หน้าจอโปรแกรม', i:'🖥️', scr:'ofs'},
   ofw:{n:'🏆 Word', i:'📝', scr:'ofw'},
-  ofx:{n:'🏆 Excel', i:'📊', scr:'ofx'}
+  ofx:{n:'🏆 Excel', i:'📊', scr:'ofx'},
+  ofp:{n:'🏆 PowerPoint', i:'📽️', scr:'ofp'}
 };
 let curCh='hw';
 const chLevels = () => LEVELS.filter(L=>L.ch===curCh);
@@ -3774,6 +4093,8 @@ function showPlay(){
   $('game-play').style.display='block';
   showQ();
 }
+// จอเฉพาะโปรแกรมของเกมแตะ: g → [ฟังก์ชันวาด, ตารางชื่อส่วน] · ไม่อยู่ในตาราง = จอร่วม ofsSvg (บท O2)
+const TAPSCR={wd:[wdSvg,WD], xl:[xlSvg,XL], pp:[ppSvg,PP]};
 function showQ(){
   const q=game.qs[game.idx], N=game.qs.length;
   $('q-count').textContent=game.mode==='round'?`ข้อ ${game.idx+1} / ${N}`:(q.boss?'👹 ปราบเซียน':'🔥 ท้าทาย')+` ${game.idx+1} / ${N}`;
@@ -3785,7 +4106,7 @@ function showQ(){
   $('q-fb').textContent=''; $('q-why').style.display='none'; $('q-next').style.display='none';
   const box=$('q-choices'); box.innerHTML='';
   if(q.t==='tap'){ // เกมแตะบนภาพหน้าจอ (บท O2)
-    $('q-pic').innerHTML=q.g==='wd'?wdSvg(false):q.g==='xl'?xlSvg(false):ofsSvg(q.g,false);
+    $('q-pic').innerHTML=TAPSCR[q.g]?TAPSCR[q.g][0](false):ofsSvg(q.g,false);
     $('q-pic').onclick=e=>{ const el=e.target.closest('.hit'); if(el&&!game.tapped){ game.tapped=true; tapAnswer(el,q); } };
     game.tapped=false; return;
   }
@@ -3831,7 +4152,7 @@ function tapAnswer(el,q){
   } else {
     el.classList.add('bad'); $('q-pic').querySelector(`.hit[data-k="${q.k}"]`).classList.add('ok');
     game.hearts--; $('q-hearts').textContent=heartsTxt();
-    $('q-fb').textContent=`❌ ตรงนั้นคือ ${(q.g==='wd'?WD:q.g==='xl'?XL:OFS)[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
+    $('q-fb').textContent=`❌ ตรงนั้นคือ ${(TAPSCR[q.g]?TAPSCR[q.g][1]:OFS)[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
     if(!q.boss && !save.wrong.includes(key)) save.wrong.push(key);
   }
   afterAnswer(q);

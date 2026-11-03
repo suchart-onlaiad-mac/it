@@ -196,6 +196,15 @@
   .card .tag{position:absolute; top:10px; right:12px; font-size:11px; background:rgba(255,255,255,.3); border-radius:50px; padding:2px 9px}
   .c7{background:linear-gradient(140deg,#ff8f8f,#ff5f5f)}
   .c8{background:linear-gradient(140deg,#7fd3ff,#4f8dff)}
+  /* ---- (IT) ด่านพิเศษ Office ---- */
+  .cgold{background:linear-gradient(140deg,#ffa62b,#e86a00)}
+  .special{margin-top:26px; border-radius:24px; padding:16px 14px 18px; background:linear-gradient(140deg,#fff8e0,#ffeab8); border:3px dashed #ffb400; text-align:center}
+  .special .sp-h{font-family:'Pridi',serif; font-size:21px; font-weight:700; color:#b86e00}
+  .special .sp-tag{display:inline-block; font-size:12px; font-weight:600; background:#ff5f5f; color:#fff; border-radius:50px; padding:2px 10px; margin-left:6px; vertical-align:middle}
+  .special .tip{margin:6px 0 12px}
+  .special .card{width:100%; max-width:360px; margin:0 auto}
+  .path{display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:6px 0 4px}
+  .path span{background:#fff; border-radius:50px; padding:3px 11px; font-size:13px; font-weight:600; color:#6a64a6}
 
   /* ---- (IT) 3 layers ---- */
   .layer{border-radius:22px; padding:18px 18px; margin-top:16px; animation:pop .35s ease}
@@ -353,6 +362,11 @@
       <button class="card c2" onclick="go('fut')"><span class="ico">🤖</span>เทคโนโลยีอนาคต<small>AI Cloud IoT</small></button>
       <button class="card c6" onclick="openGame()"><span class="ico">🎮</span>เกมพิชิตด่าน<small>ตอบถูก ปลดล็อกด่าน!</small></button>
     </div>
+    <div class="special">
+      <div class="sp-h">🏆 ด่านพิเศษ <span class="sp-tag">ระดับยาก</span></div>
+      <p class="tip">แนะนำให้เรียน <b>8 บทข้างบน</b>ให้คล่องก่อน แล้วค่อยมาท้าด่านนี้ 💪</p>
+      <button class="card cgold" onclick="go('office')"><span class="ico">🧰</span>ห้องเรียน Office<small>Word · Excel · PowerPoint · ปุ่มลัด</small></button>
+    </div>
     <p class="hint" style="margin-top:16px">💡 ทุกบทมี 3 ชั้น: 🌱 อ่านแค่ชั้นแรกก็เข้าใจ · อยากรู้มากขึ้นค่อยกดต่อ 🌿 🌳</p>
   </div>
 
@@ -459,6 +473,130 @@
         </div>
         <p class="tip">เรื่องเครื่องแรกของไทยมาจากบทความและพิพิธภัณฑ์ (อพวช.) ยังไม่พบเอกสารทางการของจุฬาฯ · ข้อสอบอาจสลับให้เครื่องแรกอยู่ที่สำนักงานสถิติฯ — <b>ไม่ใช่</b></p>
         <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('pc')">🎮 ทดสอบความเข้าใจ</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= OFFICE HUB (ด่านพิเศษ) ================= -->
+  <div class="screen" id="office">
+    <button class="backbtn" onclick="home()">⬅️ กลับหน้าหลัก</button>
+    <div class="panel">
+      <h2>🧰 ห้องเรียน Office · ด่านพิเศษ 🏆</h2>
+      <p>โปรแกรมที่ใช้ในสำนักงานทุกแห่ง · เรียน<b>ตามลำดับ</b> จากง่ายไปยาก 👇</p>
+      <div class="path"><span>📜 ประวัติ</span><span>▶</span><span>🖥️ หน้าจอ</span><span>▶</span><span>📝 Word</span><span>▶</span><span>📊 Excel</span><span>▶</span><span>📽️ PowerPoint</span><span>▶</span><span>⌨️ ปุ่มลัด</span></div>
+      <div class="menu">
+        <button class="card c5" onclick="go('ofh')"><span class="ico">📜</span>1. ประวัติ Office<small>มาจากไหน แต่ละรุ่นต่างกันยังไง</small></button>
+        <button class="card c3 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🖥️</span>2. หน้าจอโปรแกรม<small>ส่วนที่ทุกโปรแกรมมีเหมือนกัน</small></button>
+        <button class="card c8 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📝</span>3. Word<small>พิมพ์เอกสาร จดหมาย</small></button>
+        <button class="card c6 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📊</span>4. Excel<small>ตาราง สูตร คำนวณ</small></button>
+        <button class="card c7 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📽️</span>5. PowerPoint<small>สไลด์นำเสนอ</small></button>
+        <button class="card c2 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">⌨️</span>6. ปุ่มลัด<small>ทำงานไวขึ้น · ออกสอบบ่อย</small></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= OFFICE 1 · HISTORY ================= -->
+  <div class="screen" id="ofh">
+    <button class="backbtn" onclick="go('office')">⬅️ กลับห้องเรียน Office</button>
+    <div class="panel">
+      <h2>📜 ประวัติ Office</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p><b>Microsoft Office</b> = <b>ชุดโปรแกรมสำนักงาน</b> ของบริษัท Microsoft · ตัวหลักมี 3 โปรแกรม <b>Word · Excel · PowerPoint</b> · แต่ละตัวเกิดมา<b>แทนของที่สำนักงานเคยใช้</b> และวันนี้เปิดในมือถือได้แล้ว 📱</p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 สำนักงานเมื่อก่อน ใช้อะไรทำงาน?</div>
+        <p class="tip"><b>แตะช่องที่สนใจ</b> ดูว่าโปรแกรมไหนมาแทน 👇</p>
+        <div class="fig" id="figOfh"></div>
+        <div class="chips" id="chipsOfh"></div>
+        <div class="info" id="infoOfh">👆 แตะช่องไหนก็ได้ ดูว่าของเก่าถูกแทนด้วยโปรแกรมอะไร</div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> ⏪ ย้อนเวลา: Office มาจากไหน</div>
+        <p class="tip">เลือกเรื่อง แล้วกดปุ่มดูทีละขั้น 👇</p>
+        <div class="tabs" id="ofhTabs">
+          <button class="tab on" onclick="ofhScene('born',this)">🐣 กำเนิด 3 โปรแกรม</button>
+          <button class="tab" onclick="ofhScene('ver',this)">📦 Office แต่ละรุ่น</button>
+        </div>
+        <div class="stack" id="ofhStack"></div>
+        <div class="info" id="infoOfhS">▶ กดปุ่มด้านล่างเพื่อเริ่ม</div>
+        <div class="center" style="margin-top:10px"><button class="btn alt" id="ofhBtn" onclick="ofhStep()">▶ เริ่มดูทีละขั้น</button></div>
+
+        <!-- 3) overview -->
+        <div class="step-h"><span class="sn">3</span> 🗺️ ภาพรวม: ชุด Office มีอะไรบ้าง</div>
+        <div class="map">
+          <div class="grp g-in"><h4>📝 Word</h4><p>พิมพ์เอกสาร</p><div class="ch">จดหมาย หนังสือ</div><div class="ch">.docx</div></div>
+          <div class="grp g-out"><h4>📊 Excel</h4><p>ตาราง คำนวณ</p><div class="ch">รายรับ รายจ่าย</div><div class="ch">.xlsx</div></div>
+          <div class="grp g-st"><h4>📽️ PowerPoint</h4><p>สไลด์นำเสนอ</p><div class="ch">ประชุม อบรม</div><div class="ch">.pptx</div></div>
+          <div class="grp g-pr"><h4>📦 ซื้อเป็นชุด</h4><p>ได้หลายโปรแกรมรวมกัน</p><div class="ch">Microsoft 365</div><div class="ch">Office 2024</div></div>
+        </div>
+        <div class="memo">🔑 จำง่าย ๆ: <b>Word = พิมพ์</b> · <b>Excel = คำนวณ</b> · <b>PowerPoint = นำเสนอ</b> · ทั้งหมดรวมกันเรียกว่า <b>ชุดโปรแกรมสำนักงาน</b> (Office Suite)</div>
+        <button class="more" onclick="openLayer('ofhL2',this)">🌿 อยากรู้อีกนิด · แต่ละยุคดีเสียยังไง ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="ofhL2">
+        <h3>🌿 ชั้นต้นกล้า · แต่ละยุค จุดเด่น จุดด้อย</h3>
+
+        <p><b>1) หน้าตา: เมนูแบบเก่า → ริบบอน (Ribbon)</b></p>
+        <div class="cmp">
+          <div class="it"><div class="e">📋</div><b>เมนูแบบเก่า (ถึงรุ่น 2003)</b><span>คำสั่งซ่อนอยู่ใน<b>เมนูตัวหนังสือ</b> แฟ้ม แก้ไข มุมมอง…<br>ต้องกดเปิดเมนูซ้อนหลายชั้น<br>คำสั่งดี ๆ <b>หาไม่เจอ</b></span></div>
+          <div class="it"><div class="e">🎀</div><b>ริบบอน (รุ่น 2007 เป็นต้นมา)</b><span>คำสั่งเป็น<b>ปุ่มรูปภาพ</b> จัดเป็นแท็บและกลุ่ม<br>เห็นแล้วกดได้เลย<br>แต่คนคุ้นรุ่นเก่า<b>ต้องหาที่ใหม่</b></span></div>
+        </div>
+
+        <p style="margin-top:14px"><b>2) ไฟล์: .doc → .docx</b> (รุ่น 2007 เป็นต้นมา)</p>
+        <div class="cmp">
+          <div class="it"><div class="e">📄</div><b>.doc .xls .ppt (แบบเก่า)</b><span>ไฟล์ใหญ่กว่า<br>เสียแล้ว<b>กู้ยาก</b><br>รุ่นเก่ายังเปิดได้ทุกเครื่อง</span></div>
+          <div class="it"><div class="e">🗜️</div><b>.docx .xlsx .pptx (แบบใหม่)</b><span>ข้างในเป็น <b>XML บีบอัดแบบ ZIP</b><br>ไฟล์<b>เล็กลง</b> บางไฟล์เล็กลงถึงราว 75%<br>ไฟล์เสียบางส่วน<b>กู้ได้ดีกว่า</b></span></div>
+        </div>
+        <div class="memo">🔤 ตัวท้ายบอกชนิด: <b>x</b> = ไฟล์ปกติ <b>ไม่มีมาโคร</b> · <b>m</b> = มี<b>มาโคร</b> (คำสั่งอัตโนมัติ) เช่น .docm .xlsm · ⚠️ ไฟล์ .xlsm จากคนแปลกหน้า อย่าเปิดมาโคร (บทภัยไซเบอร์)</div>
+
+        <p style="margin-top:14px"><b>3) วิธีซื้อ: ซื้อครั้งเดียว vs จ่ายรายเดือน/รายปี</b></p>
+        <div class="cmp">
+          <div class="it"><div class="e">💿</div><b>ซื้อครั้งเดียว (เช่น Office 2024)</b><span>จ่ายครั้งเดียว ใช้ได้เรื่อย ๆ<br>ลงได้ <b>1 เครื่อง</b><br>ได้แค่อัปเดตความปลอดภัย <b>ไม่มีของใหม่</b> · ไม่มีพื้นที่คลาวด์</span></div>
+          <div class="it"><div class="e">☁️</div><b>สมัครสมาชิก (Microsoft 365)</b><span>จ่ายรายเดือน/รายปี<br>ใช้ได้<b>ทุกเครื่อง</b> (ลงชื่อพร้อมกันได้ 5 เครื่อง)<br>ได้<b>ของใหม่เรื่อย ๆ</b> + OneDrive 1 TB (แผนส่วนบุคคล)</span></div>
+        </div>
+
+        <p style="margin-top:14px"><b>4) นามสกุลไฟล์</b> (ข้อสอบชอบถาม)</p>
+        <div class="tw"><table class="t">
+          <tr><th>โปรแกรม</th><th>ไฟล์ปกติ</th><th>มีมาโคร</th><th>แม่แบบ</th><th>แบบเก่า</th></tr>
+          <tr><td>📝 <b>Word</b></td><td><b>.docx</b></td><td>.docm</td><td>.dotx</td><td>.doc</td></tr>
+          <tr><td>📊 <b>Excel</b></td><td><b>.xlsx</b></td><td>.xlsm</td><td>.xltx</td><td>.xls</td></tr>
+          <tr><td>📽️ <b>PowerPoint</b></td><td><b>.pptx</b></td><td>.pptm</td><td>.potx</td><td>.ppt</td></tr>
+        </table></div>
+        <p class="tip">PowerPoint มีอีกแบบ <b>.ppsx</b> = เปิดแล้ว<b>ฉายสไลด์ทันที</b> · แม่แบบ (Template) = ไฟล์ต้นแบบไว้ใช้ซ้ำ</p>
+        <button class="more" onclick="openLayer('ofhL3',this)">🌳 เจาะลึก · รุ่นต่าง ๆ · โปรแกรมคู่แข่ง ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="ofhL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · รุ่นของ Office · โปรแกรมอื่นที่ใช้แทนได้</h3>
+        <p><b>1) Office รุ่นสำคัญ</b> (รุ่นละ 1 เรื่องเด่น)</p>
+        <div class="tw"><table class="t">
+          <tr><th>รุ่น</th><th>ของใหม่ที่ควรจำ</th></tr>
+          <tr><td><b>Office 97</b></td><td>📎 <b>ผู้ช่วย Office</b> ตัวการ์ตูนคลิปหนีบกระดาษ (Clippy)</td></tr>
+          <tr><td><b>Office 2007</b></td><td>🎀 <b>ริบบอน</b> แทนเมนูเก่า (ในโปรแกรมหลัก Word Excel PowerPoint) · ไฟล์แบบใหม่ <b>.docx .xlsx .pptx</b></td></tr>
+          <tr><td><b>Office 2010</b></td><td>🗂️ <b>มุมมอง Backstage</b> (แท็บ <b>ไฟล์</b>) รวมคำสั่งเปิด บันทึก พิมพ์</td></tr>
+          <tr><td><b>Office 2016</b></td><td>💡 ช่อง <b>Tell Me</b> พิมพ์บอกว่าอยากทำอะไร แล้วโปรแกรมพาไปหาคำสั่ง · <b>แก้ไฟล์พร้อมกันหลายคน</b> (ไฟล์เก็บบน OneDrive)</td></tr>
+          <tr><td><b>Office 2021</b></td><td>🔎 Excel มีฟังก์ชัน <b>XLOOKUP</b></td></tr>
+          <tr><td><b>Office 365</b> (ค.ศ. 2011)</td><td>☁️ เริ่มขายแบบ<b>สมัครสมาชิก</b> ใช้คู่กับคลาวด์</td></tr>
+          <tr><td><b>Microsoft 365</b> (ค.ศ. 2020)</td><td>🏷️ <b>เปลี่ยนชื่อ</b>จาก Office 365 (แผนบ้าน/ธุรกิจขนาดเล็ก)</td></tr>
+          <tr><td><b>Copilot</b> (ค.ศ. 2023)</td><td>🤖 <b>ผู้ช่วย AI</b> ช่วยเขียน สรุป ทำสไลด์ (บทเทคโนโลยีอนาคต)</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>2) โปรแกรมอื่นที่ทำงานแบบเดียวกัน</b> (ไม่ใช่ของ Microsoft)</p>
+        <div class="tw"><table class="t">
+          <tr><th>ชุดโปรแกรม</th><th>ของใคร · จุดเด่น</th><th>พิมพ์ · ตาราง · นำเสนอ</th></tr>
+          <tr><td><b>Google Docs Editors</b></td><td>Google · ใช้<b>ผ่านเว็บ</b> ฟรี แก้พร้อมกันได้</td><td>Docs · Sheets · Slides</td></tr>
+          <tr><td><b>LibreOffice</b></td><td>The Document Foundation · <b>ฟรี โอเพนซอร์ส</b></td><td>Writer · Calc · Impress</td></tr>
+          <tr><td><b>WPS Office</b></td><td>บริษัท Kingsoft (จีน)</td><td>ชุดคล้าย Office · เปิดไฟล์ .docx .xlsx ได้</td></tr>
+          <tr><td><b>iWork</b></td><td>Apple · มากับ Mac iPhone iPad</td><td>Pages · Numbers · Keynote</td></tr>
+        </table></div>
+        <div class="memo ex">🎯 ข้อสอบหลอกบ่อย: <b>"ข้อใดไม่ใช่โปรแกรมของ Microsoft"</b> · คำตอบมักเป็น Google Sheets · Keynote · LibreOffice Writer</div>
+        <p class="tip">🇹🇭 ยุคก่อน Windows คนไทยเคยใช้โปรแกรมพิมพ์งานภาษาไทยบน DOS เช่น <b>CU Writer (จุฬาเวิร์ด)</b> ที่พัฒนาในจุฬาลงกรณ์มหาวิทยาลัย</p>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofh')">🎮 ทดสอบความเข้าใจ</button></div>
       </div>
     </div>
   </div>
@@ -1828,6 +1966,75 @@ function drawGen(){
 }
 drawGen();
 
+/* ============ office 1 · history (outside → inside) ============ */
+// ช่องบนภาพ: [ของเก่า, ชื่อบนภาพ, ชื่อเต็ม, โปรแกรมที่มาแทน, สีป้าย, คำอธิบาย]
+const OFH = {
+  type:['⌨️','พิมพ์ดีด','⌨️ เครื่องพิมพ์ดีด','Word','#3d86ff','พิมพ์ผิดต้องลบหรือ<b>พิมพ์ใหม่ทั้งหน้า</b> · อยากได้หลายชุดต้องถ่ายเอกสาร<br>👉 <b>Word</b> แก้ตรงไหนก็ได้ก่อนพิมพ์ จัดหน้าสวย สั่งพิมพ์กี่ชุดก็ได้'],
+  ledger:['📒','สมุดบัญชี','📒 สมุดบัญชี + เครื่องคิดเลข','Excel','#39c14a','จดตัวเลขลงสมุด กดเครื่องคิดเลขทีละบรรทัด · <b>แก้เลขตัวเดียว ต้องบวกใหม่ทั้งหน้า</b><br>👉 <b>Excel</b> แก้ตัวเลขแล้ว<b>ผลรวมเปลี่ยนเองทันที</b>'],
+  ohp:['📽️','แผ่นใส','📽️ แผ่นใส + เครื่องฉาย','PowerPoint','#ff9326','เขียนหรือพิมพ์ลงแผ่นใส วางบนเครื่องฉายข้ามศีรษะ (Overhead Projector) · <b>แก้ทีต้องทำแผ่นใหม่</b><br>👉 <b>PowerPoint</b> ทำสไลด์ในคอม ใส่รูป วิดีโอ ฉายผ่านโปรเจกเตอร์'],
+  phone:['📱','มือถือวันนี้','📱 มือถือของเราวันนี้','ทั้ง 3 โปรแกรม','#ff5fb0','เพื่อนส่งไฟล์ <b>.docx .xlsx .pptx</b> มาใน LINE ก็<b>เปิดดูในมือถือได้เลย</b> · มีแอป Word Excel PowerPoint ให้โหลด (เฉพาะ Play Store / App Store)']
+};
+function drawOfh(){
+  const T=`font-family="Kanit,sans-serif" fill="${DK}"`, keys=Object.keys(OFH);
+  let s=`<svg viewBox="0 0 320 250" class="hsvg">
+    <rect x="6" y="6" width="308" height="238" rx="22" fill="#f4f2ff"/>`;
+  keys.forEach((k,i)=>{
+    const x=16+(i%2)*150, y=16+Math.floor(i/2)*114, O=OFH[k];
+    s+=`<g class="pt" data-k="${k}"><rect x="${x}" y="${y}" width="138" height="104" rx="16" fill="#fff"/>
+      <text x="${x+40}" y="${y+52}" text-anchor="middle" font-size="34">${O[0]}</text>
+      <text x="${x+82}" y="${y+48}" text-anchor="middle" font-size="16" fill="#ff5fb0">➜</text>
+      <rect x="${x+92}" y="${y+24}" width="36" height="36" rx="9" fill="${O[4]}"/>
+      <text x="${x+110}" y="${y+47}" text-anchor="middle" font-size="${k==='phone'?9:13}" font-weight="800" fill="#fff" font-family="Kanit,sans-serif">${k==='phone'?'W·E·P':O[3][0]}</text>
+      <text x="${x+69}" y="${y+88}" text-anchor="middle" font-size="12.5" font-weight="700" ${T}>${O[1]}</text></g>
+      <g class="bd" data-k="${k}" transform="translate(${x+128},${y+10})"><circle r="10"/><text y="4">${i+1}</text></g>`;
+  });
+  $('figOfh').innerHTML=s+'</svg>';
+  $('chipsOfh').innerHTML=keys.map((k,i)=>`<button class="chip" data-k="${k}">${i+1}. ${OFH[k][2]}</button>`).join('');
+  const pick=k=>{
+    ['figOfh','chipsOfh'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const O=OFH[k];
+    $('infoOfh').innerHTML=`<b>${O[2]}</b> <i class="gp" style="background:${O[4]}">${O[3]}</i><br>${O[5]}`;
+    pop($('infoOfh'));
+  };
+  ['figOfh','chipsOfh'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+drawOfh();
+
+// ย้อนเวลาทีละขั้น: [ไอคอน, หัวขั้น, คำอธิบาย]
+const OHSC = {
+  born:[
+    ['🧮','ค.ศ. 1979 · VisiCalc','โปรแกรม<b>ตารางคำนวณ</b>ตัวแรก ๆ บนคอมส่วนตัว (Apple II) · แก้เลขแล้วคำนวณใหม่ให้เอง · ไม่ใช่ของ Microsoft แต่เป็นต้นแบบของ Excel'],
+    ['📝','ค.ศ. 1983 · Word','Microsoft ออกโปรแกรมพิมพ์เอกสาร <b>Word</b> บนระบบ Xenix และ MS-DOS · ปี 1989 ออก <b>Word for Windows</b>'],
+    ['📊','ค.ศ. 1985 · Excel','<b>Excel</b> ออกครั้งแรกบนเครื่อง <b>Macintosh</b> ของ Apple · ปี 1987 จึงมีรุ่น Windows'],
+    ['📽️','ค.ศ. 1987 · PowerPoint','บริษัท Forethought ทำ <b>PowerPoint</b> (เดิมชื่อ Presenter) ออกบน Macintosh · ปีเดียวกัน <b>Microsoft ซื้อบริษัทนี้</b>'],
+    ['📦','ค.ศ. 1989–1990 · ชุด Office ชุดแรก','รวม Word Excel PowerPoint ขายเป็น<b>ชุดเดียว</b> (Mac 1989 · Windows 1990)<br>👉 <b>Office = ชุดโปรแกรมสำนักงาน</b>']
+  ],
+  ver:[
+    ['📎','Office 97 · ผู้ช่วยคลิปหนีบ','ตัวการ์ตูน<b>คลิปหนีบกระดาษ</b> (Clippy) โผล่มาถามว่าต้องการความช่วยเหลือไหม'],
+    ['🎀','Office 2007 · ริบบอน + .docx','โปรแกรมหลักเปลี่ยนเมนูตัวหนังสือเป็น<b>ริบบอน</b> (ปุ่มรูปภาพเป็นแท็บ) · ไฟล์แบบใหม่ <b>.docx .xlsx .pptx</b>'],
+    ['🗂️','Office 2010 · แท็บไฟล์','<b>มุมมอง Backstage</b> รวมคำสั่งเปิด บันทึก พิมพ์ ไว้ที่แท็บ <b>ไฟล์</b>'],
+    ['☁️','ค.ศ. 2011 · Office 365','เริ่มขายแบบ<b>สมัครสมาชิก</b> รายเดือน/รายปี ใช้คู่กับคลาวด์'],
+    ['🏷️','ค.ศ. 2020 · Microsoft 365','<b>เปลี่ยนชื่อ</b> Office 365 เป็น <b>Microsoft 365</b> (แผนบ้าน/ธุรกิจขนาดเล็ก)'],
+    ['🤖','ค.ศ. 2023 · Copilot','ผู้ช่วย <b>AI</b> ในโปรแกรม Office ช่วยเขียน สรุป ทำสไลด์ (เปิดให้องค์กรใช้ก่อน)<br>👉 <b>จากเมนูตัวหนังสือ → ปุ่มรูปภาพ → คลาวด์ → AI</b>']
+  ]
+};
+let ofhKey='born', ofhI=-1;
+function ofhScene(k,btn){
+  ofhKey=k; ofhI=-1;
+  document.querySelectorAll('#ofhTabs .tab').forEach(t=>t.classList.toggle('on',t===btn));
+  $('ofhStack').innerHTML=OHSC[k].map(([e,t],i)=>`<div class="lay" data-i="${i}"><span class="e">${e}</span><span>ขั้นที่ ${i+1}<small>${t}</small></span></div>`).join('');
+  $('infoOfhS').innerHTML='▶ กดปุ่มด้านล่างเพื่อเริ่ม'; $('ofhBtn').textContent='▶ เริ่มดูทีละขั้น';
+}
+function ofhStep(){
+  const S=OHSC[ofhKey]; ofhI=(ofhI+1)%S.length;
+  const [e,t,d]=S[ofhI];
+  document.querySelectorAll('#ofhStack .lay').forEach(el=>el.classList.toggle('on',+el.dataset.i===ofhI));
+  $('infoOfhS').innerHTML=`<b>ขั้นที่ ${ofhI+1}/${S.length}</b> ${e} <b>${t}</b><br>${d}`;
+  $('ofhBtn').textContent= ofhI===S.length-1 ? '🔁 ดูอีกรอบ' : 'ขั้นต่อไป ▶';
+  pop($('infoOfhS'));
+}
+ofhScene('born',document.querySelector('#ofhTabs .tab'));
+
 /* ============ future tech (outside → inside) ============ */
 // ช่องบนหน้าจอ: [ไอคอน, ชื่อบนภาพ, ชื่อเต็ม, เทคโนโลยี, สีป้าย, คำอธิบาย]
 const FUT = {
@@ -2481,6 +2688,51 @@ const BANK = {
     {q:'คอมพิวเตอร์เครื่องแรกของประเทศไทยคือเครื่องใด', c:['IBM 1620','IBM 1401','ENIAC','UNIVAC I'], w:'จุฬาลงกรณ์มหาวิทยาลัย พ.ศ. 2506'},
     {q:'คอมพิวเตอร์เครื่องแรกของไทยติดตั้งที่ใด', c:['จุฬาลงกรณ์มหาวิทยาลัย','สำนักงานสถิติแห่งชาติ','กองบัญชาการตำรวจ','ธนาคารแห่งประเทศไทย'], w:'คณะพาณิชยศาสตร์และการบัญชี พ.ศ. 2506'},
     {q:'LANTA (ลันตา) คืออะไร', c:['ซูเปอร์คอมพิวเตอร์ของ สวทช.','ระบบปฏิบัติการของไทย','แอปของรัฐบาล','ดาวเทียมสื่อสาร'], w:'อันดับ 1 ของอาเซียน (TOP500 พ.ย. 2565)'}
+  ],
+  oh1: [
+    {p:'⌨️', q:'โปรแกรมใดเกิดมาแทน "เครื่องพิมพ์ดีด" ในสำนักงาน', c:['Microsoft Word','Microsoft Excel','Microsoft PowerPoint','Google Chrome'], w:'Word = พิมพ์เอกสาร'},
+    {p:'📒', q:'โปรแกรมใดเหมาะกับงานตารางตัวเลข คำนวณรายรับรายจ่าย', c:['Microsoft Excel','Microsoft Word','Microsoft PowerPoint','Windows'], w:'Excel = คำนวณ'},
+    {p:'📽️', q:'โปรแกรมใดเกิดมาแทน "แผ่นใส" สำหรับนำเสนองาน', c:['Microsoft PowerPoint','Microsoft Excel','Microsoft Word','Notepad'], w:'PowerPoint = นำเสนอ'},
+    {q:'Microsoft Office คืออะไร', c:['ชุดโปรแกรมสำนักงานของ Microsoft','ระบบปฏิบัติการของ Microsoft','เว็บเบราว์เซอร์','แอนติไวรัส'], w:'Office Suite รวมหลายโปรแกรม'},
+    {q:'ข้อใดจับคู่โปรแกรมกับงานได้ถูกต้อง', c:['Word–พิมพ์ · Excel–คำนวณ · PowerPoint–นำเสนอ','Word–คำนวณ · Excel–นำเสนอ · PowerPoint–พิมพ์','Word–นำเสนอ · Excel–พิมพ์ · PowerPoint–คำนวณ','ทั้ง 3 โปรแกรมทำงานเหมือนกัน'], w:'จำ: พิมพ์ · คำนวณ · นำเสนอ'},
+    {p:'📒', q:'จุดเด่นของ Excel เมื่อเทียบกับสมุดบัญชี+เครื่องคิดเลข คือข้อใด', c:['แก้ตัวเลขแล้วผลรวมคำนวณใหม่เองทันที','ไม่ต้องใช้ไฟฟ้า','พิมพ์จดหมายได้สวยกว่า','ฉายภาพบนจอได้'], w:'คำนวณใหม่อัตโนมัติ'},
+    {p:'📱', q:'เพื่อนส่งไฟล์ .xlsx มาใน LINE ควรเปิดด้วยแอปใด', c:['Excel','Word','PowerPoint','กล้องถ่ายรูป'], w:'.xlsx = ไฟล์ Excel'},
+    {q:'โปรแกรมพิมพ์เอกสาร Word ของ Microsoft ออกครั้งแรกปี ค.ศ. ใด', c:['1983','1946','2007','2020'], w:'บน Xenix และ MS-DOS · Word for Windows ปี 1989'},
+    {q:'PowerPoint เดิมเป็นของบริษัทใด ก่อนที่ Microsoft จะซื้อมา', c:['Forethought','Google','Apple','IBM'], w:'ค.ศ. 1987 · ชื่อเดิม Presenter'},
+    {q:'Excel ออกครั้งแรกบนเครื่องใด', c:['Apple Macintosh','Windows','มือถือ Android','iPad'], w:'ค.ศ. 1985 · รุ่น Windows ตามมา 1987'},
+    {q:'ข้อใดเรียงลำดับการเกิดของโปรแกรมได้ถูกต้อง', c:['Word → Excel → PowerPoint','PowerPoint → Word → Excel','Excel → PowerPoint → Word','ทั้ง 3 เกิดพร้อมกัน'], w:'1983 → 1985 → 1987'},
+    {q:'VisiCalc (ค.ศ. 1979) เป็นต้นแบบของโปรแกรมประเภทใด', c:['ตารางคำนวณ (สเปรดชีต)','พิมพ์เอกสาร','นำเสนอสไลด์','เว็บเบราว์เซอร์'], w:'ต้นแบบของ Excel'},
+    {q:'ชุด Office ชุดแรกบน Windows ออกปี ค.ศ. ใด', c:['1990','1979','2007','2011'], w:'บน Mac ออกก่อน ค.ศ. 1989'}
+  ],
+  oh2: [
+    {p:'🎀', q:'Office รุ่นใดเปลี่ยนเมนูตัวหนังสือเป็น "ริบบอน" (Ribbon)', c:['Office 2007','Office 97','Office 2003','Office 2024'], w:'ปุ่มรูปภาพจัดเป็นแท็บและกลุ่ม'},
+    {q:'ไฟล์ Word แบบใหม่ (รุ่น 2007 เป็นต้นมา) มีนามสกุลใด', c:['.docx','.doc','.txt','.pdf'], w:'.doc = แบบเก่า'},
+    {q:'ไฟล์ PowerPoint ปกติมีนามสกุลใด', c:['.pptx','.xlsx','.docx','.mp4'], w:'แบบเก่า = .ppt'},
+    {q:'ไฟล์ Excel ที่มี "มาโคร" มีนามสกุลใด', c:['.xlsm','.xlsx','.xls','.csv'], w:'m = มีมาโคร · x = ไม่มีมาโคร'},
+    {q:'นามสกุล .dotx คือไฟล์ประเภทใด', c:['แม่แบบ (Template) ของ Word','ไฟล์ Excel แบบเก่า','ไฟล์ PowerPoint ที่ฉายทันที','ไฟล์รูปภาพ'], w:'t = template'},
+    {q:'ไฟล์ .ppsx เมื่อเปิดแล้วจะเป็นอย่างไร', c:['ฉายสไลด์ทันที','เปิดเป็นตาราง Excel','เปิดเป็นเอกสาร Word','เล่นเพลง'], w:'PowerPoint Show'},
+    {q:'ข้อใดเป็นข้อดีของไฟล์ .docx เมื่อเทียบกับ .doc', c:['ไฟล์เล็กกว่า เพราะบีบอัดแบบ ZIP','เปิดได้เฉพาะ Office 97','ไฟล์ใหญ่กว่าเสมอ','ใส่มาโครได้'], w:'XML บีบอัด ZIP · กู้ไฟล์เสียได้ดีกว่า'},
+    {q:'ข้อใดเป็นจุดด้อยของริบบอนเมื่อเปิดใช้ครั้งแรก', c:['คนที่คุ้นรุ่นเก่าต้องหาตำแหน่งคำสั่งใหม่','ไม่มีปุ่มพิมพ์','ใช้ได้แค่ Excel','ต้องต่อเน็ตตลอด'], w:'จุดเด่น: เห็นคำสั่งเป็นรูปกดได้เลย'},
+    {q:'Office 2024 แบบ "ซื้อครั้งเดียว" ต่างจาก Microsoft 365 อย่างไร', c:['ไม่ได้ฟีเจอร์ใหม่ ได้แค่อัปเดตความปลอดภัย','ได้ฟีเจอร์ใหม่เรื่อย ๆ','มี OneDrive 1 TB','ใช้ได้ทุกเครื่องพร้อมกัน'], w:'ลงได้ 1 เครื่อง · ไม่มีคลาวด์'},
+    {q:'Microsoft 365 แผนส่วนบุคคล ได้พื้นที่ OneDrive เท่าใด', c:['1 TB','1 GB','15 MB','100 KB'], w:'สมัครสมาชิกได้คลาวด์ด้วย'},
+    {q:'แบบสมัครสมาชิก Microsoft 365 ลงชื่อใช้พร้อมกันได้กี่เครื่อง', c:['5 เครื่อง','1 เครื่อง','2 เครื่อง','ไม่จำกัด'], w:'ติดตั้งได้ทุกเครื่อง แต่ลงชื่อพร้อมกัน 5'},
+    {q:'ไฟล์ .xls คือไฟล์ของโปรแกรมใด', c:['Excel รุ่นเก่า (ก่อน 2007)','Word รุ่นใหม่','PowerPoint','Excel ที่มีมาโคร'], w:'แบบใหม่ = .xlsx'},
+    {q:'ได้ไฟล์ .xlsm จากคนแปลกหน้า ควรทำอย่างไร', c:['ไม่เปิดใช้มาโคร เพราะอาจมีคำสั่งอันตราย','เปิดมาโครทันที','ส่งต่อให้เพื่อนทุกคน','เปลี่ยนนามสกุลเป็น .exe'], w:'มาโคร = คำสั่งอัตโนมัติ (บทภัยไซเบอร์)'}
+  ],
+  oh3: [
+    {p:'📎', q:'ตัวการ์ตูนคลิปหนีบกระดาษ "Clippy" ผู้ช่วย Office มาพร้อมรุ่นใด', c:['Office 97','Office 2007','Office 2016','Microsoft 365'], w:'ผู้ช่วย Office (Office Assistant)'},
+    {q:'มุมมอง Backstage (แท็บ "ไฟล์") เริ่มมีใน Office รุ่นใด', c:['Office 2010','Office 97','Office 2003','Office 2024'], w:'แทนปุ่ม Office ของรุ่น 2007'},
+    {q:'Office 365 เปิดขายแบบสมัครสมาชิกครั้งแรกปี ค.ศ. ใด', c:['2011','1990','2007','2023'], w:'เปลี่ยนชื่อเป็น Microsoft 365 ปี 2020'},
+    {q:'Office 365 เปลี่ยนชื่อเป็น Microsoft 365 ปี ค.ศ. ใด', c:['2020','2011','2016','2007'], w:'แผนบ้าน/ธุรกิจขนาดเล็ก'},
+    {q:'Copilot ใน Microsoft 365 คืออะไร', c:['ผู้ช่วย AI ช่วยเขียน สรุป ทำสไลด์','โปรแกรมแอนติไวรัส','ฟอนต์ภาษาไทย','เครื่องพิมพ์'], w:'ค.ศ. 2023'},
+    {q:'ฟังก์ชัน XLOOKUP ของ Excel มากับรุ่นใด', c:['Office 2021','Office 97','Office 2003','Office 2007'], w:'รุ่นซื้อครั้งเดียวที่มี XLOOKUP'},
+    {q:'ข้อใด "ไม่ใช่" โปรแกรมของ Microsoft', c:['Google Sheets','Excel','Word','PowerPoint'], w:'Google Sheets เป็นของ Google'},
+    {q:'ข้อใด "ไม่ใช่" โปรแกรมของ Microsoft', c:['Keynote','PowerPoint','Excel','Word'], w:'Keynote เป็นของ Apple (iWork)'},
+    {q:'LibreOffice มีจุดเด่นอย่างไร', c:['ฟรีและเป็นโอเพนซอร์ส','เป็นของ Microsoft','ใช้ได้เฉพาะ iPhone','ต้องจ่ายรายเดือน'], w:'The Document Foundation'},
+    {q:'โปรแกรมตารางคำนวณของ LibreOffice ชื่ออะไร', c:['Calc','Excel','Numbers','Sheets'], w:'Writer · Calc · Impress'},
+    {q:'Google Docs · Sheets · Slides ใช้งานผ่านทางใดเป็นหลัก', c:['เว็บเบราว์เซอร์ (ออนไลน์)','แผ่นซีดี','เครื่องพิมพ์ดีด','บลูทูธเท่านั้น'], w:'แก้ไฟล์พร้อมกันหลายคนได้'},
+    {q:'WPS Office เป็นของบริษัทใด', c:['Kingsoft (จีน)','Microsoft','Apple','Google'], w:'ชุดคล้าย Office'},
+    {q:'ช่อง "Tell Me" ที่พิมพ์บอกว่าอยากทำอะไร เริ่มมีใน Office รุ่นใด', c:['Office 2016','Office 97','Office 2003','Office 2007'], w:'รุ่นเดียวกับที่แก้ไฟล์พร้อมกันหลายคนได้'}
   ]
 };
 /* รหัสด่าน (hw1…) = คีย์ดาวใน localStorage — ห้ามเปลี่ยน ผู้เรียนจะเสียดาว */
@@ -2508,7 +2760,10 @@ const LEVELS = [
   {ch:'fut', id:'f3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ตระกูล AI · Big Data · ศัพท์', cls:'c2'},
   {ch:'pc', id:'h1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'มือถือ vs ENIAC · ย้อนเวลา', cls:'c6'},
   {ch:'pc', id:'h2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'คอมพิวเตอร์ 5 ยุค', cls:'c5'},
-  {ch:'pc', id:'h3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'บุคคลสำคัญ · ประเภทตามขนาด', cls:'c2'}
+  {ch:'pc', id:'h3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'บุคคลสำคัญ · ประเภทตามขนาด', cls:'c2'},
+  {ch:'ofh', id:'oh1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'Word Excel PowerPoint แทนอะไร', cls:'c6'},
+  {ch:'ofh', id:'oh2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'ริบบอน · นามสกุลไฟล์ · วิธีซื้อ', cls:'c5'},
+  {ch:'ofh', id:'oh3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'รุ่นของ Office · โปรแกรมคู่แข่ง', cls:'c2'}
 ];
 const CHS = {
   pc:{n:'คอมพิวเตอร์', i:'🕰️', scr:'pc'},
@@ -2518,7 +2773,8 @@ const CHS = {
   net:{n:'เครือข่าย', i:'🌐', scr:'net'},
   cy:{n:'ภัยไซเบอร์', i:'🛡️', scr:'cy'},
   law:{n:'กฎหมาย', i:'⚖️', scr:'law'},
-  fut:{n:'อนาคต', i:'🤖', scr:'fut'}
+  fut:{n:'อนาคต', i:'🤖', scr:'fut'},
+  ofh:{n:'🏆 ประวัติ Office', i:'📜', scr:'ofh'}
 };
 let curCh='hw';
 const chLevels = () => LEVELS.filter(L=>L.ch===curCh);

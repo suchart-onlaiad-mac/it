@@ -215,6 +215,7 @@
   .cmp .it .e{font-size:40px}
   .cmp .it b{display:block; font-size:17px; margin-top:4px}
   .cmp .it span{display:block; font-size:14px; color:#6a64a6; margin-top:4px; line-height:1.5}
+  .cmp .it span b{display:inline; font-size:inherit; margin:0; color:var(--ink)}
   .cmp .it .pill{display:inline-block; margin-top:8px; font-size:12.5px; font-weight:600; color:#fff; border-radius:50px; padding:3px 12px}
   .p-in{background:var(--blue)} .p-pr{background:var(--pink)} .p-st{background:var(--orange)} .p-out{background:var(--green)}
 
@@ -346,7 +347,7 @@
       <button class="card c2" onclick="go('hw')"><span class="ico">📱</span>ฮาร์ดแวร์<small>ชิ้นส่วนในมือถือเรา</small></button>
       <button class="card c3" onclick="go('sw')"><span class="ico">🧩</span>ซอฟต์แวร์<small>แอป + ระบบปฏิบัติการ</small></button>
       <button class="card c4" onclick="go('unit')"><span class="ico">📏</span>หน่วยข้อมูล<small>ทำไมมือถือเต็ม · MB GB</small></button>
-      <button class="card c5 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🌐</span>เครือข่าย อินเทอร์เน็ต<small>Wi-Fi 4G 5G</small></button>
+      <button class="card c5" onclick="go('net')"><span class="ico">🌐</span>เครือข่าย อินเทอร์เน็ต<small>Wi-Fi 4G 5G</small></button>
       <button class="card c7" onclick="go('cy')"><span class="ico">🛡️</span>ภัยไซเบอร์<small>มิจฉาชีพออนไลน์</small></button>
       <button class="card c8 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">⚖️</span>กฎหมายดิจิทัล<small>พ.ร.บ.คอมฯ · PDPA</small></button>
       <button class="card c2 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🤖</span>เทคโนโลยีอนาคต<small>AI Cloud IoT</small></button>
@@ -688,6 +689,124 @@
           <tr><td><b>บัญชีม้า</b></td><td>บัญชีธนาคารที่คนร้ายเช่า/ซื้อจากคนอื่น ใช้รับเงินที่โกงมา · ให้คนอื่นเช่าบัญชี เจ้าของบัญชีก็อาจมีความผิดไปด้วย (รายละเอียดในบทกฎหมายดิจิทัล)</td></tr>
         </table></div>
         <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('cy')">🎮 ทดสอบความเข้าใจ</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NETWORK ================= -->
+  <div class="screen" id="net">
+    <button class="backbtn" onclick="home()">⬅️ กลับหน้าหลัก</button>
+    <div class="panel">
+      <h2>🌐 เครือข่าย อินเทอร์เน็ต</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p><b>เครือข่าย</b> = เครื่องตั้งแต่ 2 เครื่องขึ้นไป <b>ต่อถึงกันเพื่อส่งข้อมูลหากัน</b> 🔗 · <b>อินเทอร์เน็ต</b> = เครือข่ายที่ต่อกัน<b>ทั้งโลก</b> · ทุกวันที่เราส่ง LINE ดู YouTube เราใช้เครือข่ายอยู่ตลอด · เริ่มจากแถบเล็ก ๆ บนสุดของจอมือถือ</p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 แถบบนสุดของจอมือถือ</div>
+        <p class="tip">ไอคอนเล็ก ๆ ข้างนาฬิกา บอกว่ามือถือ<b>ต่อเน็ตทางไหนอยู่</b> · ภาพล่างขยายให้ดูใหญ่ขึ้น <b>แตะไอคอน</b>ดูว่าแต่ละตัวคืออะไร 👇</p>
+        <div class="fig" id="figBar"></div>
+        <div class="chips" id="chipsBar"></div>
+        <div class="info" id="infoBar">👆 แตะไอคอน ดูว่าแต่ละตัวหมายถึงอะไร</div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> 🔧 เน็ตเข้ามือถือได้ 2 ทาง</div>
+        <div class="cmp">
+          <div class="it"><div class="e">🏠</div><b>Wi-Fi (ไวไฟ)</b><span>รับคลื่นจาก <b>เราเตอร์</b> กล่องเน็ตในบ้าน/ร้าน<br>ใช้ได้ใกล้ ๆ กล่อง (ในบ้าน)<br><b>ไม่กินแพ็กเกจเน็ตมือถือ</b></span><span class="pill" style="background:#3d86ff">ไอคอนรูปพัด</span></div>
+          <div class="it"><div class="e">🗼</div><b>เน็ตมือถือ (4G / 5G)</b><span>รับคลื่นจาก <b>เสาสัญญาณ</b> ของค่ายมือถือ<br>ไปที่ไหนก็ใช้ได้ ถ้ามีเสา<br><b>ใช้แพ็กเกจเน็ตที่จ่ายรายเดือน</b></span><span class="pill" style="background:#ff9326">ไอคอนขีดสัญญาณ</span></div>
+        </div>
+        <div class="memo">💡 <b>เปิดทั้งคู่ไว้</b> มือถือจะเลือก <b>Wi-Fi ก่อน</b>เอง (ประหยัดแพ็กเกจ) · ออกนอกบ้าน Wi-Fi หลุด ก็สลับไปใช้เน็ตมือถือให้อัตโนมัติ</div>
+
+        <!-- 3) overview -->
+        <div class="step-h"><span class="sn">3</span> 🗺️ ภาพรวม: ของที่ต้องมี เน็ตถึงจะใช้ได้</div>
+        <div class="map">
+          <div class="grp g-pr"><h4>📱 เครื่องของเรา</h4><p>ต้นทาง / ปลายทาง</p><div class="ch">มือถือ</div><div class="ch">คอม</div><div class="ch">ทีวี</div></div>
+          <div class="grp g-in"><h4>📡 ตัวกลางส่งต่อ</h4><p>รับคลื่น ส่งต่อทางสาย</p><div class="ch">เราเตอร์</div><div class="ch">เสาสัญญาณ</div></div>
+          <div class="grp g-st"><h4>🛣️ ทางวิ่ง</h4><p>ข้อมูลวิ่งไปทางนี้</p><div class="ch">สายไฟเบอร์</div><div class="ch">คลื่นวิทยุ</div></div>
+          <div class="grp g-out"><h4>📜 กติกาเดียวกัน</h4><p>ทุกเครื่องพูดภาษาเดียวกัน</p><div class="ch">โปรโตคอล</div></div>
+        </div>
+        <div class="memo">🔗 บทอื่นที่ต่อกัน: เน็ต <b>100 Mbps</b> เร็วแค่ไหน → <b>บทหน่วยข้อมูล</b> · <b>Wi-Fi ฟรีในที่สาธารณะ</b> ห้ามทำอะไร → <b>บทภัยไซเบอร์</b></div>
+        <button class="more" onclick="openLayer('netL2',this)">🌿 อยากรู้อีกนิด · ส่งรูปทาง LINE รูปเดินทางยังไง ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="netL2">
+        <h3>🌿 ชั้นต้นกล้า · ข้อมูลเดินทางยังไง</h3>
+
+        <p><b>1) ส่งรูป 1 รูปทาง LINE ให้เพื่อน</b></p>
+        <p class="tip">กดปุ่มดูทีละขั้น ว่ารูปเดินทางจากมือเราไปถึงมือเพื่อนอย่างไร 👇</p>
+        <div class="stack" id="netStack"></div>
+        <div class="info" id="infoNet">▶ กดปุ่มด้านล่างเพื่อเริ่ม</div>
+        <div class="center" style="margin-top:10px"><button class="btn alt" id="netBtn" onclick="netStep()">▶ เริ่มดูทีละขั้น</button></div>
+
+        <p style="margin-top:16px"><b>2) ที่อยู่บนอินเทอร์เน็ต</b></p>
+        <p class="tip">ส่งของต้องมี <b>บ้านเลขที่</b> ฉันใด ส่งข้อมูลก็ต้องมี<b>ที่อยู่</b>ฉันนั้น · <b>แตะแต่ละส่วน</b>ของชื่อเว็บดูความหมาย (ชื่อธนาคารสมมติ)</p>
+        <div class="fig" id="figUrl"></div>
+        <div class="chips" id="chipsUrl"></div>
+        <div class="info" id="infoUrl">👆 แตะส่วนของชื่อเว็บ ดูว่าแต่ละส่วนบอกอะไร</div>
+        <div class="cmp">
+          <div class="it"><div class="e">🏠</div><b>IP Address</b><span><b>บ้านเลขที่</b>ของเครื่อง เป็นตัวเลข<br>เช่น 192.168.1.1<br>คอมพิวเตอร์จำแบบนี้</span></div>
+          <div class="it"><div class="e">📒</div><b>DNS</b><span><b>สมุดโทรศัพท์</b>ของอินเทอร์เน็ต<br>เปลี่ยน <b>ชื่อเว็บ</b> ที่คนจำง่าย<br>เป็น <b>ตัวเลข IP</b> ที่เครื่องใช้</span></div>
+        </div>
+        <div class="memo">📞 เหมือนเราจำ <b>ชื่อเพื่อน</b> ได้ แต่จำ<b>เบอร์</b>ไม่ได้ ก็เปิดสมุดหาเบอร์ · พิมพ์ชื่อเว็บ → <b>DNS</b> หาเลข <b>IP</b> ให้ → ไปถึงเครื่องเป้าหมาย</div>
+        <button class="more" onclick="openLayer('netL3',this)">🌳 เจาะลึก · ประเภทเครือข่าย สาย อุปกรณ์ ศัพท์ ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="netL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · หลักการเครือข่าย</h3>
+
+        <p><b>1) แบ่งตามขนาด 4 แบบ</b> (เล็ก → ใหญ่)</p>
+        <div class="map">
+          <div class="grp g-pr"><h4>👤 PAN <small>Personal Area Network</small></h4><p>รอบตัวเรา ไม่กี่เมตร</p><div class="ch">🎧 หูฟังบลูทูธ</div><div class="ch">⌚ นาฬิกากับมือถือ</div></div>
+          <div class="grp g-in"><h4>🏠 LAN <small>Local Area Network</small></h4><p>ในบ้าน อาคาร สำนักงาน</p><div class="ch">Wi-Fi บ้าน</div><div class="ch">คอมในโรงเรียน</div></div>
+          <div class="grp g-st"><h4>🏙️ MAN <small>Metropolitan Area Network</small></h4><p>ทั้งเมือง ทั้งจังหวัด</p><div class="ch">เชื่อมสาขาในเมือง</div><div class="ch">กล้อง CCTV ทั้งเมือง</div></div>
+          <div class="grp g-out"><h4>🌏 WAN <small>Wide Area Network</small></h4><p>ข้ามจังหวัด ข้ามประเทศ</p><div class="ch">อินเทอร์เน็ต = WAN ใหญ่ที่สุด</div></div>
+        </div>
+
+        <p style="margin-top:14px"><b>2) ทางวิ่งของข้อมูล (สื่อกลาง)</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>แบบ</th><th>ชื่อ</th><th>ตัวอย่างที่เห็น</th></tr>
+          <tr><td rowspan="3">🔌 <b>มีสาย</b></td><td>สายคู่บิดเกลียว (สาย LAN)</td><td>สายเสียบหลังคอม/เราเตอร์</td></tr>
+          <tr><td>สายโคแอกเชียล</td><td>สายทีวี สายกล้องวงจรปิดแบบเก่า</td></tr>
+          <tr><td><b>ใยแก้วนำแสง</b> (ไฟเบอร์)</td><td>เน็ตบ้าน "ไฟเบอร์" · ส่งด้วย<b>แสง</b> เร็วที่สุด</td></tr>
+          <tr><td rowspan="3">📡 <b>ไร้สาย</b></td><td>คลื่นวิทยุ</td><td>Wi-Fi · บลูทูธ · 4G/5G</td></tr>
+          <tr><td>ไมโครเวฟ / ดาวเทียม</td><td>คลื่นส่งระหว่างจานบนเสาสูง · จานดาวเทียม · ส่งไกลมาก</td></tr>
+          <tr><td>อินฟราเรด</td><td>รีโมททีวี (ต้องหันหาเครื่อง)</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>3) รูปแบบการต่อ (Topology)</b></p>
+        <div class="cmp" id="topo"></div>
+
+        <p style="margin-top:14px"><b>4) อุปกรณ์เครือข่าย</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>อุปกรณ์</th><th>หน้าที่</th></tr>
+          <tr><td>📟 <b>Modem</b> (โมเด็ม)</td><td>แปลงสัญญาณ <b>ดิจิทัล ↔ แอนะล็อก</b> ระหว่างคอมกับสายของผู้ให้บริการ (มาจาก <b>Mo</b>dulate–<b>Dem</b>odulate)</td></tr>
+          <tr><td>🧭 <b>Router</b> (เราเตอร์)</td><td><b>หาเส้นทาง</b> ส่งข้อมูลข้ามเครือข่าย (บ้านเรา ↔ อินเทอร์เน็ต) · ตัวที่ปล่อย Wi-Fi ในบ้าน</td></tr>
+          <tr><td>🔀 <b>Switch</b> (สวิตช์)</td><td>ต่อหลายเครื่องในเครือข่ายเดียวกัน ส่งข้อมูล<b>ตรงไปเครื่องปลายทาง</b></td></tr>
+          <tr><td>📢 <b>Hub</b> (ฮับ)</td><td>แบบเก่า ส่งข้อมูลให้<b>ทุกเครื่อง</b> แล้วให้เครื่องเลือกรับเอง</td></tr>
+          <tr><td>📶 <b>Access Point</b></td><td>ปล่อย Wi-Fi เพิ่ม ขยายพื้นที่ให้สัญญาณไปถึงห้องไกล ๆ</td></tr>
+        </table></div>
+        <div class="memo">📦 กล่องเน็ตที่ช่างมาติดในบ้าน มักรวม <b>โมเด็ม + เราเตอร์</b> ไว้ในกล่องเดียว</div>
+
+        <p style="margin-top:14px"><b>5) ศัพท์ที่ควรรู้</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>คำศัพท์</th><th>ความหมาย</th></tr>
+          <tr><td><b>ISP</b></td><td>ผู้ให้บริการอินเทอร์เน็ต · บริษัทที่เราจ่ายค่าเน็ตให้</td></tr>
+          <tr><td><b>Protocol</b> (โปรโตคอล)</td><td>กติกาการสื่อสาร ที่ทุกเครื่องตกลงใช้ร่วมกัน</td></tr>
+          <tr><td><b>TCP/IP</b></td><td>ชุดกติกาหลักของอินเทอร์เน็ต · หั่นข้อมูลเป็นชิ้น จ่าหน้าที่อยู่ แล้วประกอบกลับ</td></tr>
+          <tr><td><b>HTTP / HTTPS</b></td><td>กติกาเปิดหน้าเว็บ · S = Secure ส่งแบบเข้ารหัส (แปลงเป็นรหัสลับ คนอื่นอ่านไม่ออก)</td></tr>
+          <tr><td><b>URL</b></td><td>ที่อยู่เว็บเต็ม ๆ ที่พิมพ์ในช่องด้านบน</td></tr>
+          <tr><td><b>IP Address</b> · <b>DNS</b></td><td>บ้านเลขที่ของเครื่อง · สมุดเปลี่ยนชื่อเว็บเป็นเลข IP</td></tr>
+          <tr><td><b>Download / Upload</b></td><td>ดึงข้อมูล<b>ลง</b>มาเครื่องเรา · ส่งข้อมูล<b>ขึ้น</b>ไปจากเครื่องเรา</td></tr>
+          <tr><td><b>Bandwidth</b> (แบนด์วิดท์)</td><td>ปริมาณข้อมูลที่ส่งได้ต่อวินาที · วัดเป็น Mbps (บทหน่วยข้อมูล)</td></tr>
+          <tr><td><b>Intranet</b> (อินทราเน็ต)</td><td>เครือข่ายภายในองค์กร ใช้ได้เฉพาะคนในองค์กร</td></tr>
+          <tr><td><b>Server / Client</b></td><td>เครื่องให้บริการ (เช่น เซิร์ฟเวอร์ของ LINE) · เครื่องผู้ใช้บริการ (มือถือเรา)</td></tr>
+          <tr><td><b>4G / 5G</b></td><td>G = Generation (รุ่น) ของเน็ตมือถือ · เลขยิ่งมาก ยิ่งใหม่ ยิ่งเร็ว</td></tr>
+        </table></div>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('net')">🎮 ทดสอบความเข้าใจ</button></div>
       </div>
     </div>
   </div>
@@ -1226,6 +1345,128 @@ function cyStep(){
 }
 cyScene('phish',document.querySelector('#cyTabs .tab'));
 
+/* ============ network (outside → inside) ============ */
+// ไอคอนแถบบนจอ วาดด้วยเส้น (ไม่พึ่ง emoji ใหม่ที่มือถือเก่าไม่มี) · (cx,cy) = กลางไอคอน · s = ขนาด
+const NI = {
+  wifi:(x,y,s)=>{ const b=y+8*s; let p=''; [5,10,15].forEach(r=>{ const d=r*s*.707; p+=`<path d="M${x-d} ${b-d} A${r*s} ${r*s} 0 0 1 ${x+d} ${b-d}" fill="none" stroke="${DK}" stroke-width="${3*s}" stroke-linecap="round"/>`; }); return p+`<circle cx="${x}" cy="${b}" r="${2.4*s}" fill="${DK}"/>`; },
+  cell:(x,y,s)=>[5,9,13,17].map((h,i)=>`<rect x="${x-11*s+i*6*s}" y="${y+9*s-h*s}" width="${4*s}" height="${h*s}" rx="${1*s}" fill="${DK}"/>`).join(''),
+  g:(x,y,s)=>`<text x="${x}" y="${y+6*s}" text-anchor="middle" font-size="${17*s}" font-weight="800" font-family="Kanit,sans-serif" fill="${DK}">5G</text>`,
+  bt:(x,y,s)=>`<path d="M${x-5*s} ${y-5*s} L${x+5*s} ${y+5*s} L${x} ${y+10*s} L${x} ${y-10*s} L${x+5*s} ${y-5*s} L${x-5*s} ${y+5*s}" fill="none" stroke="${DK}" stroke-width="${2.6*s}" stroke-linejoin="round" stroke-linecap="round"/>`,
+  hot:(x,y,s)=>{ let p=`<circle cx="${x}" cy="${y}" r="${2.6*s}" fill="${DK}"/>`; [7,12].forEach(r=>{ const d=r*s*.707; p+=`<path d="M${x-d} ${y-d} A${r*s} ${r*s} 0 0 0 ${x-d} ${y+d} M${x+d} ${y-d} A${r*s} ${r*s} 0 0 1 ${x+d} ${y+d}" fill="none" stroke="${DK}" stroke-width="${2.6*s}" stroke-linecap="round"/>`; }); return p; },
+  air:(x,y,s)=>`<text x="${x}" y="${y+7*s}" text-anchor="middle" font-size="${19*s}">✈️</text>`
+};
+// [ชื่อบนภาพ, ชื่อเต็ม, ป้ายกลุ่ม, สีป้าย, คำอธิบาย]
+const BAR = {
+  wifi:['Wi-Fi','🏠 Wi-Fi (ไวไฟ)','ไร้สาย ในบ้าน','#3d86ff','ต่อเน็ตผ่าน <b>เราเตอร์</b> (กล่องเน็ต) ในบ้าน ร้านกาแฟ ที่ทำงาน · พัดขึ้นเต็ม = อยู่ใกล้กล่อง สัญญาณแรง · ใช้ Wi-Fi <b>ไม่กินแพ็กเกจเน็ตมือถือ</b>'],
+  cell:['ขีดสัญญาณ','📶 ขีดสัญญาณมือถือ','เน็ตมือถือ','#ff9326','ความแรงของคลื่นจาก <b>เสาสัญญาณ</b> ของค่ายมือถือ · ขีดเต็ม = ใกล้เสา · ไม่มีขีดเลย = โทรไม่ได้ เน็ตมือถือใช้ไม่ได้ (เช่น ในลิฟต์ ห้องใต้ดิน)'],
+  g:['4G / 5G','🗼 4G / 5G','เน็ตมือถือ','#ff9326','บอกว่ากำลังใช้<b>เน็ตมือถือรุ่นไหน</b> · G = Generation (รุ่น) · เลขยิ่งมาก ยิ่งใหม่ ยิ่งเร็ว · ใช้ตัวนี้อยู่ = <b>กินแพ็กเกจเน็ต</b>'],
+  bt:['บลูทูธ','🎧 บลูทูธ (Bluetooth)','ระยะใกล้มาก','#ff5fb0','ส่งข้อมูล<b>ระยะใกล้มาก</b> ระหว่างเครื่องกับเครื่อง เช่น หูฟังไร้สาย นาฬิกา ลำโพง · <b>ไม่ต้องใช้เน็ต</b>'],
+  hot:['ฮอตสปอต','📡 ฮอตสปอต (Hotspot)','แบ่งเน็ต','#a06bff','<b>แบ่งเน็ตมือถือเรา</b>ให้เครื่องอื่นใช้ (เช่น โน้ตบุ๊ก มือถือเพื่อน) · มือถือเราทำหน้าที่เหมือน<b>เราเตอร์</b> · เน็ตที่เครื่องอื่นใช้ หักจากแพ็กเกจเรา'],
+  air:['เครื่องบิน','✈️ โหมดเครื่องบิน','ปิดคลื่น','#ff5f5f','กดทีเดียว <b>ตัดการรับส่งคลื่น</b> โทรไม่ได้ เน็ตมือถือหยุด (Wi-Fi บลูทูธมักปิดตาม แต่กดเปิดกลับเองได้) · ใช้บนเครื่องบิน · เปิดแล้วปิด ช่วยให้มือถือหาสัญญาณใหม่']
+};
+function drawBar(){
+  const T=`font-family="Kanit,sans-serif" fill="${DK}"`, keys=Object.keys(BAR);
+  let s=`<svg viewBox="0 0 320 300" class="hsvg">
+    <rect x="8" y="4" width="304" height="70" rx="26" fill="${DK}"/><rect x="18" y="14" width="284" height="54" rx="18" fill="#f4f2ff"/>
+    <text x="34" y="48" font-size="18" font-weight="700" ${T}>12:30</text>`;
+  keys.forEach((k,i)=>{ s+=`<g class="pt" data-k="${k}"><rect x="${106+i*32}" y="26" width="30" height="30" rx="8" fill="#f4f2ff"/>${NI[k](121+i*32,41,.72)}</g>`; });
+  s+=`<text x="160" y="100" text-anchor="middle" font-size="14" font-weight="600" ${T}>🔍 ขยายให้ดู · แตะได้เลย</text>`;
+  keys.forEach((k,i)=>{
+    const x=16+(i%3)*100, y=112+Math.floor(i/3)*94;
+    s+=`<g class="pt" data-k="${k}"><rect x="${x}" y="${y}" width="92" height="86" rx="14" fill="#fff" stroke="#e6e2fb" stroke-width="2"/>
+      ${NI[k](x+46,y+34,1.5)}<text x="${x+46}" y="${y+74}" text-anchor="middle" font-size="14" font-weight="700" ${T}>${BAR[k][0]}</text></g>
+      <g class="bd" data-k="${k}" transform="translate(${x+84},${y+8})"><circle r="10"/><text y="4">${i+1}</text></g>`;
+  });
+  $('figBar').innerHTML=s+'</svg>';
+  $('chipsBar').innerHTML=keys.map((k,i)=>`<button class="chip" data-k="${k}">${i+1}. ${BAR[k][1]}</button>`).join('');
+  const pick=k=>{
+    ['figBar','chipsBar'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const B=BAR[k];
+    $('infoBar').innerHTML=`<b>${B[1]}</b> <i class="gp" style="background:${B[3]}">${B[2]}</i><br>${B[4]}`;
+    pop($('infoBar'));
+  };
+  ['figBar','chipsBar'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+drawBar();
+
+// ชื่อเว็บแยกส่วน: [ข้อความ, ป้าย, สีพื้น, คำอธิบาย]
+const URLP = {
+  pro:['https://','วิธีส่ง','#d9ecff','บอก<b>กติกา</b>ที่ใช้เปิดหน้าเว็บ · <b>s</b> = Secure ส่งแบบ<b>เข้ารหัส</b> (แปลงเป็นรหัสลับ) คนอื่นแอบอ่านระหว่างทางไม่ออก · ⚠️ ไม่ได้รับรองว่าเว็บเป็นของจริง (บทภัยไซเบอร์)'],
+  www:['www.','บริการเว็บ','#e7ffe0','ย่อมาจาก <b>World Wide Web</b> · บอกว่าเป็นบริการ<b>หน้าเว็บ</b> · หลายเว็บไม่พิมพ์ส่วนนี้ก็เข้าได้'],
+  name:['rakthaibank','ชื่อเว็บ','#fff1b8','<b>ชื่อเว็บ</b> ที่เจ้าของจดทะเบียนไว้ · <b>ส่วนที่ต้องดูให้ดีที่สุด</b> สะกดผิดไปตัวเดียว = คนละเว็บ'],
+  dom:['.co.th','ประเภท + ประเทศ','#ffe0f1','<b>.co</b> = บริษัท · <b>.th</b> = ประเทศไทย<br>แบบอื่นที่เจอบ่อย: <b>.go.th</b> หน่วยงานรัฐ · <b>.ac.th</b> สถานศึกษา · <b>.or.th</b> องค์กรไม่แสวงหากำไร · <b>.com</b> การค้า/เว็บทั่วไป (commercial)'],
+  path:['/login','หน้าในเว็บ','#ece6ff','บอกว่าไป<b>หน้าไหน</b>ในเว็บนั้น เหมือนเลขห้องในตึก · login = หน้าเข้าสู่ระบบ']
+};
+function drawUrl(){
+  const T=`font-family="Kanit,sans-serif" fill="${DK}"`, M=`font-family="ui-monospace,Menlo,Consolas,monospace" fill="${DK}"`, keys=Object.keys(URLP);
+  let s=`<svg viewBox="0 0 320 236" class="hsvg">
+    <rect x="8" y="6" width="304" height="44" rx="22" fill="#fff" stroke="#e6e2fb" stroke-width="2"/>
+    <text x="28" y="34" font-size="15">🔒</text>`;
+  let x=48;
+  keys.forEach(k=>{ const w=URLP[k][0].length*7.2; s+=`<g class="pt" data-k="${k}"><rect x="${x}" y="17" width="${w}" height="22" rx="4" fill="${URLP[k][2]}"/><text x="${x}" y="33" font-size="12" ${M}>${URLP[k][0]}</text></g>`; x+=w; });
+  s+=`<text x="160" y="76" text-anchor="middle" font-size="14" font-weight="600" ${T}>🔍 แยกออกมาเป็นส่วน ๆ</text>`;
+  const rows=[['pro','www'],['name','dom'],['path']];
+  let n=0;
+  rows.forEach((r,ri)=>{
+    const ws=r.map(k=>URLP[k][0].length*10.2+22), tot=ws.reduce((a,b)=>a+b)+12*(r.length-1);
+    let rx=160-tot/2; const y=90+ri*50;
+    r.forEach((k,j)=>{ n++;
+      s+=`<g class="pt" data-k="${k}"><rect x="${rx}" y="${y}" width="${ws[j]}" height="38" rx="10" fill="${URLP[k][2]}" stroke="#fff" stroke-width="2"/>
+        <text x="${rx+11}" y="${y+25}" font-size="17" font-weight="700" ${M}>${URLP[k][0]}</text></g>
+        <g class="bd" data-k="${k}" transform="translate(${rx+ws[j]-4},${y+2})"><circle r="10"/><text y="4">${keys.indexOf(k)+1}</text></g>`;
+      rx+=ws[j]+12;
+    });
+  });
+  $('figUrl').innerHTML=s+'</svg>';
+  $('chipsUrl').innerHTML=keys.map((k,i)=>`<button class="chip" data-k="${k}">${i+1}. ${URLP[k][1]}</button>`).join('');
+  const pick=k=>{
+    ['figUrl','chipsUrl'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const U=URLP[k];
+    $('infoUrl').innerHTML=`<b style="font-family:ui-monospace,Menlo,monospace">${U[0]}</b> <i class="gp" style="background:#a06bff">${U[1]}</i><br>${U[3]}`;
+    pop($('infoUrl'));
+  };
+  ['figUrl','chipsUrl'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+drawUrl();
+
+// ส่งรูป 1 รูปทาง LINE: [ไอคอน, จุดที่ผ่าน, เกิดอะไร]
+const ROUTE = [
+  ['📱','มือถือเรา','กดส่งรูป → รูปถูก<b>หั่นเป็นชิ้นเล็ก ๆ</b> (แพ็กเก็ต) ทุกชิ้นจ่าหน้าที่อยู่ปลายทางไว้ เหมือนส่งพัสดุหลายกล่อง'],
+  ['🏠','เราเตอร์ (หรือเสาสัญญาณ)','ชิ้นรูปวิ่งเป็น<b>คลื่น</b>ไปถึงเราเตอร์ในบ้าน (ถ้าใช้ Wi-Fi) หรือเสาสัญญาณ (ถ้าใช้ 4G/5G) แล้วส่งต่อทาง<b>สาย</b>'],
+  ['🏢','ผู้ให้บริการอินเทอร์เน็ต (ISP)','บริษัทที่เราจ่ายค่าเน็ตให้ ทำหน้าที่<b>พาเราออกสู่อินเทอร์เน็ต</b>'],
+  ['🌏','อินเทอร์เน็ต','เครือข่ายที่ต่อกันทั้งโลก ทั้ง<b>สายไฟเบอร์</b>ใต้ดินและใต้ทะเล · ชิ้นรูปแต่ละชิ้นอาจวิ่ง<b>คนละเส้นทาง</b>ก็ได้'],
+  ['🗄️','เซิร์ฟเวอร์ของ LINE','<b>คอมพิวเตอร์ใหญ่</b>ของบริษัท LINE รับรูปไว้ แล้วส่งต่อไปหาเครื่องเพื่อน (ผ่านเส้นทางแบบเดียวกัน แต่กลับด้าน: อินเทอร์เน็ต → ISP ของเพื่อน → เราเตอร์/เสาฝั่งเพื่อน)'],
+  ['📱','มือถือเพื่อน','รับครบทุกชิ้น แล้ว<b>ประกอบกลับเป็นรูปเดิม</b> 🎉<br>👉 ทั้งหมดนี้เกิดในไม่กี่วินาที']
+];
+let netI=-1;
+$('netStack').innerHTML=ROUTE.map(([e,t],i)=>`<div class="lay" data-i="${i}"><span class="e">${e}</span><span>ขั้นที่ ${i+1}<small>${t}</small></span></div>`).join('');
+function netStep(){
+  netI=(netI+1)%ROUTE.length;
+  const [e,t,d]=ROUTE[netI];
+  document.querySelectorAll('#netStack .lay').forEach(el=>el.classList.toggle('on',+el.dataset.i===netI));
+  $('infoNet').innerHTML=`<b>ขั้นที่ ${netI+1}/${ROUTE.length}</b> ${e} <b>${t}</b><br>${d}`;
+  $('netBtn').textContent= netI===ROUTE.length-1 ? '🔁 ดูอีกรอบ' : 'ขั้นต่อไป ▶';
+  pop($('infoNet'));
+}
+
+// รูปแบบการต่อ: [ชื่อ, คำอธิบาย, ตำแหน่งเครื่อง [x,y], เส้น]
+(function drawTopo(){
+  const pc=(x,y)=>`<rect x="${x-9}" y="${y-7}" width="18" height="14" rx="3" fill="#5fb8ff" stroke="${DK}" stroke-width="1.5"/>`;
+  const ln=(a,b,c,d)=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="${DK}" stroke-width="2"/>`;
+  const ring=[0,1,2,3,4].map(i=>[60+28*Math.sin(i*1.2566),42-28*Math.cos(i*1.2566)]);
+  const T=[
+    ['🚌 แบบบัส (Bus)','ทุกเครื่องเกาะ<b>สายหลักเส้นเดียว</b> · สายหลักขาด = ล่มทั้งหมด',
+      ln(8,56,112,56)+[20,47,74,101].map((x,i)=>ln(x,56,x,i%2?72:40)+pc(x,i%2?72:40)).join('')],
+    ['⭐ แบบดาว (Star)','ทุกเครื่องต่อเข้า<b>ตัวกลาง</b> (สวิตช์/เราเตอร์) · <b>นิยมที่สุด</b> · ตัวกลางเสีย = ล่มหมด',
+      ring.map(([x,y])=>ln(60,42,x,y)).join('')+`<rect x="49" y="34" width="22" height="16" rx="4" fill="#ffd34e" stroke="${DK}" stroke-width="1.5"/>`+ring.map(([x,y])=>pc(x,y)).join('')],
+    ['💍 แบบวงแหวน (Ring)','ต่อกันเป็น<b>วงกลม</b> ส่งต่อกันเป็นทอด ๆ · จุดเดียวขาด กระทบทั้งวง',
+      `<circle cx="60" cy="42" r="28" fill="none" stroke="${DK}" stroke-width="2"/>`+ring.map(([x,y])=>pc(x,y)).join('')],
+    ['🕸️ แบบเมช (Mesh)','ทุกเครื่องต่อถึงกัน<b>หลายเส้น</b> · เส้นหนึ่งขาดยังมีทางอื่น · สายเยอะ ราคาแพง',
+      ring.flatMap(([x,y],i)=>ring.slice(i+1).map(([a,b])=>ln(x,y,a,b))).join('')+ring.map(([x,y])=>pc(x,y)).join('')]
+  ];
+  $('topo').innerHTML=T.map(([n,d,g])=>`<div class="it"><svg viewBox="0 0 120 84" style="width:120px;height:84px">${g}</svg><b>${n}</b><span>${d}</span></div>`).join('');
+})();
+
 $('pvA').innerHTML=[0,1,0,0,0,0,0,1].map((b,i)=>`<div class="bulb${b?' on':''}"><span class="e">💡</span>${b}<small>ค่า ${128>>i}</small></div>`).join('');
 
 /* ============ question bank ============
@@ -1414,6 +1655,52 @@ const BANK = {
     {q:'"Social Engineering" หมายถึงข้อใด', c:['การหลอกที่ใจคน ทำให้กลัว รีบ หรือโลภ','วิศวกรรมโยธา','การเขียนโปรแกรมโซเชียล','การซ่อมคอมพิวเตอร์'], w:'แก๊งคอลเซ็นเตอร์ใช้วิธีนี้'},
     {q:'"DDoS" คือการโจมตีแบบใด', c:['ส่งคำขอจำนวนมหาศาลถล่มเว็บ จนใช้งานไม่ได้','ขโมยรหัสผ่านทีละคน','ล็อกไฟล์เรียกค่าไถ่','ส่ง SMS หลอก'], w:'ทำให้เว็บล่ม'},
     {q:'แฮกเกอร์ที่เจาะระบบเพื่อหาช่องโหว่โดย "ได้รับอนุญาต" เรียกว่าอะไร', c:['White hat (หมวกขาว)','Black hat (หมวกดำ)','Spammer','Trojan'], w:'Black hat = ทำผิดกฎหมาย'}
+  ],
+  n1: [
+    {q:'"เครือข่ายคอมพิวเตอร์" หมายถึงข้อใด', c:['เครื่องตั้งแต่ 2 เครื่องขึ้นไป ต่อถึงกันเพื่อส่งข้อมูล','คอมพิวเตอร์ 1 เครื่องที่แรงมาก','โปรแกรมพิมพ์เอกสาร','สายชาร์จมือถือ'], w:'ต่อกันเพื่อแลกเปลี่ยนข้อมูล'},
+    {q:'"อินเทอร์เน็ต" คือข้อใด', c:['เครือข่ายที่ต่อกันทั่วโลก','แอปแชทแอปหนึ่ง','เครื่องพิมพ์ไร้สาย','หน่วยความจำในมือถือ'], w:'เครือข่ายของเครือข่าย ทั้งโลก'},
+    {p:'🏠', q:'ใช้ Wi-Fi ที่บ้าน มือถือรับคลื่นจากอุปกรณ์ใด', c:['เราเตอร์ (กล่องเน็ต)','เสาสัญญาณของค่ายมือถือ','ดาวเทียม GPS','ลำโพงบลูทูธ'], w:'Wi-Fi ปล่อยจากเราเตอร์'},
+    {p:'🗼', q:'เน็ตมือถือ 4G / 5G รับคลื่นจากที่ใด', c:['เสาสัญญาณของค่ายมือถือ','เราเตอร์ในบ้าน','สาย LAN','หูฟังไร้สาย'], w:'จึงใช้ได้ทุกที่ที่มีเสา'},
+    {q:'ข้อใดใช้แล้ว "ไม่กินแพ็กเกจเน็ตมือถือ"', c:['ใช้ Wi-Fi ที่บ้าน','ใช้ 4G นอกบ้าน','ใช้ 5G ดู YouTube','เปิดฮอตสปอตให้เพื่อน'], w:'Wi-Fi ใช้เน็ตบ้าน ไม่ใช่แพ็กเกจมือถือ'},
+    {q:'ตัว "G" ใน 4G / 5G ย่อมาจากอะไร', c:['Generation (รุ่น)','Giga (กิกะ)','Google','Game'], w:'เลขยิ่งมาก รุ่นยิ่งใหม่'},
+    {p:'📶', q:'ขีดสัญญาณมือถือ "ไม่มีขีดเลย" หมายถึงอะไร', c:['รับคลื่นจากเสาไม่ได้ โทรและใช้เน็ตมือถือไม่ได้','แบตเตอรี่ใกล้หมด','หน่วยความจำเต็ม','เปิดบลูทูธอยู่'], w:'เช่น ในลิฟต์ ห้องใต้ดิน'},
+    {p:'🎧', q:'หูฟังไร้สายต่อกับมือถือด้วยอะไร', c:['บลูทูธ (Bluetooth)','4G','สาย LAN','อินฟราเรด'], w:'บลูทูธ = ระยะใกล้มาก ไม่ต้องใช้เน็ต'},
+    {q:'"ฮอตสปอต" (Hotspot) ในมือถือ ใช้ทำอะไร', c:['แบ่งเน็ตมือถือเราให้เครื่องอื่นใช้','ทำให้แบตชาร์จเร็วขึ้น','ปิดคลื่นทั้งหมด','สแกนไวรัส'], w:'มือถือทำหน้าที่เหมือนเราเตอร์'},
+    {p:'✈️', q:'"โหมดเครื่องบิน" ทำอะไร', c:['ตัดการรับส่งคลื่น โทรไม่ได้ เน็ตมือถือหยุด','เพิ่มความเร็วเน็ต','จองตั๋วเครื่องบิน','เปิดแผนที่'], w:'ใช้บนเครื่องบิน · เปิดแล้วปิดช่วยหาสัญญาณใหม่'},
+    {q:'เปิดทั้ง Wi-Fi และเน็ตมือถือไว้พร้อมกัน ตอนอยู่บ้าน มือถือมักใช้อะไรก่อน', c:['Wi-Fi','เน็ตมือถือ','บลูทูธ','ไม่ใช้อะไรเลย'], w:'เลือก Wi-Fi ก่อน ประหยัดแพ็กเกจ'},
+    {q:'ข้อใด "ไม่ต้องใช้อินเทอร์เน็ต"', c:['ฟังเพลงผ่านหูฟังบลูทูธจากไฟล์ในเครื่อง','ส่งรูปทาง LINE','ดู YouTube','ค้นหาใน Google'], w:'บลูทูธต่อเครื่องกับเครื่องโดยตรง'},
+    {q:'ข้อใดเป็นตัวอย่างการใช้ "เครือข่าย" ในชีวิตประจำวัน', c:['ส่งข้อความหาเพื่อนทาง LINE','ถ่ายรูปเก็บไว้ในเครื่อง','จดโน้ตลงกระดาษ','เปิดไฟฉายมือถือ'], w:'ข้อมูลวิ่งจากเครื่องเราไปเครื่องเพื่อน'}
+  ],
+  n2: [
+    {q:'ส่งรูปทาง LINE รูปถูกส่งไปอย่างไร', c:['ถูกหั่นเป็นชิ้นเล็ก ๆ (แพ็กเก็ต) แล้วประกอบกลับที่ปลายทาง','ส่งไปทั้งก้อนเหมือนเดิม','พิมพ์ออกกระดาษแล้วส่ง','เก็บไว้ในเครื่องเราเท่านั้น'], w:'ชิ้นเล็กจ่าหน้าที่อยู่ทุกชิ้น'},
+    {q:'"ISP" คืออะไร', c:['ผู้ให้บริการอินเทอร์เน็ต','โปรแกรมป้องกันไวรัส','หน่วยวัดความเร็ว','ชื่อแอปแชท'], w:'Internet Service Provider · บริษัทที่เราจ่ายค่าเน็ต'},
+    {q:'"IP Address" เปรียบได้กับข้อใด', c:['บ้านเลขที่ของเครื่อง','สมุดโทรศัพท์','รหัสผ่าน','ชื่อเล่นของเรา'], w:'ที่อยู่ของเครื่องในเครือข่าย เป็นตัวเลข'},
+    {q:'"DNS" ทำหน้าที่อะไร', c:['เปลี่ยนชื่อเว็บเป็นตัวเลข IP','ป้องกันไวรัส','เพิ่มความเร็ว Wi-Fi','เก็บรูปภาพ'], w:'เหมือนสมุดโทรศัพท์ของอินเทอร์เน็ต'},
+    {q:'ข้อใดเป็นรูปแบบของ IP Address', c:['192.168.1.1','www.rakthaibank.co.th','user@mail.com','08-1234-5678'], w:'ตัวเลข 4 ชุด คั่นด้วยจุด'},
+    {q:'ส่งรูปทาง LINE รูปไปพักที่ใดก่อนถึงเพื่อน', c:['เซิร์ฟเวอร์ของ LINE','เราเตอร์ของเพื่อนบ้าน','ซิมการ์ดของเรา','สายชาร์จ'], w:'เซิร์ฟเวอร์รับไว้แล้วส่งต่อ'},
+    {p:'🔒', q:'ในชื่อเว็บ "https://" ตัว s หมายถึงอะไร', c:['Secure ส่งแบบเข้ารหัส','Speed เร็วพิเศษ','Server เครื่องแม่','Shop ร้านค้า'], w:'เข้ารหัส แต่ไม่ได้รับรองว่าเว็บเป็นของจริง'},
+    {q:'ชื่อเว็บลงท้าย ".go.th" เป็นเว็บของใคร', c:['หน่วยงานรัฐของไทย','บริษัทเอกชน','สถานศึกษา','เว็บทั่วไปต่างประเทศ'], w:'go = government (รัฐบาล)'},
+    {q:'ชื่อเว็บลงท้าย ".ac.th" เป็นเว็บของใคร', c:['สถานศึกษา','หน่วยงานรัฐ','บริษัท','องค์กรไม่แสวงกำไร'], w:'ac = academic เช่น มหาวิทยาลัย'},
+    {q:'ใน "rakthaibank.co.th" ส่วน ".co" หมายถึงอะไร', c:['บริษัท (company)','ประเทศ','หน้าเข้าสู่ระบบ','วิธีส่งข้อมูล'], w:'.th = ประเทศไทย'},
+    {q:'ใน "https://www.rakthaibank.co.th/login" ส่วนที่ต้อง "ดูให้ดีที่สุด" ว่าเว็บจริงไหม คือข้อใด', c:['rakthaibank (ชื่อเว็บ)','https://','www.','/login'], w:'ดูชื่อเว็บ + ส่วนท้าย (.co.th) · สะกดผิดตัวเดียว = คนละเว็บ'},
+    {q:'"URL" คืออะไร', c:['ที่อยู่เว็บเต็ม ๆ ที่พิมพ์ในช่องด้านบน','ชื่อเครือข่าย Wi-Fi','รหัส OTP','ชื่อผู้ให้บริการ'], w:'เช่น https://www.…'},
+    {q:'ข้อใดเรียงเส้นทางข้อมูลจากมือถือเราออกสู่อินเทอร์เน็ต ถูกต้อง', c:['มือถือ → เราเตอร์ → ISP → อินเทอร์เน็ต','มือถือ → อินเทอร์เน็ต → เราเตอร์ → ISP','ISP → มือถือ → เราเตอร์ → อินเทอร์เน็ต','เราเตอร์ → มือถือ → อินเทอร์เน็ต → ISP'], w:'จากใกล้ตัวออกไปไกล'}
+  ],
+  n3: [
+    {q:'เครือข่าย "LAN" คือเครือข่ายขนาดใด', c:['ในบ้าน อาคาร หรือสำนักงาน','ทั่วโลก','ทั้งจังหวัด','รอบตัวไม่กี่เมตร'], w:'Local Area Network'},
+    {q:'อินเทอร์เน็ตจัดเป็นเครือข่ายแบบใด', c:['WAN','LAN','PAN','MAN'], w:'Wide Area Network ใหญ่ที่สุด'},
+    {q:'หูฟังบลูทูธต่อกับมือถือ จัดเป็นเครือข่ายแบบใด', c:['PAN','LAN','MAN','WAN'], w:'Personal Area Network รอบตัวเรา'},
+    {q:'เครือข่ายครอบคลุม "ทั้งเมือง" เรียกว่าอะไร', c:['MAN','PAN','LAN','Intranet'], w:'Metropolitan Area Network'},
+    {q:'เรียงเครือข่ายจาก "เล็กไปใหญ่" ข้อใดถูก', c:['PAN → LAN → MAN → WAN','LAN → PAN → WAN → MAN','WAN → MAN → LAN → PAN','MAN → LAN → PAN → WAN'], w:'ตัวตน → บ้าน → เมือง → โลก'},
+    {q:'สื่อกลางแบบใดส่งข้อมูลด้วย "แสง" และเร็วที่สุด', c:['ใยแก้วนำแสง (ไฟเบอร์)','สายคู่บิดเกลียว','สายโคแอกเชียล','คลื่นวิทยุ'], w:'เน็ตบ้าน "ไฟเบอร์"'},
+    {q:'ข้อใดเป็นสื่อกลาง "ไร้สาย"', c:['คลื่นวิทยุ (Wi-Fi บลูทูธ)','สาย LAN','ใยแก้วนำแสง','สายโคแอกเชียล'], w:'ไร้สาย: คลื่นวิทยุ ไมโครเวฟ ดาวเทียม อินฟราเรด'},
+    {q:'รีโมททีวีส่งสัญญาณด้วยอะไร', c:['อินฟราเรด','บลูทูธ','ใยแก้วนำแสง','5G'], w:'ต้องหันหาเครื่อง'},
+    {q:'รูปแบบการต่อแบบใด "ทุกเครื่องต่อเข้าตัวกลาง" และนิยมที่สุด', c:['แบบดาว (Star)','แบบบัส (Bus)','แบบวงแหวน (Ring)','แบบเมช (Mesh)'], w:'ตัวกลางเสีย = ล่มหมด'},
+    {q:'รูปแบบการต่อแบบใด "ทุกเครื่องเกาะสายหลักเส้นเดียว"', c:['แบบบัส (Bus)','แบบดาว (Star)','แบบวงแหวน (Ring)','แบบเมช (Mesh)'], w:'สายหลักขาด = ล่มทั้งหมด'},
+    {q:'อุปกรณ์ใด "หาเส้นทาง" ส่งข้อมูลข้ามเครือข่าย เช่น บ้านเรา ↔ อินเทอร์เน็ต', c:['Router (เราเตอร์)','Hub (ฮับ)','Switch (สวิตช์)','Printer (เครื่องพิมพ์)'], w:'เราเตอร์ในบ้านยังปล่อย Wi-Fi ด้วย'},
+    {q:'อุปกรณ์ใดแปลงสัญญาณ "ดิจิทัล ↔ แอนะล็อก"', c:['Modem (โมเด็ม)','Switch (สวิตช์)','Hub (ฮับ)','Access Point'], w:'Modulate–Demodulate'},
+    {q:'"Protocol" (โปรโตคอล) หมายถึงอะไร', c:['กติกาการสื่อสารที่ทุกเครื่องตกลงใช้ร่วมกัน','สายเชื่อมต่อเครือข่าย','โปรแกรมดูหนัง','ความเร็วเน็ต'], w:'เช่น TCP/IP · HTTP'},
+    {q:'ดึงไฟล์จากอินเทอร์เน็ตลงมาเก็บในเครื่องเรา เรียกว่าอะไร', c:['Download (ดาวน์โหลด)','Upload (อัปโหลด)','Bandwidth','Hotspot'], w:'Upload = ส่งขึ้นไปจากเครื่องเรา'}
   ]
 };
 /* รหัสด่าน (hw1…) = คีย์ดาวใน localStorage — ห้ามเปลี่ยน ผู้เรียนจะเสียดาว */
@@ -1429,12 +1716,16 @@ const LEVELS = [
   {ch:'sw', id:'s3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ตัวแปลภาษา ไดรเวอร์ ยูทิลิตี้', cls:'c2'},
   {ch:'cy', id:'c1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'จับผิดข้อความหลอก', cls:'c6'},
   {ch:'cy', id:'c2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'รหัสผ่าน OTP ลิงก์ · พลาดแล้วทำไง', cls:'c5'},
-  {ch:'cy', id:'c3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ศัพท์ภัยไซเบอร์', cls:'c2'}
+  {ch:'cy', id:'c3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ศัพท์ภัยไซเบอร์', cls:'c2'},
+  {ch:'net', id:'n1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'Wi-Fi 4G 5G ไอคอนบนจอ', cls:'c6'},
+  {ch:'net', id:'n2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'ข้อมูลเดินทาง · IP DNS ชื่อเว็บ', cls:'c5'},
+  {ch:'net', id:'n3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'LAN WAN สื่อกลาง Topology', cls:'c2'}
 ];
 const CHS = {
   hw:{n:'ฮาร์ดแวร์', i:'📱', scr:'hw'},
   sw:{n:'ซอฟต์แวร์', i:'🧩', scr:'sw'},
   unit:{n:'หน่วยข้อมูล', i:'📏', scr:'unit'},
+  net:{n:'เครือข่าย', i:'🌐', scr:'net'},
   cy:{n:'ภัยไซเบอร์', i:'🛡️', scr:'cy'}
 };
 let curCh='hw';

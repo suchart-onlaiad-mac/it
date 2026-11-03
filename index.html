@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ไอทีง่ายนิดเดียว</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#ff6ec7; --purple:#a06bff; --blue:#4ea8ff; --cyan:#37e0d8;
+    --green:#5bd75b; --yellow:#ffd34e; --orange:#ff9d42; --red:#ff6b6b;
+    --ink:#34306b; --soft:#fff;
+    --shadow:0 10px 30px rgba(80,60,160,.18);
+    --shadow-sm:0 4px 14px rgba(80,60,160,.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Kanit','Sarabun',sans-serif;
+    color:var(--ink);
+    background:linear-gradient(135deg,#ffe1f4 0%,#e3ecff 45%,#dffaf6 100%);
+    background-attachment:fixed;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* floating bubbles bg */
+  .bubbles{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none}
+  .bubbles span{position:absolute; bottom:-80px; border-radius:50%; opacity:.35;
+    animation:rise linear infinite}
+  @keyframes rise{to{transform:translateY(-115vh) rotate(360deg)}}
+  .wrap{position:relative; z-index:1; max-width:920px; margin:0 auto; padding:18px 16px 60px}
+
+  /* ---- Header ---- */
+  header{text-align:center; padding:14px 0 6px}
+  .title{
+    font-weight:800; font-size:clamp(26px,6vw,46px); line-height:1.05;
+    background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--cyan));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 3px 0 rgba(255,255,255,.6));
+  }
+  .subtitle{font-size:15px; color:#6a64a6; margin-top:4px; font-weight:500}
+  .mascot{font-size:clamp(48px,11vw,74px); display:inline-block; animation:bob 2.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(4deg)}}
+
+  /* ---- Star bar ---- */
+  .starbar{display:flex; align-items:center; justify-content:center; gap:8px; margin:10px auto 0;
+    background:#fff; border-radius:50px; padding:8px 18px; box-shadow:var(--shadow-sm); width:max-content; font-weight:600}
+  .starbar b{color:var(--orange); font-size:20px}
+
+  /* ---- Home menu cards ---- */
+  .menu{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:16px; margin-top:22px}
+  .card{
+    border:none; cursor:pointer; border-radius:24px; padding:22px 16px; text-align:center;
+    color:#fff; font-family:inherit; font-weight:700; font-size:17px; position:relative;
+    box-shadow:var(--shadow); transition:transform .15s, box-shadow .15s; overflow:hidden;
+  }
+  .card:hover{transform:translateY(-6px) scale(1.02); box-shadow:0 16px 36px rgba(80,60,160,.28)}
+  .card:active{transform:scale(.97)}
+  .card .ico{font-size:42px; display:block; margin-bottom:8px; filter:drop-shadow(0 3px 4px rgba(0,0,0,.15))}
+  .card small{display:block; font-weight:500; font-size:12.5px; opacity:.92; margin-top:4px}
+  .c1{background:linear-gradient(140deg,#ff8fd4,#ff5fb0)}
+  .c2{background:linear-gradient(140deg,#9b8bff,#7a5cff)}
+  .c3{background:linear-gradient(140deg,#5fb8ff,#3d86ff)}
+  .c4{background:linear-gradient(140deg,#42e0c8,#1bc2b0)}
+  .c5{background:linear-gradient(140deg,#ffc04e,#ff9326)}
+  .c6{background:linear-gradient(140deg,#76dd6e,#39c14a)}
+
+  /* ---- Screens ---- */
+  .screen{display:none; animation:pop .35s ease}
+  .screen.active{display:block}
+  @keyframes pop{from{opacity:0; transform:translateY(18px) scale(.98)}to{opacity:1; transform:none}}
+  .panel{background:#fff; border-radius:26px; padding:24px 22px; box-shadow:var(--shadow); margin-top:18px}
+  .panel h2{font-size:clamp(20px,4.5vw,28px); display:flex; align-items:center; gap:10px; margin-bottom:6px}
+  .panel .lead{color:#6a64a6; font-size:15px; line-height:1.6; margin-bottom:16px}
+
+  .backbtn{border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:15px;
+    background:#fff; color:var(--purple); border-radius:50px; padding:10px 20px; box-shadow:var(--shadow-sm);
+    display:inline-flex; align-items:center; gap:7px; transition:transform .12s}
+  .backbtn:hover{transform:translateX(-4px)}
+
+  /* ---- 100 grid ---- */
+  .grid100{display:grid; grid-template-columns:repeat(10,1fr); gap:4px; max-width:340px; margin:14px auto;
+    background:#f0eefc; padding:10px; border-radius:18px}
+  .cell{aspect-ratio:1; background:#fff; border-radius:6px; cursor:pointer; transition:.12s; box-shadow:inset 0 0 0 1px #e6e2fb}
+  .cell.on{background:linear-gradient(140deg,var(--pink),var(--purple)); box-shadow:none; transform:scale(1.04)}
+  .bigpct{text-align:center; font-size:clamp(38px,9vw,64px); font-weight:800;
+    background:linear-gradient(90deg,var(--pink),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; margin:6px 0}
+  .hint{text-align:center; color:#6a64a6; font-size:14px; margin-top:6px}
+
+  /* ---- Sliders & inputs ---- */
+  .row{display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:center; margin:14px 0}
+  input[type=range]{-webkit-appearance:none; appearance:none; width:min(320px,80%); height:14px; border-radius:50px;
+    background:linear-gradient(90deg,var(--cyan),var(--purple)); outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:30px; height:30px; border-radius:50%;
+    background:#fff; border:4px solid var(--purple); cursor:pointer; box-shadow:0 3px 8px rgba(0,0,0,.2)}
+  input[type=range]::-moz-range-thumb{width:30px; height:30px; border-radius:50%; background:#fff; border:4px solid var(--purple); cursor:pointer}
+  .field{display:flex; flex-direction:column; gap:4px; align-items:center}
+  .field label{font-weight:600; font-size:14px; color:#6a64a6}
+  .num{width:130px; font-family:inherit; font-weight:700; font-size:22px; text-align:center; color:var(--ink);
+    border:3px solid #e6e2fb; border-radius:16px; padding:10px; outline:none; transition:.15s; background:#faf9ff}
+  .num:focus{border-color:var(--purple); background:#fff}
+
+  /* ---- Convert visual ---- */
+  .conv{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; text-align:center; margin-top:8px}
+  .conv .box{background:#faf9ff; border-radius:18px; padding:16px 10px; border:3px solid #eee9fc}
+  .conv .box .t{font-size:12px; color:#9a93c9; font-weight:600}
+  .conv .box .v{font-size:clamp(20px,5vw,30px); font-weight:800; margin-top:4px}
+  .conv .b1 .v{color:var(--pink)} .conv .b2 .v{color:var(--purple)} .conv .b3 .v{color:var(--blue)}
+  svg.pie{display:block; margin:8px auto; filter:drop-shadow(0 6px 10px rgba(120,90,200,.25))}
+
+  /* ---- Steps box ---- */
+  .steps{background:linear-gradient(135deg,#fff7fc,#f2f6ff); border-radius:18px; padding:16px 18px; margin-top:14px;
+    border:2px dashed #d9cffb}
+  .steps .st{display:flex; gap:10px; align-items:flex-start; padding:7px 0; font-size:15px; line-height:1.5}
+  .steps .st b{min-width:26px; height:26px; border-radius:50%; background:var(--purple); color:#fff;
+    display:inline-grid; place-items:center; font-size:13px; flex:none}
+  .answer{text-align:center; font-size:clamp(26px,7vw,40px); font-weight:800; margin-top:10px;
+    background:linear-gradient(90deg,var(--green),var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent}
+
+  /* ---- progress bar (for X% of N) ---- */
+  .bar{height:42px; background:#f0eefc; border-radius:50px; overflow:hidden; margin:14px 0; position:relative}
+  .bar .fill{height:100%; width:0; border-radius:50px; background:linear-gradient(90deg,var(--orange),var(--pink));
+    transition:width .6s cubic-bezier(.3,1.3,.5,1); display:flex; align-items:center; justify-content:flex-end;
+    padding-right:14px; color:#fff; font-weight:700}
+
+  /* ---- buttons ---- */
+  .btn{border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#fff;
+    border-radius:50px; padding:12px 26px; box-shadow:var(--shadow-sm); transition:transform .12s, filter .12s}
+  .btn:hover{transform:translateY(-2px); filter:brightness(1.05)} .btn:active{transform:scale(.96)}
+  .btn.go{background:linear-gradient(135deg,var(--purple),var(--blue))}
+  .btn.alt{background:linear-gradient(135deg,var(--orange),var(--pink))}
+  .center{text-align:center}
+
+  /* ---- real world tabs ---- */
+  .tabs{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:10px}
+  .tab{border:none; cursor:pointer; font-family:inherit; font-weight:600; font-size:14px; color:var(--purple);
+    background:#f0eefc; border-radius:50px; padding:9px 18px; transition:.15s}
+  .tab.on{background:linear-gradient(135deg,var(--purple),var(--blue)); color:#fff; box-shadow:var(--shadow-sm)}
+  .tool{display:none} .tool.on{display:block; animation:pop .3s ease}
+  .result-card{background:linear-gradient(135deg,#eafff3,#e7f6ff); border-radius:18px; padding:16px; margin-top:12px; text-align:center}
+  .result-card .big{font-size:clamp(24px,6vw,38px); font-weight:800; color:var(--green)}
+  .result-card .small{font-size:14px; color:#6a8; font-weight:600}
+  .priceline{font-size:15px; color:#6a64a6; margin-top:4px}
+  .priceline del{color:#c0b8e0}
+
+  /* ---- Quiz ---- */
+  .levelpick{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:16px 0}
+  .lvl{border:none; cursor:pointer; font-family:inherit; font-weight:700; font-size:16px; color:#fff;
+    border-radius:20px; padding:18px 22px; box-shadow:var(--shadow-sm); transition:transform .14s; flex:1; min-width:120px; max-width:200px}
+  .lvl:hover{transform:translateY(-4px)} .lvl small{display:block; font-weight:500; font-size:12px; opacity:.92; margin-top:4px}
+  .lvl.e{background:linear-gradient(140deg,#76dd6e,#39c14a)}
+  .lvl.m{background:linear-gradient(140deg,#ffc04e,#ff9326)}
+  .lvl.h{background:linear-gradient(140deg,#ff8f8f,#ff5f5f)}
+
+  .qhead{display:flex; justify-content:space-between; align-items:center; font-weight:700; color:#6a64a6; margin-bottom:6px; font-size:14px}
+  .qprog{height:10px; background:#f0eefc; border-radius:50px; overflow:hidden; margin-bottom:14px}
+  .qprog i{display:block; height:100%; background:linear-gradient(90deg,var(--cyan),var(--purple)); transition:width .3s}
+  .question{font-size:clamp(20px,5vw,28px); font-weight:700; text-align:center; margin:10px 0 18px; line-height:1.4}
+  .choices{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .choice{border:3px solid #e6e2fb; background:#faf9ff; cursor:pointer; font-family:inherit; font-weight:700;
+    font-size:22px; color:var(--ink); border-radius:18px; padding:18px; transition:.12s}
+  .choice:hover{border-color:var(--purple); transform:translateY(-2px)}
+  .choice.correct{background:linear-gradient(135deg,#5bd75b,#37e0d8); color:#fff; border-color:transparent; animation:pulse .4s}
+  .choice.wrong{background:linear-gradient(135deg,#ff8f8f,#ff5f5f); color:#fff; border-color:transparent; animation:shake .4s}
+  .choice:disabled{cursor:default}
+  @keyframes pulse{50%{transform:scale(1.08)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+  .feedback{text-align:center; font-size:20px; font-weight:700; margin-top:16px; min-height:30px}
+  .scorebig{text-align:center; padding:10px}
+  .scorebig .stars{font-size:54px; letter-spacing:6px}
+  .scorebig .msg{font-size:clamp(22px,5vw,30px); font-weight:800; margin:10px 0;
+    background:linear-gradient(90deg,var(--pink),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .scorebig .detail{color:#6a64a6; font-size:16px}
+
+  /* confetti */
+  .confetti{position:fixed; top:-10px; width:10px; height:16px; z-index:99; pointer-events:none; border-radius:2px}
+  @keyframes fall{to{transform:translateY(105vh) rotate(720deg); opacity:0}}
+
+  footer{text-align:center; color:#9a93c9; font-size:12.5px; margin-top:30px; line-height:1.7}
+
+  /* ---- (IT) locked cards ---- */
+  .card.locked{filter:grayscale(.75) brightness(1.05); opacity:.6; cursor:not-allowed}
+  .card.locked:hover{transform:none; box-shadow:var(--shadow)}
+  @media (max-width:600px){
+    .menu{grid-template-columns:1fr 1fr; gap:12px}
+    .card{padding:16px 10px; font-size:15px}
+    .card .ico{font-size:34px}
+    .panel{padding:18px 12px}
+    .layer{padding:14px 12px}
+    table.t{font-size:13px}
+    table.t th,table.t td{padding:7px 5px}
+  }
+  .card .tag{position:absolute; top:10px; right:12px; font-size:11px; background:rgba(255,255,255,.3); border-radius:50px; padding:2px 9px}
+  .c7{background:linear-gradient(140deg,#ff8f8f,#ff5f5f)}
+  .c8{background:linear-gradient(140deg,#7fd3ff,#4f8dff)}
+
+  /* ---- (IT) 3 layers ---- */
+  .layer{border-radius:22px; padding:18px 18px; margin-top:16px; animation:pop .35s ease}
+  .layer h3{font-size:clamp(18px,4vw,23px); display:flex; align-items:center; gap:8px; margin-bottom:8px}
+  .layer p{font-size:16px; line-height:1.7}
+  .L1{background:linear-gradient(135deg,#eafff0,#e6fbff); border:3px solid #bdf0cc}
+  .L2{background:linear-gradient(135deg,#fffbe6,#fff0e0); border:3px solid #ffe2a8}
+  .L3{background:linear-gradient(135deg,#f3edff,#ffeaf6); border:3px solid #dccfff}
+  .more{display:block; width:100%; margin-top:14px; border:3px dashed #c9bdf5; background:#fff; cursor:pointer;
+    font-family:inherit; font-weight:700; font-size:16px; color:var(--purple); border-radius:18px; padding:14px; transition:.15s}
+  .more:hover{background:#faf7ff; transform:translateY(-2px)}
+  .hide{display:none}
+
+  /* phone ↔ computer compare cards */
+  .cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-top:10px}
+  .cmp .it{background:#fff; border-radius:18px; padding:14px; box-shadow:var(--shadow-sm); text-align:center}
+  .cmp .it .e{font-size:40px}
+  .cmp .it b{display:block; font-size:17px; margin-top:4px}
+  .cmp .it span{display:block; font-size:14px; color:#6a64a6; margin-top:4px; line-height:1.5}
+  .cmp .it .pill{display:inline-block; margin-top:8px; font-size:12.5px; font-weight:600; color:#fff; border-radius:50px; padding:3px 12px}
+  .p-in{background:var(--blue)} .p-pr{background:var(--pink)} .p-st{background:var(--orange)} .p-out{background:var(--green)}
+
+  /* flow IPO */
+  .flow{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; margin:12px 0}
+  .flow .f{border-radius:16px; padding:10px 14px; color:#fff; font-weight:700; text-align:center; min-width:96px}
+  .flow .f small{display:block; font-weight:500; font-size:12px}
+  .flow .ar{font-size:22px; color:#a99fe0}
+
+  /* memo / exam tip */
+  .memo{background:#fff; border-left:6px solid var(--orange); border-radius:14px; padding:12px 14px; margin-top:12px; font-size:15px; line-height:1.6}
+  .memo.ex{border-left-color:var(--red)}
+  .tw{overflow-x:auto; margin-top:10px; border-radius:14px}
+  .tw table.t{margin-top:0}
+  table.t{width:100%; border-collapse:separate; border-spacing:0; margin-top:10px; font-size:14.5px; background:#fff; border-radius:14px; overflow:hidden}
+  table.t th{background:#efe9ff; color:#5a4bb0; padding:9px 8px; text-align:left}
+  table.t td{padding:9px 8px; border-top:1px solid #f1eefc; vertical-align:top; line-height:1.5}
+
+  /* ---- (IT) level map ---- */
+  .levels{display:grid; gap:12px; margin-top:12px}
+  .lv{display:flex; align-items:center; gap:14px; border:none; cursor:pointer; font-family:inherit; text-align:left;
+    border-radius:20px; padding:14px 16px; color:#fff; box-shadow:var(--shadow-sm); transition:transform .14s}
+  .lv:hover{transform:translateY(-3px)}
+  .lv .n{font-size:38px}
+  .lv b{font-size:17px; display:block} .lv small{font-size:13px; opacity:.95}
+  .lv .st{margin-left:auto; font-size:20px; letter-spacing:2px; white-space:nowrap}
+  .lv.locked{background:#cfcbe6 !important; cursor:not-allowed} .lv.locked:hover{transform:none}
+  .hearts{font-size:18px; letter-spacing:2px}
+  .choices.txt{grid-template-columns:1fr}
+  .choices.txt .choice{font-size:17px; text-align:left; padding:14px 16px; line-height:1.45}
+  .why{background:#f7f5ff; border-radius:14px; padding:12px 14px; margin-top:12px; font-size:15px; line-height:1.6; display:none}
+  .nextbtn{margin-top:12px; display:none}
+
+  /* ---- (IT) hardware tour ---- */
+  .step-h{display:flex; align-items:center; gap:8px; font-size:clamp(17px,4vw,21px); font-weight:700; margin:22px 0 4px}
+  .step-h .sn{width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,var(--pink),var(--purple)); color:#fff;
+    display:inline-grid; place-items:center; font-size:15px; flex:none}
+  .tip{font-size:14.5px; color:#6a64a6; line-height:1.6; margin-bottom:8px}
+  .fig{background:#fff; border-radius:20px; padding:8px; box-shadow:var(--shadow-sm); margin-top:8px}
+  .hsvg{display:block; width:100%; max-width:440px; margin:0 auto; height:auto}
+  .hsvg .bd{cursor:pointer}
+  .hsvg .bd circle{fill:#ff6ec7; stroke:#fff; stroke-width:2.5; transition:.15s}
+  .hsvg .bd text{fill:#fff; font-size:12px; font-weight:800; text-anchor:middle; font-family:'Kanit',sans-serif; pointer-events:none}
+  .hsvg .bd:hover circle{fill:#a06bff}
+  .hsvg .bd.sel circle{fill:#ffd34e; stroke:#ff6ec7; r:12}
+  .hsvg .bd.sel text{fill:var(--ink)}
+  .hsvg .pt{cursor:pointer; transition:.15s}
+  .hsvg .pt.sel{filter:drop-shadow(0 0 4px #ffd34e) drop-shadow(0 0 7px #ff6ec7)}
+  .hsvg .bd circle{animation:beat 2.2s ease-in-out infinite}
+  @keyframes beat{50%{stroke-width:5}}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:10px}
+  .chip{border:2px solid #e6e2fb; background:#fff; cursor:pointer; font-family:inherit; font-size:13.5px; font-weight:600;
+    color:var(--ink); border-radius:50px; padding:5px 12px; transition:.12s}
+  .chip.sel{background:linear-gradient(135deg,var(--yellow),var(--orange)); border-color:transparent}
+  .info{background:#fff; border-radius:16px; padding:12px 14px; margin-top:10px; font-size:15.5px; line-height:1.6; min-height:52px;
+    border:3px solid #ffe2a8; text-align:center}
+  .info .gp{font-style:normal; color:#fff; font-size:12.5px; font-weight:600; border-radius:50px; padding:2px 10px; margin-left:4px; white-space:nowrap}
+  .map{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-top:8px}
+  .grp{border-radius:18px; padding:12px; color:#fff}
+  .grp h4{font-size:16px} .grp h4 small{font-weight:500; font-size:11.5px; opacity:.9}
+  .grp p{font-size:12.5px; opacity:.95; margin:2px 0 8px}
+  .grp .ch{display:inline-block; background:rgba(255,255,255,.92); color:var(--ink); border-radius:50px; padding:3px 10px; margin:0 4px 5px 0; font-size:13px; font-weight:600}
+  .grp .ch small{font-weight:500; color:#6a64a6}
+  .g-in{background:linear-gradient(140deg,#5fb8ff,#3d86ff)} .g-pr{background:linear-gradient(140deg,#ff8fd4,#ff5fb0)}
+  .g-st{background:linear-gradient(140deg,#ffc04e,#ff9326)} .g-out{background:linear-gradient(140deg,#76dd6e,#39c14a)}
+  .g-ax{background:linear-gradient(140deg,#9b8bff,#7a5cff); grid-column:1/-1}
+  .hsvg .offtag{display:none}
+  .hsvg.off .offtag{display:inline; animation:pop .35s ease}
+  .hsvg.off [data-k=ram] rect{fill:#d6d3e6 !important}
+  .hsvg.off [data-k=cpu]{opacity:.55}
+  .xinfo{text-align:left; margin-top:8px}
+  .cmp1{display:flex; gap:10px; align-items:flex-start; background:#faf8ff; border-radius:12px; padding:8px 10px; margin-top:6px; font-size:14.5px; line-height:1.55}
+  .cmp1 .e{font-size:24px; flex:none}
+  .qpic{text-align:center; font-size:64px; line-height:1; margin-top:6px}
+</style>
+</head>
+<body>
+<div class="bubbles" id="bubbles"></div>
+<div class="wrap">
+
+  <!-- ================= HOME ================= -->
+  <header>
+    <div class="mascot" id="mascot">🦉</div>
+    <div class="title">ไอทีง่ายนิดเดียว</div>
+    <div class="subtitle">ติวเทคโนโลยีสารสนเทศ เตรียมสอบตำรวจ 👮 เริ่มจากมือถือในมือเรา 📱</div>
+    <div class="starbar">⭐ ดาวสะสม: <b id="totalStars">0</b></div>
+  </header>
+
+  <div class="screen active" id="home">
+    <div class="menu">
+      <button class="card c1 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🕰️</span>คอมพิวเตอร์คืออะไร<small>อดีต ปัจจุบัน อนาคต</small></button>
+      <button class="card c2" onclick="go('hw')"><span class="ico">📱</span>ฮาร์ดแวร์<small>ชิ้นส่วนในมือถือเรา</small></button>
+      <button class="card c3 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🧩</span>ซอฟต์แวร์<small>แอป + ระบบปฏิบัติการ</small></button>
+      <button class="card c4 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📏</span>หน่วยข้อมูล<small>bit byte GB</small></button>
+      <button class="card c5 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🌐</span>เครือข่าย อินเทอร์เน็ต<small>Wi-Fi 4G 5G</small></button>
+      <button class="card c7 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🛡️</span>ภัยไซเบอร์<small>มิจฉาชีพออนไลน์</small></button>
+      <button class="card c8 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">⚖️</span>กฎหมายดิจิทัล<small>พ.ร.บ.คอมฯ · PDPA</small></button>
+      <button class="card c2 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🤖</span>เทคโนโลยีอนาคต<small>AI Cloud IoT</small></button>
+      <button class="card c6" onclick="go('game');renderLevels()"><span class="ico">🎮</span>เกมพิชิตด่าน<small>ตอบถูก ปลดล็อกด่าน!</small></button>
+    </div>
+    <p class="hint" style="margin-top:16px">💡 ทุกบทมี 3 ชั้น: 🌱 อ่านแค่ชั้นแรกก็เข้าใจ · อยากรู้มากขึ้นค่อยกดต่อ 🌿 🌳</p>
+  </div>
+
+  <!-- ================= HARDWARE ================= -->
+  <div class="screen" id="hw">
+    <button class="backbtn" onclick="home()">⬅️ กลับหน้าหลัก</button>
+    <div class="panel">
+      <h2>📱 ฮาร์ดแวร์ คืออะไร?</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p><b>ฮาร์ดแวร์</b> = ชิ้นส่วนของเครื่องที่ <b>มองเห็น จับต้องได้</b> ✋ · เริ่มจากเครื่องที่เราเห็นทุกวันกันเลย</p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 มองจากภายนอก</div>
+        <p class="tip">เลือกเครื่อง แล้ว<b>แตะวงกลมตัวเลข</b>บนภาพ (หรือแตะชื่อด้านล่าง) 👆</p>
+        <div class="tabs" id="devTabs">
+          <button class="tab on" onclick="showDev('phone',this)">📱 มือถือ</button>
+          <button class="tab" onclick="showDev('laptop',this)">💻 โน้ตบุ๊ก</button>
+          <button class="tab" onclick="showDev('desktop',this)">🖥️ คอมตั้งโต๊ะ</button>
+        </div>
+        <div class="fig" id="figOut"></div>
+        <div class="chips" id="chipsOut"></div>
+        <div class="info" id="infoOut">👆 แตะวงกลมตัวเลข เพื่อดูว่าชิ้นนั้นชื่ออะไร ทำอะไร</div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> 🔧 เปิดฝาดูข้างใน</div>
+        <p class="tip">ทั้ง 3 เครื่อง <b>ขนาดต่างกัน แต่ข้างในมีของชุดเดียวกัน</b> · ภาพนี้คือข้างในคอมตั้งโต๊ะ (เห็นชัดสุด) · ลองแตะ <b>RAM</b> กับ <b>ROM</b> บนเมนบอร์ด แล้วกดปุ่มปิดเครื่องดู 👇</p>
+        <div class="fig" id="figIn"></div>
+        <div class="center" style="margin-top:10px"><button class="btn alt" id="pwrBtn" onclick="togglePower()">🔌 ลองปิดเครื่อง ดูว่าข้อมูลไหนหาย</button></div>
+        <div class="chips" id="chipsIn"></div>
+        <div class="info" id="infoIn">👆 แตะวงกลมตัวเลข ดูชิ้นส่วนข้างใน</div>
+        <div class="tw"><table class="t">
+          <tr><th>ชิ้นส่วน</th><th>📱 มือถือ</th><th>💻 โน้ตบุ๊ก</th><th>🖥️ ตั้งโต๊ะ</th></tr>
+          <tr><td>🟩 เมนบอร์ด</td><td>แผงเล็กมาก</td><td>แผงบาง</td><td>แผงใหญ่</td></tr>
+          <tr><td>🧠 CPU</td><td>ชิปเล็ก รวมหลายอย่าง</td><td>ชิป CPU</td><td>ชิป CPU + พัดลม</td></tr>
+          <tr><td>🪑 RAM</td><td>ฝังในเครื่อง</td><td>ฝัง หรือแผงเสียบ</td><td>แผงเสียบ เพิ่มได้</td></tr>
+          <tr><td>📘 ROM</td><td>ชิปในตัว</td><td>ชิปบนเมนบอร์ด</td><td>ชิปบนเมนบอร์ด</td></tr>
+          <tr><td>🗄️ ที่เก็บข้อมูล</td><td>ชิปในตัว (เช่น 128 GB)</td><td>SSD</td><td>SSD / HDD</td></tr>
+          <tr><td>⚡ ไฟเลี้ยง</td><td>แบตเตอรี่</td><td>แบต + อะแดปเตอร์</td><td>พาวเวอร์ซัพพลาย</td></tr>
+        </table></div>
+
+        <!-- 3) overview -->
+        <div class="step-h"><span class="sn">3</span> 🗺️ ภาพรวม: ทุกชิ้นแบ่งได้ 4 หน้าที่</div>
+        <p class="tip">เอาชิ้นส่วนที่เพิ่งเห็นทั้งหมด มาจัดกลุ่มตาม "หน้าที่" — <b>ข้อสอบชอบถามตรงนี้</b> 📝</p>
+        <div class="map">
+          <div class="grp g-in"><h4>⌨️ รับเข้า <small>Input</small></h4><p>ทางที่ข้อมูล "เข้า" เครื่อง</p>
+            <div class="ch">⌨️ คีย์บอร์ด</div><div class="ch">🖱️ เมาส์</div><div class="ch">🟦 ทัชแพด</div><div class="ch">📷 กล้อง</div><div class="ch">🎤 ไมโครโฟน</div><div class="ch">👆 จอสัมผัส*</div></div>
+          <div class="grp g-pr"><h4>🧠 ประมวลผล <small>Process</small></h4><p>"สมอง" คิดและสั่งงาน</p>
+            <div class="ch">🧠 CPU</div></div>
+          <div class="grp g-st"><h4>🗄️ เก็บข้อมูล <small>Storage / Memory</small></h4><p>ที่พักข้อมูล</p>
+            <div class="ch">🪑 RAM <small>(ชั่วคราว)</small></div><div class="ch">📘 ROM <small>(ถาวร อ่านอย่างเดียว)</small></div><div class="ch">🗄️ SSD / HDD <small>(ถาวร)</small></div><div class="ch">💾 แฟลชไดรฟ์</div></div>
+          <div class="grp g-out"><h4>📺 แสดงผล <small>Output</small></h4><p>ทางที่ผลลัพธ์ "ออก" มาให้เรา</p>
+            <div class="ch">🖥️ จอภาพ</div><div class="ch">🔊 ลำโพง</div><div class="ch">🖨️ เครื่องพิมพ์</div><div class="ch">👆 จอสัมผัส*</div></div>
+          <div class="grp g-ax"><h4>🔌 ตัวช่วยให้ทุกชิ้นทำงาน</h4><p>ไม่อยู่ใน 4 หน้าที่ แต่ขาดไม่ได้</p>
+            <div class="ch">🟩 เมนบอร์ด <small>(ทางเชื่อม)</small></div><div class="ch">⚡ แบต / พาวเวอร์ซัพพลาย <small>(ไฟ)</small></div><div class="ch">🔌 ช่อง USB <small>(ช่องเสียบ)</small></div></div>
+        </div>
+        <p class="tip" style="margin-top:8px">* <b>จอสัมผัส</b> อยู่ 2 กลุ่ม เพราะทั้ง "แตะสั่ง" (รับเข้า) และ "แสดงภาพ" (แสดงผล)</p>
+        <div class="flow">
+          <div class="f" style="background:var(--blue)">⌨️ รับเข้า</div><div class="ar">➜</div>
+          <div class="f" style="background:var(--pink)">🧠 ประมวลผล</div><div class="ar">➜</div>
+          <div class="f" style="background:var(--green)">📺 แสดงผล</div>
+        </div>
+        <div class="memo">🔑 <b>จำสั้น ๆ:</b> เห็นเครื่องไหนก็มีของชุดเดียวกัน · รับเข้า → คิด → แสดงผล (ระหว่างทางพักข้อมูลไว้ในที่เก็บ) · จับต้องได้ = ฮาร์ดแวร์ · แอป = ซอฟต์แวร์</div>
+        <button class="more" onclick="openLayer('hwL2',this)">🌿 อยากรู้อีกนิด (มักออกสอบ) ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="hwL2">
+        <h3>🌿 ชั้นต้นกล้า · รายละเอียดที่มักออกสอบ</h3>
+        <p class="tip">💡 RAM กับ ROM อยู่ในภาพเมนบอร์ดชั้นเมล็ดแล้ว — ชั้นนี้ต่อด้วยรายละเอียดที่ข้อสอบชอบถาม</p>
+        <p style="margin-top:6px"><b>1) ตัวอย่างอุปกรณ์ แยกตามหน้าที่</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>หน้าที่</th><th>ตัวอย่าง</th></tr>
+          <tr><td>⌨️ รับเข้า (Input)</td><td>คีย์บอร์ด เมาส์ สแกนเนอร์ ไมโครโฟน กล้อง เครื่องสแกนนิ้ว</td></tr>
+          <tr><td>📺 แสดงผล (Output)</td><td>จอภาพ เครื่องพิมพ์ ลำโพง หูฟัง โปรเจกเตอร์</td></tr>
+          <tr><td>🔁 ได้ทั้งสองอย่าง</td><td>จอสัมผัส (ทัชสกรีน) — แตะสั่งได้ + แสดงภาพได้</td></tr>
+          <tr><td>🗄️ เก็บข้อมูล</td><td>ฮาร์ดดิสก์ (HDD) · SSD · แฟลชไดรฟ์ · เมมโมรีการ์ด</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>2) CPU มี 2 ส่วนหลัก</b></p>
+        <div class="cmp">
+          <div class="it"><div class="e">🧮</div><b>ALU</b><span>หน่วยคำนวณและตรรกะ · บวก ลบ เปรียบเทียบ มาก/น้อย</span></div>
+          <div class="it"><div class="e">🚦</div><b>CU</b><span>หน่วยควบคุม · "ตำรวจจราจร" สั่งว่าใครทำอะไรก่อนหลัง</span></div>
+        </div>
+        <button class="more" onclick="openLayer('hwL3',this)">🌳 เจาะลึก (ระดับข้อสอบยาก) ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="hwL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · เจาะลึก</h3>
+        <div class="tw"><table class="t">
+          <tr><th>คำศัพท์</th><th>ความหมาย</th><th>เทียบมือถือ</th></tr>
+          <tr><td><b>GHz</b> (กิกะเฮิรตซ์)</td><td>ความเร็วสัญญาณนาฬิกาของ CPU · ตัวเลขมาก = จังหวะทำงานถี่</td><td>สเปก "2.8 GHz"</td></tr>
+          <tr><td><b>Core</b> (แกน)</td><td>จำนวนสมองย่อยใน CPU ทำงานพร้อมกันได้</td><td>"Octa-core" = 8 แกน</td></tr>
+          <tr><td><b>Cache</b></td><td>หน่วยความจำเล็กมาก เร็วมาก อยู่ติด CPU เก็บของที่ใช้บ่อย</td><td>กระเป๋าเสื้อ หยิบไวกว่าโต๊ะ</td></tr>
+          <tr><td><b>GPU</b></td><td>หน่วยประมวลผลกราฟิก ช่วยงานภาพ วิดีโอ เกม</td><td>เล่นเกมภาพสวยลื่น</td></tr>
+          <tr><td><b>Mainboard</b></td><td>แผงวงจรหลัก เชื่อมทุกชิ้นส่วนเข้าด้วยกัน</td><td>แผ่นวงจรในเครื่อง</td></tr>
+          <tr><td><b>HDD vs SSD</b></td><td>HDD มีจานหมุน ราคาถูก ช้ากว่า · SSD ใช้ชิป ไม่มีชิ้นส่วนเคลื่อนไหว เร็วกว่า</td><td>มือถือใช้หน่วยเก็บแบบชิป</td></tr>
+          <tr><td><b>Firmware / BIOS</b></td><td>โปรแกรมเล็กที่ฝังใน ROM ใช้ปลุกเครื่องตอนเปิด</td><td>หน้าจอโลโก้ตอนเปิดเครื่อง</td></tr>
+        </table></div>
+        <div class="memo ex">📝 <b>ลำดับความเร็วหน่วยความจำ (เร็ว → ช้า):</b> Register ใน CPU → Cache → RAM → SSD → HDD<br>ยิ่งเร็ว ยิ่งแพง ยิ่งจุน้อย</div>
+        <div class="memo">🖨️ <b>ศัพท์จอ/เครื่องพิมพ์:</b> <b>Pixel</b> = จุดเล็กที่สุดบนจอ · <b>Resolution</b> = จำนวนจุด เช่น 1920×1080 · <b>dpi</b> = จุดต่อนิ้ว ใช้วัดความละเอียดงานพิมพ์/สแกน</div>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="go('game');renderLevels()">🎮 ไปพิชิตด่านเลย!</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= GAME ================= -->
+  <div class="screen" id="game">
+    <button class="backbtn" onclick="home()">⬅️ กลับหน้าหลัก</button>
+    <div class="panel" id="game-menu">
+      <h2>🎮 เกมพิชิตด่าน · ฮาร์ดแวร์</h2>
+      <p class="lead">ด่านละ 5 ข้อ สุ่มใหม่ทุกครั้ง · มีหัวใจ ❤️ 3 ดวง · ตอบถูก 4 ข้อขึ้นไป = ผ่าน ปลดล็อกด่านถัดไป 🔓</p>
+      <div class="levels" id="levels"></div>
+      <p class="hint" style="margin-top:12px">ข้อที่ตอบผิด จะวนกลับมาถามอีกในรอบหน้า 🔁</p>
+    </div>
+
+    <div class="panel" id="game-play" style="display:none">
+      <div class="qhead"><span id="q-count">ข้อ 1 / 5</span><span class="hearts" id="q-hearts">❤️❤️❤️</span><span>ถูก: <span id="q-score">0</span></span></div>
+      <div class="qprog"><i id="q-prog" style="width:0%"></i></div>
+      <div class="qpic" id="q-pic"></div>
+      <div class="question" id="q-text">...</div>
+      <div class="choices txt" id="q-choices"></div>
+      <div class="feedback" id="q-fb"></div>
+      <div class="why" id="q-why"></div>
+      <div class="center"><button class="btn go nextbtn" id="q-next" onclick="nextQ()">ข้อต่อไป ➡️</button></div>
+    </div>
+
+    <div class="panel" id="game-end" style="display:none">
+      <div class="scorebig">
+        <div class="stars" id="e-stars">⭐⭐⭐</div>
+        <div class="msg" id="e-msg">เก่งมาก!</div>
+        <div class="detail" id="e-detail">ทำถูก 5 จาก 5 ข้อ</div>
+        <div class="center" style="margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
+          <button class="btn go" onclick="backToGameMenu()">🗺️ แผนที่ด่าน</button>
+          <button class="btn alt" onclick="go('hw')">📖 ทบทวนบทเรียน</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    🦉 สื่อการเรียนรู้ "ไอทีง่ายนิดเดียว" · เปิดได้ทุกอุปกรณ์<br>
+    ต้นแบบบทที่ 2 ฮาร์ดแวร์ · ความคืบหน้าบันทึกไว้ในเครื่องที่เล่น 💛
+  </footer>
+</div>
+
+<script>
+/* ============ helpers ============ */
+const $ = id => document.getElementById(id);
+const SAVE_KEY='it-police-v1';
+let save={stars:{}, wrong:[]};
+try{ const s=JSON.parse(localStorage.getItem(SAVE_KEY)); if(s&&s.stars) save=s; }catch(e){}
+function persist(){ try{ localStorage.setItem(SAVE_KEY,JSON.stringify(save)); }catch(e){} }
+function totalStars(){ return Object.values(save.stars).reduce((a,b)=>a+b,0); }
+function showStars(){ $('totalStars').textContent=totalStars(); }
+showStars();
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function home(){ go('home'); }
+function openLayer(id,btn){
+  $(id).classList.remove('hide');
+  btn.style.display='none';
+  setTimeout(()=>$(id).scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+/* mascot reacts on click */
+const moods = ['🦉','👮','📱','💻','🤖','🦊','🐼'];
+$('mascot').onclick = ()=>{ $('mascot').textContent = moods[Math.floor(Math.random()*moods.length)]; };
+
+/* ============ background bubbles ============ */
+(function(){
+  const colors=['#ff8fd4','#9b8bff','#5fb8ff','#42e0c8','#ffc04e','#76dd6e'];
+  const box=$('bubbles');
+  for(let i=0;i<14;i++){
+    const s=document.createElement('span');
+    const size=20+Math.random()*60;
+    s.style.width=s.style.height=size+'px';
+    s.style.left=Math.random()*100+'%';
+    s.style.background=colors[i%colors.length];
+    s.style.animationDuration=(10+Math.random()*16)+'s';
+    s.style.animationDelay=(-Math.random()*16)+'s';
+    box.appendChild(s);
+  }
+})();
+
+
+/* ============ hardware tour (outside → inside) ============ */
+const GROUPS = {
+  in:{t:'รับเข้า (Input)', c:'var(--blue)'}, out:{t:'แสดงผล (Output)', c:'var(--green)'},
+  both:{t:'รับเข้า + แสดงผล', c:'linear-gradient(90deg,var(--blue),var(--green))'},
+  proc:{t:'ประมวลผล', c:'var(--pink)'}, store:{t:'เก็บข้อมูล', c:'var(--orange)'}, aux:{t:'ตัวช่วย', c:'var(--purple)'}
+};
+const PARTS = {
+  touch:{n:'จอสัมผัส (ทัชสกรีน)', g:'both', d:'แตะสั่งงานได้ และแสดงภาพได้ในชิ้นเดียว'},
+  cam:{n:'กล้อง', g:'in', d:'รับภาพเข้าเครื่อง — ถ่ายรูป วิดีโอคอล สแกนหน้า'},
+  speaker:{n:'ลำโพง', g:'out', d:'ส่งเสียงออกมาให้เราได้ยิน'},
+  mic:{n:'ไมโครโฟน', g:'in', d:'รับเสียงเราเข้าเครื่อง — โทร อัดเสียง สั่งงานด้วยเสียง'},
+  power:{n:'ปุ่มเปิด-ปิด', g:'aux', d:'เปิด/ปิดเครื่อง'},
+  volume:{n:'ปุ่มเพิ่ม-ลดเสียง', g:'in', d:'กดเพื่อสั่งเครื่อง = เป็นการส่งคำสั่ง "เข้า"'},
+  port:{n:'ช่องเสียบ USB-C', g:'aux', d:'ชาร์จไฟ และเสียบสายส่งข้อมูล'},
+  screen:{n:'จอภาพ', g:'out', d:'แสดงภาพ ตัวหนังสือ วิดีโอ'},
+  webcam:{n:'กล้องเว็บแคม', g:'in', d:'กล้องเล็กเหนือจอ ใช้ประชุมออนไลน์'},
+  keyboard:{n:'คีย์บอร์ด (แป้นพิมพ์)', g:'in', d:'พิมพ์ตัวหนังสือและคำสั่งเข้าเครื่อง'},
+  touchpad:{n:'ทัชแพด', g:'in', d:'ใช้นิ้วลากและแตะ แทนเมาส์'},
+  usb:{n:'ช่อง USB', g:'aux', d:'เสียบแฟลชไดรฟ์ เมาส์ เครื่องพิมพ์ ฯลฯ'},
+  monitor:{n:'จอภาพ (มอนิเตอร์)', g:'out', d:'แสดงผลทุกอย่างที่เครื่องทำ'},
+  case:{n:'เคส (ตัวเครื่อง)', g:'aux', d:'กล่องที่บรรจุชิ้นส่วนข้างในทั้งหมด · หลายคนเรียกกล่องนี้ว่า "ซีพียู" แต่ CPU จริงคือชิปเล็ก ๆ ข้างใน'},
+  mouse:{n:'เมาส์', g:'in', d:'เลื่อนลูกศรบนจอ แล้วคลิกสั่งงาน'},
+  board:{n:'เมนบอร์ด', g:'aux', d:'แผงวงจรหลัก ทุกชิ้นเสียบอยู่บนนี้ เป็น "ถนน" ให้ชิ้นส่วนคุยกัน'},
+  cpu:{n:'CPU (ซีพียู)', g:'proc', d:'สมองของเครื่อง คิด คำนวณ สั่งงาน · ของจริงมีพัดลมครอบเพราะร้อน'},
+  ram:{s:'RAM (แรม)', n:'RAM (แรม) · แผงสีฟ้าที่เสียบตั้งอยู่', g:'store', d:'หน่วยความจำหลัก ที่พักงานที่ "กำลังเปิดอยู่"', x:`
+    <div class="cmp1"><span class="e">🧑‍💻🪑</span><span><b>เหมือน "โต๊ะทำงาน"</b> — เปิดแอปไหน แอปนั้นมาวางบนโต๊ะ · โต๊ะกว้าง (RAM มาก) = เปิดหลายแอปพร้อมกันได้ไม่ช้า</span></div>
+    <div class="cmp1"><span class="e">🔌❌</span><span><b>ปิดเครื่อง = ของบนโต๊ะถูกเก็บหมด</b> ข้อมูลใน RAM หายทั้งหมด (เรียกว่า หน่วยความจำ<b>ชั่วคราว</b>)</span></div>
+    <div class="memo ex">📝 ข้อสอบชอบถาม: "หน่วยความจำใดข้อมูลหายเมื่อปิดเครื่อง/ไฟดับ" → <b>RAM</b></div>`},
+  rom:{s:'ROM (รอม)', n:'ROM (รอม) · ชิปเล็กบนเมนบอร์ด', g:'store', d:'หน่วยความจำแบบ "อ่านได้อย่างเดียว" (Read Only Memory)', x:`
+    <div class="cmp1"><span class="e">📘🔒</span><span><b>เหมือน "คู่มือติดเครื่อง"</b> ที่โรงงานใส่มาให้ · เราอ่านได้ แต่เขียนทับเองไม่ได้</span></div>
+    <div class="cmp1"><span class="e">📋</span><span><b>ข้างในมีอะไร?</b> โปรแกรมเล็ก ๆ ชื่อ <b>BIOS</b> (เฟิร์มแวร์) — ตอนกดเปิดเครื่อง มันทำงานเป็นอย่างแรก: ตรวจว่าชิ้นส่วนครบ แล้วปลุกระบบ Windows / Android ขึ้นมา</span></div>
+    <div class="cmp1"><span class="e">🔌✅</span><span><b>ปิดเครื่อง ข้อมูลไม่หาย</b> (หน่วยความจำ<b>ถาวร</b>) — ไม่งั้นเปิดเครื่องครั้งหน้าจะไม่รู้ว่าต้องเริ่มยังไง</span></div>
+    <div class="memo">📱 <b>ระวังสับสน:</b> สเปกมือถือที่ร้านเขียน "RAM 8GB / <b>ROM 128GB</b>" คำว่า ROM ตรงนั้นหมายถึง <b>ที่เก็บข้อมูล</b> (เก็บรูป แอป) · แต่ในข้อสอบ <b>ROM = หน่วยความจำอ่านอย่างเดียว</b> แบบในภาพนี้</div>`},
+  ssd:{n:'SSD', g:'store', d:'ที่เก็บข้อมูลถาวรแบบชิป เร็ว · ปิดเครื่องข้อมูลไม่หาย'},
+  hdd:{n:'HDD (ฮาร์ดดิสก์)', g:'store', d:'ที่เก็บข้อมูลถาวรแบบจานหมุน จุมาก ราคาถูก แต่ช้ากว่า SSD'},
+  psu:{n:'พาวเวอร์ซัพพลาย', g:'aux', d:'แปลงไฟบ้านเป็นไฟที่เครื่องใช้ · มือถือ/โน้ตบุ๊กใช้แบตเตอรี่แทน'}
+};
+const DK='#34306b', BODY='#8f87c9', SCR='url(#scr)';
+const DEFS=`<defs><linearGradient id="scr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bfe6ff"/><stop offset="1" stop-color="#e9dcff"/></linearGradient></defs>`;
+/* parts: [key, badgeX, badgeY, pointX, pointY] */
+const FIGS = {
+  phone:{svg:`
+    <rect x="105" y="62" width="6" height="34" rx="2" fill="${DK}" class="pt" data-k="volume"/>
+    <rect x="209" y="70" width="6" height="26" rx="2" fill="${DK}" class="pt" data-k="power"/>
+    <rect x="110" y="10" width="100" height="220" rx="18" fill="${DK}"/>
+    <rect x="117" y="30" width="86" height="182" rx="8" fill="${SCR}" class="pt" data-k="touch"/>
+    <circle cx="170" cy="20" r="4" fill="#5d57a0" class="pt" data-k="cam"/>
+    <rect x="140" y="18" width="18" height="3" rx="1.5" fill="#5d57a0"/>
+    <g class="pt" data-k="mic"><circle cx="130" cy="221" r="2.2" fill="#b9b3e6"/></g>
+    <g class="pt" data-k="speaker"><circle cx="184" cy="221" r="1.8" fill="#b9b3e6"/><circle cx="190" cy="221" r="1.8" fill="#b9b3e6"/><circle cx="196" cy="221" r="1.8" fill="#b9b3e6"/></g>
+    <rect x="151" y="224" width="18" height="5" rx="2.5" fill="#b9b3e6" class="pt" data-k="port"/>
+    `,
+    parts:[['touch',160,150,160,150],['cam',255,20,174,20],['volume',62,79,105,79],['power',255,83,215,83],['mic',62,221,128,221],['speaker',255,200,194,219],['port',160,258,160,229]], h:270},
+  laptop:{svg:`
+    <rect x="50" y="15" width="220" height="145" rx="10" fill="${DK}"/>
+    <rect x="60" y="27" width="200" height="124" rx="4" fill="${SCR}" class="pt" data-k="screen"/>
+    <circle cx="160" cy="21" r="3" fill="#5d57a0" class="pt" data-k="webcam"/>
+    <polygon points="38,162 282,162 304,198 16,198" fill="${BODY}"/>
+    <g class="pt" data-k="keyboard"><rect x="78" y="166" width="164" height="16" rx="3" fill="#6d65b0"/>
+      ${Array.from({length:12},(_,i)=>`<rect x="${82+i*13.4}" y="169" width="10" height="4" rx="1" fill="#e9e6ff"/><rect x="${82+i*13.4}" y="175" width="10" height="4" rx="1" fill="#e9e6ff"/>`).join('')}</g>
+    <rect x="138" y="185" width="44" height="10" rx="2" fill="#a9a2dd" class="pt" data-k="touchpad"/>
+    <g class="pt" data-k="speaker">${[0,1,2].map(i=>`<circle cx="${46+i*7}" cy="${180}" r="1.8" fill="${DK}"/>`).join('')}</g>
+    <circle cx="268" cy="172" r="4" fill="${DK}" class="pt" data-k="power"/>
+    <rect x="18" y="186" width="10" height="5" rx="1" fill="${DK}" class="pt" data-k="usb"/>`,
+    parts:[['screen',160,90,160,90],['webcam',30,21,157,21],['keyboard',110,225,110,180],['touchpad',165,225,165,195],['speaker',58,225,53,182],['power',290,140,270,170],['usb',18,225,23,191]], h:240},
+  desktop:{svg:`
+    <rect x="18" y="18" width="172" height="118" rx="8" fill="${DK}"/>
+    <rect x="26" y="26" width="156" height="102" rx="3" fill="${SCR}" class="pt" data-k="monitor"/>
+    <rect x="94" y="136" width="20" height="18" fill="${DK}"/><rect x="68" y="152" width="72" height="6" rx="3" fill="${DK}"/>
+    <rect x="198" y="96" width="16" height="40" rx="4" fill="${DK}" class="pt" data-k="speaker"/>
+    <circle cx="206" cy="108" r="4" fill="#5d57a0"/><circle cx="206" cy="124" r="5" fill="#5d57a0"/>
+    <rect x="222" y="26" width="80" height="154" rx="8" fill="${BODY}" class="pt" data-k="case"/>
+    <circle cx="262" cy="46" r="6" fill="${DK}" class="pt" data-k="power"/>
+    <g class="pt" data-k="usb"><rect x="246" y="64" width="12" height="5" rx="1" fill="${DK}"/><rect x="266" y="64" width="12" height="5" rx="1" fill="${DK}"/></g>
+    ${[0,1,2,3,4].map(i=>`<rect x="238" y="${120+i*9}" width="48" height="3" rx="1.5" fill="#a9a2dd"/>`).join('')}
+    <g class="pt" data-k="keyboard"><rect x="16" y="176" width="156" height="34" rx="6" fill="#6d65b0"/>
+      ${Array.from({length:30},(_,i)=>`<rect x="${22+(i%10)*14.8}" y="${181+Math.floor(i/10)*9}" width="11" height="6" rx="1.5" fill="#e9e6ff"/>`).join('')}</g>
+    <ellipse cx="198" cy="196" rx="12" ry="17" fill="#6d65b0" class="pt" data-k="mouse"/>
+    <line x1="198" y1="182" x2="198" y2="192" stroke="#e9e6ff" stroke-width="1.5"/>`,
+    parts:[['monitor',104,77,104,77],['case',262,95,262,95],['power',310,46,268,46],['usb',310,66,278,66],['speaker',206,82,206,96],['keyboard',94,226,94,210],['mouse',198,226,198,213]], h:240},
+  inside:{svg:`
+    <rect x="14" y="16" width="208" height="208" rx="8" fill="#3fae6a" class="pt" data-k="board"/>
+    ${[40,70,100,190].map(y=>`<line x1="20" y1="${y}" x2="215" y2="${y}" stroke="#5fd08a" stroke-width="1"/>`).join('')}
+    ${[35,150,200].map(x=>`<line x1="${x}" y1="22" x2="${x}" y2="218" stroke="#5fd08a" stroke-width="1"/>`).join('')}
+    <g class="pt" data-k="cpu"><rect x="78" y="52" width="58" height="58" rx="6" fill="#c9c6dd"/><rect x="92" y="66" width="30" height="30" rx="3" fill="#7a75a8"/>
+      ${[0,1,2,3,4].map(i=>`<rect x="${82+i*11}" y="48" width="3" height="5" fill="#c9c6dd"/><rect x="${82+i*11}" y="109" width="3" height="5" fill="#c9c6dd"/>`).join('')}</g>
+    <g class="pt" data-k="ram"><rect x="160" y="34" width="9" height="104" rx="2" fill="#4ea8ff"/><rect x="176" y="34" width="9" height="104" rx="2" fill="#4ea8ff"/>
+      ${[0,1,2,3,4,5].map(i=>`<rect x="161.5" y="${40+i*16}" width="6" height="10" fill="#2b6fc2"/><rect x="177.5" y="${40+i*16}" width="6" height="10" fill="#2b6fc2"/>`).join('')}</g>
+    <g class="pt" data-k="rom"><rect x="26" y="56" width="30" height="22" rx="2" fill="#2f2b55"/>
+      ${[0,1,2,3].map(i=>`<rect x="${29+i*7}" y="52" width="3" height="4" fill="#c9c6dd"/><rect x="${29+i*7}" y="78" width="3" height="4" fill="#c9c6dd"/>`).join('')}
+      <text x="41" y="70" text-anchor="middle" font-size="8" font-weight="800" fill="#ffd34e">ROM</text></g>
+    <text x="172" y="30" text-anchor="middle" font-size="9" font-weight="800" fill="#fff">RAM</text>
+    <g class="pt" data-k="ssd"><rect x="52" y="150" width="96" height="16" rx="3" fill="#ff9d42"/><rect x="60" y="153" width="20" height="10" rx="1" fill="#c96a14"/><rect x="88" y="153" width="20" height="10" rx="1" fill="#c96a14"/></g>
+    <g class="pt" data-k="psu"><rect x="234" y="20" width="76" height="66" rx="6" fill="#a06bff"/><circle cx="272" cy="53" r="22" fill="#7a4fe0"/>
+      ${[0,45,90,135].map(a=>`<line x1="${272-20*Math.cos(a*Math.PI/180)}" y1="${53-20*Math.sin(a*Math.PI/180)}" x2="${272+20*Math.cos(a*Math.PI/180)}" y2="${53+20*Math.sin(a*Math.PI/180)}" stroke="#c9b3ff" stroke-width="3"/>`).join('')}</g>
+    <g class="pt" data-k="hdd"><rect x="234" y="140" width="76" height="80" rx="6" fill="#d9782a"/><circle cx="272" cy="176" r="26" fill="#f2b37a"/><circle cx="272" cy="176" r="5" fill="#d9782a"/><line x1="296" y1="150" x2="278" y2="174" stroke="#7a3d0a" stroke-width="3"/></g>
+    <g class="offtag"><rect x="148" y="70" width="48" height="34" rx="8" fill="#ff5f5f"/><text x="172" y="85" text-anchor="middle" font-size="9" font-weight="800" fill="#fff">ข้อมูล</text><text x="172" y="98" text-anchor="middle" font-size="9" font-weight="800" fill="#fff">หาย ❌</text></g>
+    <g class="offtag"><rect x="18" y="86" width="46" height="20" rx="6" fill="#39c14a"/><text x="41" y="100" text-anchor="middle" font-size="8.5" font-weight="800" fill="#fff">ยังอยู่ ✅</text></g>
+    <g class="offtag"><rect x="56" y="128" width="46" height="20" rx="6" fill="#39c14a"/><text x="79" y="142" text-anchor="middle" font-size="8.5" font-weight="800" fill="#fff">ยังอยู่ ✅</text></g>
+    <g class="offtag"><rect x="249" y="196" width="46" height="20" rx="6" fill="#39c14a"/><text x="272" y="210" text-anchor="middle" font-size="8.5" font-weight="800" fill="#fff">ยังอยู่ ✅</text></g>`,
+    parts:[['board',34,205,34,205],['cpu',107,81,107,81],['ram',172,154,176,138],['rom',41,32,41,52],['ssd',100,190,100,166],['psu',272,104,272,86],['hdd',272,232,272,220]], h:250}
+};
+function drawFig(key, figId, chipsId, infoId){
+  const F=FIGS[key];
+  let s=`<svg viewBox="0 0 320 ${F.h}" class="hsvg">${DEFS}${F.svg}`;
+  F.parts.forEach(([k,bx,by,px,py],i)=>{
+    if(bx!==px||by!==py) s+=`<line x1="${bx}" y1="${by}" x2="${px}" y2="${py}" stroke="#ff6ec7" stroke-width="1.6" stroke-dasharray="3 2"/>`;
+    s+=`<g class="bd" data-k="${k}" transform="translate(${bx},${by})"><circle r="10"/><text y="4">${i+1}</text></g>`;
+  });
+  $(figId).innerHTML=s+'</svg>';
+  $(chipsId).innerHTML=F.parts.map(([k],i)=>`<button class="chip" data-k="${k}">${i+1}. ${PARTS[k].s||PARTS[k].n}</button>`).join('');
+  $(infoId).innerHTML='👆 แตะวงกลมตัวเลข เพื่อดูว่าชิ้นนั้นชื่ออะไร ทำอะไร';
+  const pick=k=>{
+    [figId,chipsId].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const P=PARTS[k], G=GROUPS[P.g];
+    $(infoId).innerHTML=`<b>${P.n}</b> <i class="gp" style="background:${G.c}">${G.t}</i><br>${P.d}`+(P.x?`<div class="xinfo">${P.x}</div>`:'');
+    pop($(infoId));
+  };
+  [figId,chipsId].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+function togglePower(){
+  const svg=document.querySelector('#figIn svg'); const off=svg.classList.toggle('off');
+  $('pwrBtn').textContent= off?'⚡ เปิดเครื่องกลับ':'🔌 ลองปิดเครื่อง ดูว่าข้อมูลไหนหาย';
+  $('infoIn').innerHTML= off
+    ? '<b>ปิดเครื่องแล้ว!</b> 🔌<br><b style="color:#ff5f5f">RAM ว่างเปล่า ข้อมูลหาย</b> · ส่วน <b style="color:#39c14a">ROM SSD HDD ข้อมูลยังอยู่ครบ</b><br>👉 RAM = ชั่วคราว · ROM/SSD/HDD = ถาวร'
+    : '⚡ เปิดเครื่องแล้ว — ROM ปลุกเครื่องขึ้นมา แล้วโหลดงานจาก SSD มาวางบน RAM ใหม่';
+  pop($('infoIn'));
+}
+function showDev(key,btn){
+  document.querySelectorAll('#devTabs .tab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  drawFig(key,'figOut','chipsOut','infoOut');
+}
+function pop(el){ el.style.animation='none'; void el.offsetWidth; el.style.animation='pop .35s ease'; }
+drawFig('phone','figOut','chipsOut','infoOut');
+drawFig('inside','figIn','chipsIn','infoIn');
+
+/* ============ question bank ============
+   q = คำถาม · c = ตัวเลือก (ข้อแรก = คำตอบถูก ระบบสลับให้เอง) · w = เฉลยสั้น */
+const BANK = {
+  hw1: [
+    {q:'ข้อใดเป็น "ฮาร์ดแวร์"', c:['หน้าจอมือถือ','แอป LINE','เกมในมือถือ','ระบบ Android'], w:'ฮาร์ดแวร์ = จับต้องได้ · แอปและระบบปฏิบัติการเป็นซอฟต์แวร์'},
+    {q:'"สมอง" ของมือถือที่ทำหน้าที่คิดและสั่งงาน คือข้อใด', c:['CPU','ลำโพง','กล้อง','แบตเตอรี่'], w:'CPU = หน่วยประมวลผลกลาง เปรียบเหมือนสมอง'},
+    {q:'ไมโครโฟน เป็นอุปกรณ์ประเภทใด', c:['อุปกรณ์รับเข้า (Input)','อุปกรณ์แสดงผล (Output)','หน่วยประมวลผล','หน่วยเก็บข้อมูล'], w:'ไมค์รับเสียงเราเข้าเครื่อง = Input'},
+    {q:'ลำโพง เป็นอุปกรณ์ประเภทใด', c:['อุปกรณ์แสดงผล (Output)','อุปกรณ์รับเข้า (Input)','หน่วยประมวลผล','หน่วยเก็บข้อมูล'], w:'ลำโพงส่งเสียงออกมาให้เราได้ยิน = Output'},
+    {q:'ลำดับการทำงานของคอมพิวเตอร์ข้อใดถูก', c:['รับเข้า → ประมวลผล → แสดงผล','แสดงผล → รับเข้า → ประมวลผล','ประมวลผล → แสดงผล → รับเข้า','รับเข้า → แสดงผล → ประมวลผล'], w:'Input → Process → Output'},
+    {q:'"ความจุ 128 GB" ของมือถือ หมายถึงส่วนใด', c:['หน่วยเก็บข้อมูล','ความเร็ว CPU','ขนาดหน้าจอ','ความแรงสัญญาณ'], w:'GB บอกความจุของที่เก็บข้อมูล (ตู้เก็บของ)'},
+    {p:'⌨️', q:'อุปกรณ์ในภาพชื่ออะไร และจัดเป็นประเภทใด', c:['คีย์บอร์ด · รับเข้า (Input)','คีย์บอร์ด · แสดงผล (Output)','เมาส์ · รับเข้า (Input)','จอภาพ · แสดงผล (Output)'], w:'คีย์บอร์ดใช้พิมพ์ข้อมูลเข้าเครื่อง = Input'},
+    {p:'🖱️', q:'อุปกรณ์ในภาพเรียกว่าอะไร', c:['เมาส์','ทัชแพด','คีย์บอร์ด','ลำโพง'], w:'เมาส์ใช้เลื่อนลูกศรและคลิก = อุปกรณ์รับเข้า'},
+    {q:'กล่องตั้งข้างจอคอมตั้งโต๊ะ ที่หลายคนเรียกว่า "ซีพียู" ชื่อที่ถูกต้องคืออะไร', c:['เคส (ตัวเครื่อง)','CPU','จอภาพ','ลำโพง'], w:'CPU จริงเป็นชิปเล็ก ๆ ที่อยู่ข้างในเคส'},
+    {q:'ชิ้นส่วนใดอยู่ "ข้างใน" เครื่อง มองจากภายนอกไม่เห็น', c:['CPU','คีย์บอร์ด','จอภาพ','เมาส์'], w:'CPU อยู่บนเมนบอร์ดข้างในเครื่อง'},
+    {q:'แผงวงจรหลักข้างในเครื่อง ที่ชิ้นส่วนทุกชิ้นเสียบอยู่ เรียกว่าอะไร', c:['เมนบอร์ด','ทัชแพด','เคส','จอภาพ'], w:'เมนบอร์ด = ถนนให้ทุกชิ้นส่วนคุยกัน'},
+    {q:'มือถือใช้อะไรแทน "พาวเวอร์ซัพพลาย" ของคอมตั้งโต๊ะ', c:['แบตเตอรี่','ลำโพง','กล้อง','ซิมการ์ด'], w:'มือถือและโน้ตบุ๊กได้ไฟจากแบตเตอรี่'},
+    {p:'🖨️', q:'อุปกรณ์ในภาพ จัดเป็นอุปกรณ์ประเภทใด', c:['อุปกรณ์แสดงผล (Output)','อุปกรณ์รับเข้า (Input)','หน่วยประมวลผล','หน่วยเก็บข้อมูล'], w:'พิมพ์ผลลัพธ์ออกมาบนกระดาษ = Output'},
+    {q:'ข้อใด "ไม่ใช่" ฮาร์ดแวร์', c:['แอปธนาคาร','เมาส์','แฟลชไดรฟ์','จอภาพ'], w:'แอปจับต้องไม่ได้ = ซอฟต์แวร์'},
+    {q:'กล้องถ่ายรูปในมือถือ ทำหน้าที่ใด', c:['รับข้อมูลภาพเข้าเครื่อง','แสดงผลภาพ','ประมวลผลคำสั่ง','เก็บข้อมูลถาวร'], w:'กล้องรับภาพเข้าเครื่อง = Input'},
+    {q:'รูปภาพที่ถ่ายเก็บไว้ในมือถือ อยู่ในส่วนใด', c:['หน่วยเก็บข้อมูล','ลำโพง','หน้าจอ','ไมโครโฟน'], w:'ไฟล์ถูกเก็บไว้ในหน่วยเก็บข้อมูล'},
+    {q:'หน้าจอสัมผัส (ทัชสกรีน) เป็นอุปกรณ์แบบใด', c:['ได้ทั้งรับเข้าและแสดงผล','รับเข้าอย่างเดียว','แสดงผลอย่างเดียว','หน่วยประมวลผล'], w:'แตะสั่งงานได้ (Input) + แสดงภาพได้ (Output)'}
+  ],
+  hw2: [
+    {q:'ร้านมือถือเขียนสเปกว่า "RAM 8GB / ROM 128GB" คำว่า ROM 128GB ตรงนี้หมายถึงอะไร', c:['ที่เก็บข้อมูล (เก็บรูป แอป)','หน่วยความจำชั่วคราว','ความเร็ว CPU','ขนาดหน้าจอ'], w:'ภาษาร้านเรียกที่เก็บข้อมูลว่า ROM · แต่ในข้อสอบ ROM = หน่วยความจำอ่านอย่างเดียว'},
+    {q:'ตอนกดเปิดเครื่อง โปรแกรมแรกสุดที่ทำงาน (BIOS) ถูกเก็บไว้ที่ใด', c:['ROM','RAM','ลำโพง','การ์ดจอ'], w:'BIOS อยู่ในชิป ROM บนเมนบอร์ด ปิดเครื่องไม่หาย'},
+    {q:'หน่วยความจำใด ข้อมูลหายเมื่อปิดเครื่อง', c:['RAM','ROM','ฮาร์ดดิสก์','แฟลชไดรฟ์'], w:'RAM เป็นหน่วยความจำชั่วคราว ไฟดับ = หาย'},
+    {q:'ROM มีลักษณะตามข้อใด', c:['อ่านได้อย่างเดียว ข้อมูลไม่หายเมื่อปิดเครื่อง','ข้อมูลหายเมื่อปิดเครื่อง','ใช้แสดงภาพ','ใช้รับเสียง'], w:'ROM = Read Only Memory เก็บคำสั่งเริ่มต้นเครื่อง'},
+    {q:'RAM ยิ่งมาก ช่วยในเรื่องใด', c:['เปิดหลายแอปพร้อมกันได้ลื่นขึ้น','เก็บรูปได้มากขึ้นถาวร','จอสว่างขึ้น','แบตอึดขึ้น'], w:'RAM = โต๊ะทำงาน โต๊ะกว้างวางงานได้มาก'},
+    {q:'ส่วนของ CPU ที่ทำหน้าที่ "คำนวณและเปรียบเทียบ" คือข้อใด', c:['ALU','CU','RAM','ROM'], w:'ALU = Arithmetic Logic Unit'},
+    {q:'ส่วนของ CPU ที่ทำหน้าที่ "ควบคุมการทำงาน" คือข้อใด', c:['CU','ALU','GPU','SSD'], w:'CU = Control Unit เหมือนตำรวจจราจร'},
+    {q:'ข้อใดเป็นอุปกรณ์รับเข้าทั้งหมด', c:['เมาส์ สแกนเนอร์ ไมโครโฟน','จอภาพ ลำโพง เครื่องพิมพ์','เมาส์ ลำโพง จอภาพ','เครื่องพิมพ์ สแกนเนอร์ หูฟัง'], w:'ทั้งสามตัวนำข้อมูลเข้าเครื่อง'},
+    {q:'ข้อใดเป็นอุปกรณ์แสดงผลทั้งหมด', c:['จอภาพ ลำโพง โปรเจกเตอร์','คีย์บอร์ด เมาส์ จอภาพ','กล้อง ไมโครโฟน ลำโพง','สแกนเนอร์ เครื่องพิมพ์ เมาส์'], w:'ทั้งสามตัวส่งผลลัพธ์ออกมา'},
+    {q:'ข้อใดเป็นหน่วยเก็บข้อมูล', c:['SSD','ALU','ไมโครโฟน','โปรเจกเตอร์'], w:'SSD เป็นหน่วยเก็บข้อมูลแบบชิป'},
+    {q:'เครื่องสแกนลายนิ้วมือ เป็นอุปกรณ์ประเภทใด', c:['อุปกรณ์รับเข้า (Input)','อุปกรณ์แสดงผล (Output)','หน่วยเก็บข้อมูล','หน่วยความจำหลัก'], w:'รับข้อมูลลายนิ้วมือเข้าเครื่อง = Input'},
+    {q:'คำว่า "หน่วยความจำชั่วคราว" หมายถึงข้อใด', c:['RAM','ROM','ฮาร์ดดิสก์','เมมโมรีการ์ด'], w:'RAM เก็บระหว่างใช้งาน ปิดเครื่องหาย'},
+    {q:'แฟลชไดรฟ์ (USB) จัดเป็นอุปกรณ์ประเภทใด', c:['หน่วยเก็บข้อมูลสำรอง','หน่วยประมวลผล','อุปกรณ์แสดงผล','หน่วยความจำ ROM'], w:'ใช้เก็บและพกพาไฟล์ = หน่วยเก็บข้อมูลสำรอง'},
+    {q:'ถ้าเปรียบ RAM เป็น "โต๊ะทำงาน" หน่วยเก็บข้อมูล (Storage) เปรียบได้กับข้อใด', c:['ตู้เก็บของ','สมอง','ปากกา','หน้าต่าง'], w:'Storage เก็บของไว้ถาวร เหมือนตู้'}
+  ],
+  hw3: [
+    {q:'หน่วย "GHz" ในสเปก CPU บอกถึงอะไร', c:['ความเร็วสัญญาณนาฬิกาของ CPU','ความจุหน่วยเก็บข้อมูล','ความละเอียดหน้าจอ','ความจุแบตเตอรี่'], w:'GHz = จังหวะการทำงานต่อวินาทีของ CPU'},
+    {q:'"Octa-core" หมายถึงอะไร', c:['CPU มี 8 แกนประมวลผล','RAM 8 GB','กล้อง 8 ตัว','จอ 8 นิ้ว'], w:'Octa = 8 · Core = แกนประมวลผล'},
+    {q:'หน่วยความจำขนาดเล็ก ความเร็วสูง อยู่ใกล้ CPU เก็บข้อมูลที่ใช้บ่อย คือข้อใด', c:['Cache','ฮาร์ดดิสก์','ROM','แฟลชไดรฟ์'], w:'Cache = ของใช้บ่อยในกระเป๋าเสื้อ หยิบไว'},
+    {q:'GPU ทำหน้าที่หลักเรื่องใด', c:['ประมวลผลกราฟิก ภาพ วิดีโอ','เก็บข้อมูลถาวร','รับเสียง','เชื่อมต่ออินเทอร์เน็ต'], w:'GPU = Graphics Processing Unit'},
+    {q:'แผงวงจรหลักที่เชื่อมชิ้นส่วนทุกอย่างเข้าด้วยกัน เรียกว่าอะไร', c:['เมนบอร์ด (Mainboard)','การ์ดจอ','พาวเวอร์ซัพพลาย','เคส'], w:'Mainboard/Motherboard เป็นแผงกลางของเครื่อง'},
+    {q:'ข้อใดเปรียบเทียบ SSD กับ HDD ได้ถูกต้อง', c:['SSD เร็วกว่า ไม่มีจานหมุน','HDD เร็วกว่า ไม่มีจานหมุน','SSD มีจานหมุน','ทั้งสองแบบเหมือนกันทุกประการ'], w:'SSD ใช้ชิป ไม่มีชิ้นส่วนเคลื่อนไหว จึงเร็วกว่า'},
+    {q:'เรียงความเร็วหน่วยความจำจาก "เร็วไปช้า" ข้อใดถูก', c:['Cache → RAM → HDD','HDD → RAM → Cache','RAM → HDD → Cache','HDD → Cache → RAM'], w:'ใกล้ CPU = เร็ว · Cache > RAM > SSD > HDD'},
+    {q:'โปรแกรมขนาดเล็กที่ฝังใน ROM ใช้เริ่มต้นการทำงานเมื่อเปิดเครื่อง คือข้อใด', c:['BIOS / Firmware','Windows','Microsoft Word','Antivirus'], w:'BIOS อยู่ใน ROM ปลุกเครื่องตอนเปิด'},
+    {q:'"Pixel" หมายถึงอะไร', c:['จุดภาพที่เล็กที่สุดบนจอ','ความเร็ว CPU','ความจุ RAM','หน่วยวัดเสียง'], w:'ภาพบนจอเกิดจากจุด pixel จำนวนมาก'},
+    {q:'หน่วย "dpi" ใช้วัดอะไร', c:['ความละเอียดงานพิมพ์/สแกน (จุดต่อนิ้ว)','ความเร็วอินเทอร์เน็ต','ความจุข้อมูล','ความเร็ว CPU'], w:'dpi = dots per inch'},
+    {q:'ความละเอียดจอ 1920×1080 หมายถึงอะไร', c:['จำนวนจุดภาพแนวนอน × แนวตั้ง','ขนาดจอเป็นนิ้ว','ความเร็วจอ','ความจุหน่วยความจำ'], w:'กว้าง 1920 จุด สูง 1080 จุด'},
+    {q:'ข้อใดกล่าวถูกต้องเกี่ยวกับหน่วยความจำ', c:['ยิ่งเร็ว ยิ่งแพง และมักจุได้น้อย','ยิ่งเร็ว ยิ่งถูก และจุได้มาก','HDD เร็วที่สุดในเครื่อง','RAM เก็บข้อมูลถาวร'], w:'Cache เร็วสุดแต่จุน้อยและแพง'}
+  ]
+};
+const LEVELS = [
+  {id:'hw1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'รับเข้า คิด แสดงผล', cls:'c6'},
+  {id:'hw2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'RAM ROM CPU อุปกรณ์', cls:'c5'},
+  {id:'hw3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'ศัพท์สเปก ระดับยาก', cls:'c2'}
+];
+const PER_ROUND=5, PASS=4;
+
+/* ============ level map ============ */
+function isOpen(i){ return i===0 || (save.stars[LEVELS[i-1].id]||0)>0; }
+function renderLevels(){
+  const box=$('levels'); box.innerHTML='';
+  LEVELS.forEach((L,i)=>{
+    const b=document.createElement('button');
+    const open=isOpen(i), st=save.stars[L.id]||0;
+    b.className='lv '+L.cls+(open?'':' locked');
+    b.innerHTML=`<span class="n">${open?L.icon:'🔒'}</span><span><b>${L.name}</b><small>${open?L.sub:'ผ่านด่านก่อนหน้าเพื่อปลดล็อก'}</small></span>
+      <span class="st">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</span>`;
+    if(open) b.onclick=()=>startGame(i);
+    box.appendChild(b);
+  });
+}
+
+/* ============ Quiz Game ============ */
+let game={qs:[],idx:0,score:0,hearts:3,lv:0};
+
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function qKey(lvId,q){ return lvId+'|'+q.q; }
+
+function startGame(lv){
+  const L=LEVELS[lv], pool=BANK[L.id];
+  // ข้อที่เคยตอบผิด ได้สิทธิ์ขึ้นก่อน แล้วเติมด้วยข้อสุ่ม
+  const wrong=shuffle(pool.filter(q=>save.wrong.includes(qKey(L.id,q))));
+  const rest=shuffle(pool.filter(q=>!wrong.includes(q)));
+  const picked=[...wrong.slice(0,2), ...rest].slice(0,PER_ROUND);
+  game={lv, qs:shuffle(picked).map(q=>({...q, choices:shuffle(q.c), ans:q.c[0]})), idx:0, score:0, hearts:3};
+  $('game-menu').style.display='none';
+  $('game-end').style.display='none';
+  $('game-play').style.display='block';
+  showQ();
+}
+function showQ(){
+  const q=game.qs[game.idx];
+  $('q-count').textContent=`ข้อ ${game.idx+1} / ${PER_ROUND}`;
+  $('q-score').textContent=game.score;
+  $('q-hearts').textContent='❤️'.repeat(game.hearts)+'🤍'.repeat(3-game.hearts);
+  $('q-prog').style.width=(game.idx/PER_ROUND*100)+'%';
+  $('q-pic').textContent=q.p||'';
+  $('q-text').textContent=q.q;
+  $('q-fb').textContent=''; $('q-why').style.display='none'; $('q-next').style.display='none';
+  const box=$('q-choices'); box.innerHTML='';
+  q.choices.forEach((val,i)=>{
+    const b=document.createElement('button');
+    b.className='choice'; b.textContent=['ก','ข','ค','ง'][i]+'. '+val;
+    b.onclick=()=>answer(b,val,q);
+    box.appendChild(b);
+  });
+}
+function answer(btn,val,q){
+  const btns=[...document.querySelectorAll('#q-choices .choice')];
+  btns.forEach(b=>b.disabled=true);
+  const key=qKey(LEVELS[game.lv].id,q);
+  if(val===q.ans){
+    btn.classList.add('correct');
+    game.score++; $('q-score').textContent=game.score;
+    $('q-fb').textContent='✅ ถูกต้อง เก่งมาก!'; $('q-fb').style.color='#39c14a';
+    save.wrong=save.wrong.filter(k=>k!==key);
+    miniConfetti();
+  } else {
+    btn.classList.add('wrong');
+    game.hearts--; $('q-hearts').textContent='❤️'.repeat(game.hearts)+'🤍'.repeat(3-game.hearts);
+    $('q-fb').textContent='❌ ยังไม่ถูกนะ'; $('q-fb').style.color='#ff5f5f';
+    btns[q.choices.indexOf(q.ans)].classList.add('correct');
+    if(!save.wrong.includes(key)) save.wrong.push(key);
+  }
+  persist();
+  $('q-why').innerHTML='💡 '+q.w; $('q-why').style.display='block';
+  $('q-next').textContent=(game.hearts<=0||game.idx>=PER_ROUND-1)?'ดูผล 🏁':'ข้อต่อไป ➡️';
+  $('q-next').style.display='inline-block';
+}
+function nextQ(){
+  game.idx++;
+  if(game.hearts<=0 || game.idx>=PER_ROUND) endGame();
+  else showQ();
+}
+function endGame(){
+  $('game-play').style.display='none';
+  $('game-end').style.display='block';
+  const s=game.score, L=LEVELS[game.lv];
+  const pass = s>=PASS && game.hearts>0;
+  const starN = !pass?0 : s>=5?3 : 2;
+  $('e-stars').textContent = '⭐'.repeat(starN)+'☆'.repeat(3-starN);
+  const next=LEVELS[game.lv+1];
+  $('e-msg').textContent = !pass?'เกือบแล้ว ลองใหม่นะ 💪' : starN===3?'สุดยอด! ไม่พลาดเลย 🏆':'ผ่านด่านแล้ว! 😄';
+  $('e-detail').textContent = `ทำถูก ${s} จาก ${PER_ROUND} ข้อ`+(pass&&next&&!(save.stars[L.id]>0)?` · ปลดล็อก ${next.name} 🔓`:'')+(!pass?` · ต้องถูก ${PASS} ข้อขึ้นไป`:'');
+  if(starN>(save.stars[L.id]||0)){ save.stars[L.id]=starN; persist(); showStars(); }
+  if(pass) bigConfetti();
+}
+function backToGameMenu(){
+  $('game-end').style.display='none';
+  $('game-play').style.display='none';
+  $('game-menu').style.display='block';
+  renderLevels();
+}
+
+/* ============ confetti ============ */
+function spawnConfetti(count){
+  const colors=['#ff6ec7','#a06bff','#4ea8ff','#37e0d8','#5bd75b','#ffd34e','#ff9d42'];
+  for(let i=0;i<count;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animation=`fall ${1.5+Math.random()*1.5}s ease-in forwards`;
+    c.style.animationDelay=(Math.random()*0.3)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3200);
+  }
+}
+function miniConfetti(){ spawnConfetti(14); }
+function bigConfetti(){ spawnConfetti(60); }
+</script>
+</body>
+</html>

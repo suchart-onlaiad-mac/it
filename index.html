@@ -299,6 +299,12 @@
   .cmp1{display:flex; gap:10px; align-items:flex-start; background:#faf8ff; border-radius:12px; padding:8px 10px; margin-top:6px; font-size:14.5px; line-height:1.55}
   .cmp1 .e{font-size:24px; flex:none}
   .qpic{text-align:center; font-size:64px; line-height:1; margin-top:6px}
+  .hsvg .hit{fill:transparent; cursor:pointer; transition:.15s}
+  .hsvg .hit:hover{fill:#ffd34e22}
+  .hsvg .hit.sel{fill:#ffd34e40; stroke:#ff6ec7; stroke-width:2}
+  .hsvg .hit.ok{fill:#39c14a40; stroke:#39c14a; stroke-width:2.5}
+  .hsvg .hit.bad{fill:#ff5f5f40; stroke:#ff5f5f; stroke-width:2.5}
+  .qpic .hsvg{max-width:440px; margin-top:6px}
 
   /* ---- (IT) data units ---- */
   .bulbs{display:grid; grid-template-columns:repeat(8,1fr); gap:6px; max-width:440px; margin:6px auto 0}
@@ -486,7 +492,7 @@
       <div class="path"><span>📜 ประวัติ</span><span>▶</span><span>🖥️ หน้าจอ</span><span>▶</span><span>📝 Word</span><span>▶</span><span>📊 Excel</span><span>▶</span><span>📽️ PowerPoint</span><span>▶</span><span>⌨️ ปุ่มลัด</span></div>
       <div class="menu">
         <button class="card c5" onclick="go('ofh')"><span class="ico">📜</span>1. ประวัติ Office<small>มาจากไหน แต่ละรุ่นต่างกันยังไง</small></button>
-        <button class="card c3 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">🖥️</span>2. หน้าจอโปรแกรม<small>ส่วนที่ทุกโปรแกรมมีเหมือนกัน</small></button>
+        <button class="card c3" onclick="go('ofs')"><span class="ico">🖥️</span>2. หน้าจอโปรแกรม<small>ส่วนที่ทุกโปรแกรมมีเหมือนกัน</small></button>
         <button class="card c8 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📝</span>3. Word<small>พิมพ์เอกสาร จดหมาย</small></button>
         <button class="card c6 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📊</span>4. Excel<small>ตาราง สูตร คำนวณ</small></button>
         <button class="card c7 locked"><span class="tag">เร็ว ๆ นี้</span><span class="ico">📽️</span>5. PowerPoint<small>สไลด์นำเสนอ</small></button>
@@ -597,6 +603,99 @@
         <div class="memo ex">🎯 ข้อสอบหลอกบ่อย: <b>"ข้อใดไม่ใช่โปรแกรมของ Microsoft"</b> · คำตอบมักเป็น Google Sheets · Keynote · LibreOffice Writer</div>
         <p class="tip">🇹🇭 ยุคก่อน Windows คนไทยเคยใช้โปรแกรมพิมพ์งานภาษาไทยบน DOS เช่น <b>CU Writer (จุฬาเวิร์ด)</b> ที่พัฒนาในจุฬาลงกรณ์มหาวิทยาลัย</p>
         <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofh')">🎮 ทดสอบความเข้าใจ</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= OFFICE 2 · SCREEN ================= -->
+  <div class="screen" id="ofs">
+    <button class="backbtn" onclick="go('office')">⬅️ กลับห้องเรียน Office</button>
+    <div class="panel">
+      <h2>🖥️ หน้าจอโปรแกรม</h2>
+
+      <!-- L1 -->
+      <div class="layer L1">
+        <h3>🌱 ชั้นเมล็ด · รู้แค่นี้ก็เข้าใจ</h3>
+        <p>Word · Excel · PowerPoint <b>หน้าตาเหมือนกันเกือบทั้งจอ</b> 🎉 · รู้จักส่วนต่าง ๆ <b>ครั้งเดียว ใช้ได้ทั้ง 3 โปรแกรม</b> · เหมือนแอปในมือถือที่มีปุ่มย้อนกลับ ปุ่มเมนู อยู่ที่เดิมทุกแอป 📱</p>
+
+        <!-- 1) outside -->
+        <div class="step-h"><span class="sn">1</span> 👀 มองจากภายนอก: จอมีส่วนอะไรบ้าง</div>
+        <p class="tip">เลือกโปรแกรม แล้ว<b>แตะวงกลมตัวเลข</b> (หรือแตะตรงไหนบนจอก็ได้) 👆 · เรียงจาก<b>บนลงล่าง</b></p>
+        <div class="tabs" id="ofsTabs">
+          <button class="tab on" onclick="drawOfs('word',this)">📝 Word</button>
+          <button class="tab" onclick="drawOfs('excel',this)">📊 Excel</button>
+          <button class="tab" onclick="drawOfs('ppt',this)">📽️ PowerPoint</button>
+        </div>
+        <div class="fig" id="figOfs"></div>
+        <div class="chips" id="chipsOfs"></div>
+        <div class="info" id="infoOfs">👆 แตะวงกลมตัวเลข ดูว่าส่วนนั้นชื่ออะไร ทำอะไร</div>
+
+        <!-- 2) inside -->
+        <div class="step-h"><span class="sn">2</span> 🔍 สลับโปรแกรมดู: ตรงไหนเหมือน ตรงไหนต่าง</div>
+        <div class="cmp">
+          <div class="it"><div class="e">🟰</div><b>เหมือนกันทุกโปรแกรม</b><span>ขอบ<b>บน</b>: แถบชื่อเรื่อง · ปุ่มย่อ ขยาย ปิด · แท็บไฟล์ · ริบบอน<br>ขอบ<b>ล่าง</b>: แถบสถานะ · ตัวเลื่อนย่อ/ขยาย</span></div>
+          <div class="it"><div class="e">🔀</div><b>ต่างกันแค่ตรงกลาง</b><span>📝 Word = <b>หน้ากระดาษ</b><br>📊 Excel = <b>ตารางช่อง ๆ</b><br>📽️ PowerPoint = <b>สไลด์</b> (มีสไลด์เล็กเรียงด้านซ้าย)<br>และ<b>แท็บบางแท็บ</b>บนริบบอน</span></div>
+        </div>
+        <div class="memo">🔑 จำง่าย ๆ: <b>บน = สั่งงาน</b> (ริบบอน) · <b>กลาง = ทำงาน</b> · <b>ล่าง = บอกสถานะ</b> (แถบสถานะ)</div>
+        <button class="more" onclick="openLayer('ofsL2',this)">🌿 อยากรู้อีกนิด · ข้างในริบบอน · แท็บไฟล์ ⬇️</button>
+      </div>
+
+      <!-- L2 -->
+      <div class="layer L2 hide" id="ofsL2">
+        <h3>🌿 ชั้นต้นกล้า · เปิดดูข้างใน</h3>
+
+        <p><b>1) ริบบอน ซ้อนกัน 3 ชั้น</b> จากใหญ่ไปเล็ก</p>
+        <div class="path"><span>📑 แท็บ · หน้าแรก</span><span>▶</span><span>🗂️ กลุ่ม · ฟอนต์</span><span>▶</span><span>🔘 คำสั่ง · ตัวหนา B</span></div>
+        <p class="tip">เหมือน<b>ห้าง</b> 🏬: แท็บ = ชั้นของห้าง · กลุ่ม = โซนในชั้น · คำสั่ง = สินค้าบนชั้นวาง</p>
+        <div class="memo">↘️ มุมขวาล่างของบางกลุ่มมี<b>ลูกศรเล็ก</b> = <b>ตัวเปิดใช้กล่องโต้ตอบ</b> (Dialog Box Launcher) · กดแล้วได้หน้าต่างตั้งค่า<b>ครบทุกอย่าง</b> เช่น กลุ่มฟอนต์ ตั้งได้ทั้งแบบตัวอักษร ขนาด สี ขีดเส้น ในหน้าเดียว</div>
+
+        <p style="margin-top:14px"><b>2) แท็บไฟล์ ไม่เหมือนแท็บอื่น</b></p>
+        <div class="cmp">
+          <div class="it"><div class="e">📑</div><b>แท็บอื่น (หน้าแรก แทรก …)</b><span>กดแล้ว<b>ริบบอนเปลี่ยนปุ่ม</b><br>ใช้แต่ง<b>เนื้อหาข้างใน</b>ไฟล์</span></div>
+          <div class="it"><div class="e">🗂️</div><b>แท็บไฟล์ → หน้า Backstage</b><span>กดแล้ว<b>ทั้งจอเปลี่ยน</b> (เบื้องหลังเวที)<br>คำสั่งเกี่ยวกับ<b>ทั้งไฟล์</b>: สร้าง · เปิด · บันทึก · พิมพ์ · แชร์<br>มุมล่าง: บัญชี · ตัวเลือก</span></div>
+        </div>
+
+        <p style="margin-top:14px"><b>3) ปุ่มมุมขวาบน</b> (ทุกโปรแกรมใน Windows)</p>
+        <div class="tw"><table class="t">
+          <tr><th>ปุ่ม</th><th>ทำอะไร</th><th>ไฟล์ยังเปิดอยู่ไหม</th></tr>
+          <tr><td><b>–</b> ย่อ</td><td>เก็บหน้าต่างลงแถบงานด้านล่าง</td><td>✅ ยังเปิดอยู่</td></tr>
+          <tr><td><b>▢</b> ขยาย / คืนค่า</td><td>เต็มจอ ↔ กลับขนาดเดิม</td><td>✅ ยังเปิดอยู่</td></tr>
+          <tr><td><b>✕</b> ปิด</td><td>ปิดหน้าต่างของไฟล์นั้น (ปกติถ้ายังไม่บันทึก จะถามก่อน)</td><td>❌ ปิดแล้ว</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>4) แท็บพิเศษ โผล่มาเอง</b></p>
+        <p class="tip">คลิกเลือก<b>รูปภาพ</b> แล้วจะมีแท็บ <b>รูปแบบรูปภาพ</b> (Picture Format) โผล่ขึ้นมา · คลิกที่อื่น แท็บก็หายไป · คลิกใน<b>ตาราง</b>ของ Word ก็มีแท็บของตารางโผล่มาแบบเดียวกัน · <b>ไม่ต้องตกใจ ไม่ได้กดอะไรผิด</b> 😊</p>
+        <button class="more" onclick="openLayer('ofsL3',this)">🌳 เจาะลึก · แท็บของแต่ละโปรแกรม · ปุ่มลัดริบบอน ⬇️</button>
+      </div>
+
+      <!-- L3 -->
+      <div class="layer L3 hide" id="ofsL3">
+        <h3>🌳 ชั้นต้นไม้ใหญ่ · แท็บไหนอยู่โปรแกรมไหน</h3>
+        <p><b>1) แท็บบนริบบอน</b> (ข้อสอบชอบถาม "แท็บนี้มีในโปรแกรมใด")</p>
+        <div class="tw"><table class="t">
+          <tr><th>แท็บ</th><th>📝 Word</th><th>📊 Excel</th><th>📽️ PPT</th></tr>
+          <tr><td>ไฟล์ · หน้าแรก · แทรก · รีวิว · มุมมอง</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>ออกแบบ (Design)</td><td>✅</td><td>—</td><td>✅</td></tr>
+          <tr><td>เค้าโครง (Layout)</td><td>✅</td><td>—</td><td>—</td></tr>
+          <tr><td>เค้าโครงหน้ากระดาษ (Page Layout)</td><td>—</td><td>✅</td><td>—</td></tr>
+          <tr><td>อ้างอิง (References) · การส่งจดหมาย (Mailings)</td><td>✅</td><td>—</td><td>—</td></tr>
+          <tr><td>สูตร (Formulas) · ข้อมูล (Data)</td><td>—</td><td>✅</td><td>—</td></tr>
+          <tr><td>การเปลี่ยน (Transitions) · ภาพเคลื่อนไหว (Animations) · การนำเสนอสไลด์ (Slide Show)</td><td>—</td><td>—</td><td>✅</td></tr>
+        </table></div>
+        <div class="memo ex">🎯 กับดัก: Word เรียก <b>"เค้าโครง"</b> แต่ Excel เรียก <b>"เค้าโครงหน้ากระดาษ"</b> · <b>แถบสูตร</b> (Formula bar) กับ<b>กล่องชื่อ</b> (Name box) มี<b>เฉพาะ Excel</b> ไม่ใช่ส่วนที่ทุกโปรแกรมมี · รีวิว บางหน้าของ Microsoft ใช้คำว่า <b>ตรวจทาน</b> (Review) · อ้างอิง บางที่ใช้ <b>การอ้างอิง</b> (References) · เจอคำไหนในข้อสอบ ก็คือแท็บเดียวกัน</div>
+
+        <p style="margin-top:14px"><b>2) คุมริบบอนด้วยแป้นพิมพ์</b></p>
+        <div class="tw"><table class="t">
+          <tr><th>กด</th><th>ได้อะไร</th></tr>
+          <tr><td><b>Ctrl+F1</b></td><td>ย่อ/ขยายริบบอน (ซ่อนปุ่ม เหลือแต่ชื่อแท็บ จอทำงานกว้างขึ้น)</td></tr>
+          <tr><td><b>Alt</b></td><td>ตัวอักษรเล็ก ๆ โผล่บนแท็บ เรียกว่า <b>เคล็ดลับแป้น</b> (KeyTips) · กดตัวอักษรตามนั้นเพื่อเปิดแท็บ เช่น Word: <b>H</b> = หน้าแรก · <b>N</b> = แทรก</td></tr>
+          <tr><td><b>Alt+Q</b></td><td>ไปที่กล่องค้นหา พิมพ์ถามหาคำสั่ง (รุ่นก่อนเรียกช่อง <b>บอกฉัน</b> · Tell Me)</td></tr>
+        </table></div>
+
+        <p style="margin-top:14px"><b>3) ริบบอนหายไป ทำไงดี?</b></p>
+        <p class="tip">มุมขวาล่างของริบบอนมี<b>ตัวเลือกการแสดง Ribbon</b> เลือกได้ 3 แบบ: <b>โหมดเต็มหน้าจอ</b> (ซ่อนหมด) · <b>แสดงแท็บเท่านั้น</b> · <b>แสดง Ribbon เสมอ</b> · หรือ<b>ดับเบิลคลิกชื่อแท็บ</b> / กด <b>Ctrl+F1</b> ก็กลับมา</p>
+        <div class="memo">🧓 รุ่นเก่า (ถึง Office 2003) ยังไม่มีริบบอน ใช้<b>เมนูตัวหนังสือ</b>แทน · ริบบอนเริ่มที่ <b>Office 2007</b> (ทบทวนบทประวัติ Office)</div>
+        <div class="center" style="margin-top:16px"><button class="btn go" onclick="openGame('ofs')">🎮 ทดสอบความเข้าใจ</button></div>
       </div>
     </div>
   </div>
@@ -2035,6 +2134,106 @@ function ofhStep(){
 }
 ofhScene('born',document.querySelector('#ofhTabs .tab'));
 
+/* ============ office 2 · program screen (outside → inside) ============ */
+// วาดหน้าจอ 1 ภาพ ใช้ทั้งบทเรียนและเกม os1 · prog = word | excel | ppt
+const OFP = {
+  word:{n:'Word', c:'#2b6fd6', file:'เอกสาร1', mid:'หน้ากระดาษ', tabs:['หน้าแรก','แทรก','ออกแบบ','เค้าโครง','อ้างอิง']},
+  excel:{n:'Excel', c:'#1f8a4c', file:'สมุดงาน1', mid:'ตารางช่อง ๆ', tabs:['หน้าแรก','แทรก','เค้าโครงหน้ากระดาษ','สูตร']},
+  ppt:{n:'PowerPoint', c:'#d24726', file:'งานนำเสนอ1', mid:'สไลด์', tabs:['หน้าแรก','แทรก','ออกแบบ','การเปลี่ยน']}
+};
+// ส่วนของจอ: [ชื่อ, ชื่ออังกฤษ, คำอธิบาย] · เรียงจากบนลงล่าง
+const OFS = {
+  qat:['แถบเครื่องมือด่วน','Quick Access Toolbar','ปุ่มที่ใช้บ่อยที่สุด กดได้ทันที: 💾 <b>บันทึก</b> · ↶ <b>เลิกทำ</b> · ↷ <b>ทำซ้ำ</b> · สวิตช์ข้างหน้าคือ <b>บันทึกอัตโนมัติ</b> (AutoSave)'],
+  title:['แถบชื่อเรื่อง','Title bar','บอกว่า<b>เปิดไฟล์ชื่ออะไร</b> ด้วย<b>โปรแกรมอะไร</b> · ไฟล์ใหม่ที่ยังไม่ตั้งชื่อ จะเป็น เอกสาร1 · สมุดงาน1 · งานนำเสนอ1'],
+  search:['กล่องค้นหา','Microsoft Search','ลืมว่าคำสั่งอยู่ไหน <b>พิมพ์ถามได้เลย</b> เช่น "ใส่เลขหน้า" แล้วโปรแกรมพาไปหาคำสั่ง · ปุ่มลัด <b>Alt+Q</b>'],
+  win:['ปุ่มย่อ ขยาย ปิด','Minimize · Maximize · Close','มุมขวาบนสุด: <b>–</b> ย่อเก็บลงแถบงาน · <b>▢</b> ขยายเต็มจอ/คืนขนาดเดิม · <b>✕</b> ปิดหน้าต่างของไฟล์นั้น'],
+  file:['แท็บไฟล์','File','ประตูไปหน้า <b>Backstage</b> รวมคำสั่งเกี่ยวกับ<b>ทั้งไฟล์</b>: สร้าง เปิด บันทึก พิมพ์ แชร์'],
+  ribbon:['ริบบอน','Ribbon','แผงปุ่มคำสั่งทั้งหมด จัดเป็น<b>แท็บ</b> (หน้าแรก แทรก …) · ในแต่ละแท็บแบ่งเป็น<b>กลุ่ม</b> (ฟอนต์ ย่อหน้า …) · ในกลุ่มคือ<b>ปุ่มคำสั่ง</b>'],
+  launch:['ตัวเปิดใช้กล่องโต้ตอบ','Dialog Box Launcher','<b>ลูกศรเล็ก ↘ มุมขวาล่างของกลุ่ม</b> · กดแล้วเปิดหน้าต่างตั้งค่า<b>แบบละเอียด</b> ที่บนริบบอนไม่มีที่วาง'],
+  work:['พื้นที่ทำงาน','Work area','ตรงกลางจอ ที่เราทำงานจริง · <b>ส่วนเดียวที่ 3 โปรแกรมหน้าตาต่างกัน</b>: Word = หน้ากระดาษ · Excel = ตารางช่อง ๆ · PowerPoint = สไลด์'],
+  status:['แถบสถานะ','Status bar','แถบล่างสุด <b>บอกสถานะงาน</b>: Word = หน้า 1 จาก 1 · จำนวนคำ · Excel = พร้อม (Ready) · PowerPoint = สไลด์ 1 จาก 3 · มีปุ่ม<b>เปลี่ยนมุมมอง</b>ด้วย'],
+  zoom:['ตัวเลื่อนย่อ/ขยาย','Zoom slider','เลื่อนเพื่อ<b>ดูใกล้ ดูไกล</b> · ตัวอักษรในไฟล์<b>ไม่ได้ใหญ่ขึ้นจริง</b> พิมพ์ออกมาก็ขนาดเดิม · ตัวเลข % บอกระดับซูม']
+};
+// พื้นที่แตะ [x,y,w,h] ใหญ่กว่าภาพจริง กันนิ้วพลาดบนจอแคบ · launch วาดทีหลัง ribbon จึงอยู่ข้างบน
+const OFS_HIT = {
+  qat:[0,0,82,22], title:[82,0,82,22], search:[164,0,84,22], win:[248,0,72,22], file:[0,22,32,19],
+  ribbon:[32,22,288,62], launch:[116,64,32,22], work:[0,84,320,124], status:[0,208,196,28], zoom:[196,208,124,28]
+};
+// วงกลมตัวเลขในบทเรียน [badgeX, badgeY, pointX, pointY] · ขอบบน/ล่างวางนอกภาพ ไม่ทับตัวหนังสือ
+const OFS_BD = {qat:[44,-11,44,7], title:[123,-11,123,6], search:[206,-11,206,6], win:[284,-11,284,6], file:[12,-11,14,25],
+  ribbon:[300,62,300,62], launch:[134,57,134,71], work:[300,100,300,100], status:[60,248,60,228], zoom:[250,248,250,227]};
+function ofsSvg(prog, badges){
+  const P=OFP[prog], T='font-family="Kanit,sans-serif"', W='#fff';
+  let s=`<svg viewBox="${badges?'0 -22 320 282':'0 0 320 236'}" class="hsvg ofs">
+  <rect x="0" y="0" width="320" height="236" rx="10" fill="#f3f3f3" stroke="#cfcfd8"/>
+  <rect x="0" y="0" width="320" height="22" rx="10" fill="${P.c}"/><rect x="0" y="12" width="320" height="10" fill="${P.c}"/>
+  <rect x="6" y="5" width="20" height="12" rx="6" fill="#ffffff66"/><circle cx="20" cy="11" r="4" fill="${W}"/>
+  <text x="32" y="15" font-size="10" fill="${W}">💾</text><text x="49" y="15.5" font-size="11" fill="${W}" font-weight="700">↶</text><text x="63" y="15.5" font-size="11" fill="${W}" font-weight="700">↷</text>
+  <text x="122" y="15" text-anchor="middle" font-size="${prog==='ppt'?7:8.5}" fill="${W}" ${T}>${P.file} - ${P.n}</text>
+  <rect x="170" y="5" width="72" height="12" rx="6" fill="#ffffff33" stroke="#ffffff88"/><text x="176" y="14" font-size="7.5" fill="${W}" ${T}>🔍 ค้นหา</text>
+  <text x="256" y="15" font-size="11" fill="${W}">–</text><rect x="275" y="7" width="8" height="8" fill="none" stroke="${W}" stroke-width="1.3"/><text x="298" y="15.5" font-size="11" fill="${W}" font-weight="700">✕</text>
+  <rect x="0" y="22" width="320" height="19" fill="#fafafa"/>
+  <text x="16" y="35" text-anchor="middle" font-size="8" fill="#444" ${T}>ไฟล์</text>`;
+  let x=34;
+  P.tabs.forEach((t,i)=>{ const w=t.length*4.9+12;
+    s+=`<text x="${x+w/2}" y="35" text-anchor="middle" font-size="8" fill="${i===0?P.c:'#444'}" ${i===0?'font-weight="700"':''} ${T}>${t}</text>`;
+    if(i===0) s+=`<rect x="${x+4}" y="38" width="${w-8}" height="2" fill="${P.c}"/>`;
+    x+=w; });
+  s+=`<rect x="2" y="42" width="316" height="41" rx="4" fill="#fff" stroke="#e2e2e8"/>
+    <text x="22" y="64" text-anchor="middle" font-size="16">📋</text><text x="24" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>คลิปบอร์ด</text>
+    <line x1="46" y1="46" x2="46" y2="80" stroke="#e2e2e8"/>
+    <rect x="52" y="47" width="62" height="10" rx="2" fill="#f1f1f4" stroke="#d6d6de"/><text x="55" y="54.5" font-size="6.5" fill="#333">TH Sarabun New</text>
+    <text x="54" y="70" font-size="10" font-weight="900" fill="#333">B</text><text x="66" y="70" font-size="10" font-style="italic" fill="#333">I</text><text x="76" y="70" font-size="10" text-decoration="underline" fill="#333">U</text><text x="90" y="70" font-size="10" fill="#c00">A</text>
+    <text x="84" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ฟอนต์</text>
+    <rect x="129" y="72" width="9" height="9" rx="1" fill="#fff" stroke="#888" stroke-width=".8"/><path d="M131 74 L136 79 M136 75.5 L136 79 L132.5 79" stroke="#333" stroke-width="1" fill="none"/>
+    <line x1="146" y1="46" x2="146" y2="80" stroke="#e2e2e8"/>
+    ${[0,1,2,3].map(i=>`<rect x="${154+i*13}" y="59" width="9" height="1.4" fill="#555"/><rect x="${154+i*13}" y="62" width="${i===1?5:9}" height="1.4" fill="#555"/><rect x="${154+i*13}" y="65" width="9" height="1.4" fill="#555"/>`).join('')}
+    <text x="180" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>ย่อหน้า</text>
+    <line x1="214" y1="46" x2="214" y2="80" stroke="#e2e2e8"/>
+    <text x="236" y="66" text-anchor="middle" font-size="14">🎨</text><text x="236" y="79" text-anchor="middle" font-size="6.5" fill="#666" ${T}>สไตล์</text>
+    <rect x="2" y="86" width="316" height="120" fill="#e9e9ee"/>`;
+  if(prog==='word') s+=`<rect x="92" y="90" width="136" height="116" fill="#fff" stroke="#d6d6de"/>
+    ${[0,1,2,3,4,5,6,7].map(i=>`<rect x="104" y="${102+i*11}" width="${i%4===3?70:112}" height="3" rx="1.5" fill="#c9cbd6"/>`).join('')}
+    <rect x="104" y="100" width="1.2" height="8" fill="#333"/>`;
+  else if(prog==='excel') s+=`<rect x="2" y="86" width="316" height="120" fill="#fff"/>
+    ${Array.from({length:11},(_,i)=>`<line x1="${20+i*30}" y1="86" x2="${20+i*30}" y2="206" stroke="#e0e0e6"/>`).join('')}
+    ${Array.from({length:10},(_,i)=>`<line x1="2" y1="${98+i*12}" x2="318" y2="${98+i*12}" stroke="#e0e0e6"/>`).join('')}
+    <rect x="2" y="86" width="316" height="12" fill="#f3f3f6"/><rect x="2" y="86" width="18" height="120" fill="#f3f3f6"/>
+    ${'ABCDEFGHIJ'.split('').map((c,i)=>`<text x="${35+i*30}" y="95" text-anchor="middle" font-size="7" fill="#555">${c}</text>`).join('')}
+    ${[1,2,3,4,5,6,7,8,9].map(n=>`<text x="11" y="${107+(n-1)*12}" text-anchor="middle" font-size="7" fill="#555">${n}</text>`).join('')}
+    <rect x="20" y="98" width="30" height="12" fill="none" stroke="${P.c}" stroke-width="1.8"/>`;
+  else s+=`${[0,1,2].map(i=>`<rect x="10" y="${92+i*36}" width="44" height="30" rx="2" fill="#fff" stroke="${i===0?P.c:'#d6d6de'}" stroke-width="${i===0?1.6:1}"/><text x="6" y="${100+i*36}" font-size="6" fill="#555">${i+1}</text>`).join('')}
+    <rect x="66" y="92" width="200" height="112" fill="#fff" stroke="#d6d6de"/>
+    <rect x="96" y="118" width="140" height="18" rx="2" fill="none" stroke="#bbb" stroke-dasharray="3 2"/><text x="166" y="130" text-anchor="middle" font-size="8" fill="#999" ${T}>คลิกเพื่อเพิ่มชื่อเรื่อง</text>
+    <rect x="116" y="146" width="100" height="12" rx="2" fill="none" stroke="#bbb" stroke-dasharray="3 2"/>`;
+  const st={word:'หน้า 1 จาก 1 · 25 คำ', excel:'พร้อม', ppt:'สไลด์ 1 จาก 3'}[prog];
+  s+=`<rect x="0" y="208" width="320" height="28" rx="10" fill="${P.c}"/><rect x="0" y="208" width="320" height="10" fill="${P.c}"/>
+  <text x="10" y="225" font-size="8.5" fill="${W}" ${T}>${st}</text>
+  <rect x="160" y="217" width="7" height="9" rx="1" fill="none" stroke="${W}"/><rect x="172" y="217" width="9" height="9" rx="1" fill="none" stroke="${W}"/><rect x="186" y="217" width="9" height="9" rx="1" fill="#ffffff55" stroke="${W}"/>
+  <text x="204" y="225" font-size="10" fill="${W}">−</text><rect x="214" y="221" width="54" height="1.6" fill="${W}"/><rect x="239" y="216" width="4" height="11" rx="1" fill="${W}"/><text x="272" y="225" font-size="10" fill="${W}">+</text><text x="283" y="225" font-size="8" fill="${W}">100%</text>`;
+  Object.entries(OFS_HIT).forEach(([k,[hx,hy,hw,hh]])=>{ s+=`<rect class="hit" data-k="${k}" x="${hx}" y="${hy}" width="${hw}" height="${hh}" rx="4"/>`; });
+  if(badges) Object.keys(OFS).forEach((k,i)=>{ const [bx,by,px,py]=OFS_BD[k];
+    if(bx!==px||by!==py) s+=`<line x1="${bx}" y1="${by}" x2="${px}" y2="${py}" stroke="#ff6ec7" stroke-width="1.6" stroke-dasharray="3 2"/>`;
+    s+=`<g class="bd" data-k="${k}" transform="translate(${bx},${by})"><circle r="8.5"/><text y="4">${i+1}</text></g>`; });
+  return s+'</svg>';
+}
+let ofsProg='word';
+function drawOfs(prog,btn){
+  if(btn) document.querySelectorAll('#ofsTabs .tab').forEach(t=>t.classList.toggle('on',t===btn));
+  ofsProg=prog;
+  $('figOfs').innerHTML=ofsSvg(prog,true);
+  $('chipsOfs').innerHTML=Object.keys(OFS).map((k,i)=>`<button class="chip" data-k="${k}">${i+1}. ${OFS[k][0]}</button>`).join('');
+  $('infoOfs').innerHTML='👆 แตะวงกลมตัวเลข หรือแตะตรงไหนบนจอก็ได้ ดูว่าส่วนนั้นชื่ออะไร ทำอะไร';
+  const pick=k=>{
+    ['figOfs','chipsOfs'].forEach(id=>$(id).querySelectorAll('[data-k]').forEach(el=>el.classList.toggle('sel',el.dataset.k===k)));
+    const O=OFS[k];
+    $('infoOfs').innerHTML=`<b>${O[0]}</b> <i class="gp" style="background:${OFP[prog].c}">${O[1]}</i><br>${O[2]}`;
+    pop($('infoOfs'));
+  };
+  ['figOfs','chipsOfs'].forEach(id=>$(id).onclick=e=>{ const el=e.target.closest('[data-k]'); if(el) pick(el.dataset.k); });
+}
+drawOfs('word');
+
 /* ============ future tech (outside → inside) ============ */
 // ช่องบนหน้าจอ: [ไอคอน, ชื่อบนภาพ, ชื่อเต็ม, เทคโนโลยี, สีป้าย, คำอธิบาย]
 const FUT = {
@@ -2689,6 +2888,51 @@ const BANK = {
     {q:'คอมพิวเตอร์เครื่องแรกของไทยติดตั้งที่ใด', c:['จุฬาลงกรณ์มหาวิทยาลัย','สำนักงานสถิติแห่งชาติ','กองบัญชาการตำรวจ','ธนาคารแห่งประเทศไทย'], w:'คณะพาณิชยศาสตร์และการบัญชี พ.ศ. 2506'},
     {q:'LANTA (ลันตา) คืออะไร', c:['ซูเปอร์คอมพิวเตอร์ของ สวทช.','ระบบปฏิบัติการของไทย','แอปของรัฐบาล','ดาวเทียมสื่อสาร'], w:'อันดับ 1 ของอาเซียน (TOP500 พ.ย. 2565)'}
   ],
+  os1: [
+    {t:'tap', g:'word', k:'title', q:'แตะ "แถบชื่อเรื่อง" (Title bar) 👆', w:'แถบบนสุด บอกชื่อไฟล์และชื่อโปรแกรม เช่น เอกสาร1 - Word'},
+    {t:'tap', g:'excel', k:'title', q:'ไฟล์นี้ชื่ออะไร ดูได้จากส่วนไหน? แตะเลย 👆', w:'แถบชื่อเรื่อง บอกชื่อไฟล์ (สมุดงาน1) และโปรแกรม (Excel)'},
+    {t:'tap', g:'ppt', k:'file', q:'แตะ "แท็บไฟล์" (File) ที่พาไปหน้า Backstage 👆', w:'แท็บไฟล์อยู่ซ้ายสุดของแถวแท็บ ก่อนแท็บหน้าแรก'},
+    {t:'tap', g:'word', k:'ribbon', q:'แตะ "ริบบอน" (Ribbon) แผงปุ่มคำสั่ง 👆', w:'ริบบอนคือแผงปุ่มใต้ชื่อแท็บ แบ่งเป็นกลุ่ม คลิปบอร์ด ฟอนต์ ย่อหน้า …'},
+    {t:'tap', g:'excel', k:'ribbon', q:'อยากกดตัวหนา B ต้องไปหาที่ส่วนไหน? แตะเลย 👆', w:'ปุ่มคำสั่งทุกปุ่มอยู่บนริบบอน · ตัวหนาอยู่แท็บหน้าแรก กลุ่มฟอนต์'},
+    {t:'tap', g:'word', k:'launch', q:'แตะ "ตัวเปิดใช้กล่องโต้ตอบ" ของกลุ่มฟอนต์ 👆', w:'ลูกศรเล็ก ↘ มุมขวาล่างของกลุ่ม กดแล้วได้หน้าต่างตั้งค่าแบบละเอียด'},
+    {t:'tap', g:'excel', k:'launch', q:'อยากเปิดหน้าต่างตั้งค่าฟอนต์แบบละเอียด แตะตรงไหน? 👆', w:'ตัวเปิดใช้กล่องโต้ตอบ = ลูกศรเล็กมุมขวาล่างของกลุ่มฟอนต์'},
+    {t:'tap', g:'word', k:'status', q:'แตะ "แถบสถานะ" (Status bar) 👆', w:'แถบล่างสุด บอกหน้า จำนวนคำ และมีปุ่มเปลี่ยนมุมมอง'},
+    {t:'tap', g:'ppt', k:'status', q:'อยากรู้ว่าตอนนี้อยู่สไลด์ที่เท่าไร ดูส่วนไหน? 👆', w:'แถบสถานะของ PowerPoint บอก "สไลด์ 1 จาก 3"'},
+    {t:'tap', g:'excel', k:'zoom', q:'แตะ "ตัวเลื่อนย่อ/ขยาย" (Zoom slider) 👆', w:'อยู่มุมขวาล่าง มี − + และตัวเลข % · ซูมแค่การมอง ไฟล์ไม่เปลี่ยน'},
+    {t:'tap', g:'ppt', k:'win', q:'อยากย่อหน้าต่างเก็บลงแถบงาน แตะตรงไหน? 👆', w:'ปุ่ม – มุมขวาบนสุด (คู่กับ ▢ ขยาย และ ✕ ปิด)'},
+    {t:'tap', g:'word', k:'qat', q:'แตะ "แถบเครื่องมือด่วน" ที่มีปุ่มบันทึก 💾 เลิกทำ ↶ 👆', w:'แถบเครื่องมือด่วน อยู่ซ้ายบน · ปุ่มใช้บ่อยกดได้ทันที'},
+    {t:'tap', g:'word', k:'work', q:'แตะ "พื้นที่ทำงาน" ที่เราพิมพ์เอกสาร 👆', w:'ตรงกลางจอ · Word เป็นหน้ากระดาษ Excel เป็นตาราง PowerPoint เป็นสไลด์'}
+  ],
+  os2: [
+    {q:'ริบบอนแบ่งเป็น 3 ชั้น เรียงจากใหญ่ไปเล็กได้ข้อใด', c:['แท็บ → กลุ่ม → คำสั่ง','กลุ่ม → แท็บ → คำสั่ง','คำสั่ง → กลุ่ม → แท็บ','แท็บ → คำสั่ง → กลุ่ม'], w:'เช่น แท็บหน้าแรก → กลุ่มฟอนต์ → ปุ่มตัวหนา'},
+    {p:'🅱️', q:'ปุ่มตัวหนา B ตัวเอียง I ขีดเส้นใต้ U อยู่ในกลุ่มใด', c:['ฟอนต์','ย่อหน้า','คลิปบอร์ด','สไตล์'], w:'อยู่แท็บหน้าแรก กลุ่มฟอนต์ (Font)'},
+    {p:'↘️', q:'ลูกศรเล็กที่มุมขวาล่างของกลุ่มบนริบบอน เรียกว่าอะไร', c:['ตัวเปิดใช้กล่องโต้ตอบ','ตัวเลื่อนย่อ/ขยาย','แถบเครื่องมือด่วน','แท็บไฟล์'], w:'Dialog Box Launcher กดแล้วได้หน้าต่างตั้งค่าแบบละเอียด'},
+    {p:'🗂️', q:'กดแท็บไฟล์ (File) จะเข้าสู่มุมมองใด', c:['Backstage','มุมมองเค้าร่าง','มุมมองการอ่าน','ตัวเรียงลำดับสไลด์'], w:'มุมมอง Backstage รวมคำสั่งเกี่ยวกับทั้งไฟล์ สร้าง เปิด บันทึก พิมพ์ แชร์'},
+    {p:'🖨️', q:'คำสั่ง "พิมพ์" (Print) เอกสารออกเครื่องพิมพ์ อยู่ที่ใด', c:['แท็บไฟล์','แท็บแทรก','แท็บมุมมอง','แถบสถานะ'], w:'คำสั่งเกี่ยวกับทั้งไฟล์ อยู่ในหน้า Backstage ของแท็บไฟล์'},
+    {p:'🔢', q:'อยากรู้จำนวนคำในเอกสาร Word แบบเห็นได้ทันที ไม่ต้องกดคำสั่งใด ดูที่ส่วนใด', c:['แถบสถานะ','แถบชื่อเรื่อง','ตัวเลื่อนย่อ/ขยาย','แถบเครื่องมือด่วน'], w:'แถบสถานะด้านล่างบอก หน้า x จาก y และจำนวนคำ · (กดคำสั่งจำนวนคำในแท็บรีวิวก็ได้ แต่ต้องกดก่อน)'},
+    {p:'🔍', q:'ใช้ตัวเลื่อนย่อ/ขยาย ซูมจาก 100% เป็น 200% ผลคือข้อใด', c:['มองเห็นใหญ่ขึ้น แต่ขนาดตัวอักษรในไฟล์เท่าเดิม','ตัวอักษรในไฟล์ใหญ่ขึ้น 2 เท่า','พิมพ์ออกมาใหญ่ขึ้น 2 เท่า','ไฟล์มีขนาดใหญ่ขึ้น 2 เท่า'], w:'ซูมเปลี่ยนแค่การมองบนจอ เหมือนเอาแว่นขยายส่อง'},
+    {p:'➖', q:'กดปุ่ม – ที่มุมขวาบนของหน้าต่าง จะเกิดอะไรขึ้น', c:['หน้าต่างถูกย่อเก็บลงแถบงาน ไฟล์ยังเปิดอยู่','ปิดโปรแกรมทันที','ลบไฟล์ทิ้ง','ซูมเอกสารให้เล็กลง'], w:'– ย่อ · ▢ ขยาย/คืนค่า · ✕ ปิด'},
+    {p:'💾', q:'ปุ่มบันทึก เลิกทำ ทำซ้ำ ที่กดได้ทันทีมุมซ้ายบน อยู่ในส่วนใด', c:['แถบเครื่องมือด่วน','แถบสถานะ','ตัวเปิดใช้กล่องโต้ตอบ','พื้นที่ทำงาน'], w:'Quick Access Toolbar รวมปุ่มที่ใช้บ่อย'},
+    {p:'🖼️', q:'คลิกเลือกรูปภาพในเอกสาร แล้วมีแท็บใหม่โผล่ขึ้นมา คือแท็บใด', c:['รูปแบบรูปภาพ','การส่งจดหมาย','สูตร','การเปลี่ยน'], w:'แท็บรูปแบบรูปภาพ (Picture Format) โผล่เมื่อเลือกรูป คลิกที่อื่นก็หายไป'},
+    {p:'⌨️', q:'กดปุ่มลัดใด เพื่อย่อหรือขยายริบบอน', c:['Ctrl+F1','Ctrl+F4','Alt+F4','Ctrl+R'], w:'Ctrl+F1 ยุบ/ขยายริบบอน · Alt+F4 คือปิดหน้าต่าง ระวังสับสน'},
+    {p:'🔤', q:'กดปุ่ม Alt แล้วมีตัวอักษรเล็ก ๆ ขึ้นบนแท็บ เรียกว่าอะไร', c:['เคล็ดลับแป้น (KeyTips)','ปุ่มลัดด่วน (Hotbar)','ตัวช่วยพิมพ์ (AutoText)','ป้ายคำสั่ง (Tooltip)'], w:'เคล็ดลับแป้น กดตัวอักษรตามนั้นเพื่อเปิดแท็บโดยไม่ใช้เมาส์'},
+    {p:'❓', q:'ลืมว่าคำสั่งอยู่ตรงไหน วิธีใดหาได้เร็วที่สุด', c:['พิมพ์ถามในกล่องค้นหาด้านบน (Alt+Q)','ปิดโปรแกรมแล้วเปิดใหม่','กดทุกแท็บไล่หาทีละปุ่ม','ซูมจอให้ใหญ่ขึ้น'], w:'กล่องค้นหา (Microsoft Search) พาไปหาคำสั่งให้'}
+  ],
+  os3: [
+    {p:'✉️', q:'แท็บ "การส่งจดหมาย" (Mailings) มีในโปรแกรมใด', c:['Word','Excel','PowerPoint','ทุกโปรแกรม'], w:'Word ใช้ทำจดหมายเวียน ส่งถึงหลายคน'},
+    {p:'📚', q:'แท็บ "อ้างอิง" (References) มีในโปรแกรมใด', c:['Word','Excel','PowerPoint','ทุกโปรแกรม'], w:'Word ใช้ทำสารบัญ เชิงอรรถ บรรณานุกรม'},
+    {p:'🧮', q:'แท็บ "สูตร" (Formulas) มีในโปรแกรมใด', c:['Excel','Word','PowerPoint','ทุกโปรแกรม'], w:'Excel เป็นโปรแกรมคำนวณ จึงมีแท็บสูตร'},
+    {p:'🗃️', q:'แท็บ "ข้อมูล" (Data) สำหรับเรียงลำดับและกรองข้อมูล มีในโปรแกรมใด', c:['Excel','Word','PowerPoint','ทุกโปรแกรม'], w:'Excel มีแท็บข้อมูล ไว้เรียง กรอง จัดการข้อมูลในตาราง'},
+    {p:'🎞️', q:'แท็บ "การเปลี่ยน" (Transitions) มีในโปรแกรมใด', c:['PowerPoint','Word','Excel','ทุกโปรแกรม'], w:'ลูกเล่นตอนเปลี่ยนจากสไลด์หนึ่งไปอีกสไลด์'},
+    {p:'✨', q:'แท็บ "ภาพเคลื่อนไหว" (Animations) มีในโปรแกรมใด', c:['PowerPoint','Word','Excel','ทุกโปรแกรม'], w:'ให้ตัวหนังสือหรือรูปบนสไลด์ขยับ'},
+    {p:'📐', q:'Excel เรียกแท็บจัดหน้ากระดาษว่าอะไร', c:['เค้าโครงหน้ากระดาษ','เค้าโครง','ออกแบบ','มุมมอง'], w:'Excel = เค้าโครงหน้ากระดาษ (Page Layout) · Word = เค้าโครง (Layout)'},
+    {q:'ข้อใด "ไม่ใช่" แท็บของ Word', c:['สูตร','อ้างอิง','การส่งจดหมาย','ออกแบบ'], w:'สูตร (Formulas) เป็นแท็บของ Excel'},
+    {q:'ข้อใด "ไม่ใช่" แท็บของ Excel', c:['การเปลี่ยน','สูตร','ข้อมูล','เค้าโครงหน้ากระดาษ'], w:'การเปลี่ยน (Transitions) เป็นแท็บของ PowerPoint'},
+    {q:'แท็บใดมีครบทั้ง Word Excel และ PowerPoint', c:['หน้าแรก','สูตร','การส่งจดหมาย','การเปลี่ยน'], w:'ไฟล์ หน้าแรก แทรก รีวิว มุมมอง มีทุกโปรแกรม'},
+    {q:'ข้อใด "ไม่ใช่" ส่วนที่ทุกโปรแกรมมีเหมือนกัน', c:['แถบสูตร (Formula bar)','แถบชื่อเรื่อง','แถบสถานะ','ริบบอน'], w:'แถบสูตรมีเฉพาะ Excel ไว้ดูและแก้สูตรในเซลล์'},
+    {p:'🎨', q:'แท็บ "ออกแบบ" (Design) มีในโปรแกรมใดบ้าง', c:['Word และ PowerPoint','Excel เท่านั้น','Word และ Excel','ทุกโปรแกรม'], w:'Word ใช้แต่งธีมเอกสาร PowerPoint ใช้เลือกธีมสไลด์ · Excel ไม่มีแท็บออกแบบประจำ (มีแต่แท็บที่โผล่ตอนเลือกตารางหรือแผนภูมิ)'},
+    {p:'🧓', q:'Office รุ่นใดเริ่มเปลี่ยนจากเมนูตัวหนังสือมาใช้ริบบอน', c:['Office 2007','Office 97','Office 2003','Office 2016'], w:'ริบบอนเริ่ม Office 2007 · รุ่น 2003 ยังเป็นเมนูแบบเก่า'}
+  ],
   oh1: [
     {p:'⌨️', q:'โปรแกรมใดเกิดมาแทน "เครื่องพิมพ์ดีด" ในสำนักงาน', c:['Microsoft Word','Microsoft Excel','Microsoft PowerPoint','Google Chrome'], w:'Word = พิมพ์เอกสาร'},
     {p:'📒', q:'โปรแกรมใดเหมาะกับงานตารางตัวเลข คำนวณรายรับรายจ่าย', c:['Microsoft Excel','Microsoft Word','Microsoft PowerPoint','Windows'], w:'Excel = คำนวณ'},
@@ -2763,7 +3007,10 @@ const LEVELS = [
   {ch:'pc', id:'h3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'บุคคลสำคัญ · ประเภทตามขนาด', cls:'c2'},
   {ch:'ofh', id:'oh1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'Word Excel PowerPoint แทนอะไร', cls:'c6'},
   {ch:'ofh', id:'oh2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'ริบบอน · นามสกุลไฟล์ · วิธีซื้อ', cls:'c5'},
-  {ch:'ofh', id:'oh3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'รุ่นของ Office · โปรแกรมคู่แข่ง', cls:'c2'}
+  {ch:'ofh', id:'oh3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'รุ่นของ Office · โปรแกรมคู่แข่ง', cls:'c2'},
+  {ch:'ofs', id:'os1', icon:'🌱', name:'ด่าน 1 · เมล็ด', sub:'👆 แตะบนจอ ส่วนนี้อยู่ตรงไหน', cls:'c6'},
+  {ch:'ofs', id:'os2', icon:'🌿', name:'ด่าน 2 · ต้นกล้า', sub:'ริบบอน Backstage ปุ่มมุมจอ', cls:'c5'},
+  {ch:'ofs', id:'os3', icon:'🌳', name:'ด่าน 3 · ต้นไม้ใหญ่', sub:'แท็บนี้ของโปรแกรมไหน', cls:'c2'}
 ];
 const CHS = {
   pc:{n:'คอมพิวเตอร์', i:'🕰️', scr:'pc'},
@@ -2774,7 +3021,8 @@ const CHS = {
   cy:{n:'ภัยไซเบอร์', i:'🛡️', scr:'cy'},
   law:{n:'กฎหมาย', i:'⚖️', scr:'law'},
   fut:{n:'อนาคต', i:'🤖', scr:'fut'},
-  ofh:{n:'🏆 ประวัติ Office', i:'📜', scr:'ofh'}
+  ofh:{n:'🏆 ประวัติ Office', i:'📜', scr:'ofh'},
+  ofs:{n:'🏆 หน้าจอโปรแกรม', i:'🖥️', scr:'ofs'}
 };
 let curCh='hw';
 const chLevels = () => LEVELS.filter(L=>L.ch===curCh);
@@ -2810,7 +3058,7 @@ function startGame(lv){
   const wrong=shuffle(pool.filter(q=>save.wrong.includes(qKey(L.id,q))));
   const rest=shuffle(pool.filter(q=>!wrong.includes(q)));
   const picked=[...wrong.slice(0,2), ...rest].slice(0,PER_ROUND);
-  game={lv, qs:shuffle(picked).map(q=>({...q, choices:shuffle(q.c), ans:q.c[0]})), idx:0, score:0, hearts:3};
+  game={lv, qs:shuffle(picked).map(q=>({...q, choices:q.c?shuffle(q.c):[], ans:q.c?q.c[0]:q.k})), idx:0, score:0, hearts:3};
   $('game-menu').style.display='none';
   $('game-end').style.display='none';
   $('game-play').style.display='block';
@@ -2826,6 +3074,12 @@ function showQ(){
   $('q-text').textContent=q.q;
   $('q-fb').textContent=''; $('q-why').style.display='none'; $('q-next').style.display='none';
   const box=$('q-choices'); box.innerHTML='';
+  if(q.t==='tap'){ // เกมแตะบนภาพหน้าจอ (บท O2)
+    $('q-pic').innerHTML=ofsSvg(q.g,false);
+    $('q-pic').onclick=e=>{ const el=e.target.closest('.hit'); if(el&&!game.tapped){ game.tapped=true; tapAnswer(el,q); } };
+    game.tapped=false; return;
+  }
+  $('q-pic').onclick=null;
   q.choices.forEach((val,i)=>{
     const b=document.createElement('button');
     b.className='choice'; b.textContent=['ก','ข','ค','ง'][i]+'. '+val;
@@ -2848,6 +3102,23 @@ function answer(btn,val,q){
     game.hearts--; $('q-hearts').textContent='❤️'.repeat(game.hearts)+'🤍'.repeat(3-game.hearts);
     $('q-fb').textContent='❌ ยังไม่ถูกนะ'; $('q-fb').style.color='#ff5f5f';
     btns[q.choices.indexOf(q.ans)].classList.add('correct');
+    if(!save.wrong.includes(key)) save.wrong.push(key);
+  }
+  persist();
+  $('q-why').innerHTML='💡 '+q.w; $('q-why').style.display='block';
+  $('q-next').textContent=(game.hearts<=0||game.idx>=PER_ROUND-1)?'ดูผล 🏁':'ข้อต่อไป ➡️';
+  $('q-next').style.display='inline-block';
+}
+function tapAnswer(el,q){
+  const key=qKey(chLevels()[game.lv].id,q), ok=el.dataset.k===q.k;
+  if(ok){
+    el.classList.add('ok'); game.score++; $('q-score').textContent=game.score;
+    $('q-fb').textContent='✅ ถูกต้อง เก่งมาก!'; $('q-fb').style.color='#39c14a';
+    save.wrong=save.wrong.filter(k=>k!==key); miniConfetti();
+  } else {
+    el.classList.add('bad'); $('q-pic').querySelector(`.hit[data-k="${q.k}"]`).classList.add('ok');
+    game.hearts--; $('q-hearts').textContent='❤️'.repeat(game.hearts)+'🤍'.repeat(3-game.hearts);
+    $('q-fb').textContent=`❌ ตรงนั้นคือ ${OFS[el.dataset.k][0]} · ที่ถูกคือกรอบสีเขียว`; $('q-fb').style.color='#ff5f5f';
     if(!save.wrong.includes(key)) save.wrong.push(key);
   }
   persist();

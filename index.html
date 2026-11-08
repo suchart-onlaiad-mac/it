@@ -365,6 +365,8 @@
     .rung .u{display:flex; align-items:baseline; gap:6px}
     .rung .ex{flex-basis:100%}
   }
+  .bridge{display:block; margin-top:14px; background:#eef7ff; border:2px dashed #7fb6ff; border-radius:14px; padding:10px 14px; font-size:14.5px; line-height:1.55; color:#2b5fa8; text-decoration:none}
+  .bridge:hover{background:#e2f0ff}
 </style>
 </head>
 <body>
@@ -862,6 +864,7 @@
         </div>
         <div class="info" id="infoCalc"></div>
         <div class="memo">🔑 สูตรต้อง<b>ขึ้นต้นด้วย =</b> เสมอ · พิมพ์ <b>=B2-C2</b> แปลว่า "เอาเลขในช่อง B2 ลบช่อง C2" · สูตรอ้าง<b>ชื่อช่อง</b> ไม่ได้อ้างตัวเลข ⇒ ตัวเลขในช่องเปลี่ยน ผลเปลี่ยนตามเอง</div>
+        <a class="bridge" href="../equation/#c0L3" target="_blank" rel="noopener">🧮 ต่อยอด: ช่องที่สูตรอ้างถึง (B2 · C2) ทำงานเหมือน<b>กล่อง ▢</b> ในสมการ · เปลี่ยนเลขในกล่อง ผลเปลี่ยนตาม · แอป <b>สมการง่ายนิดเดียว</b> บทลองเดาก่อน ↗</a>
         <button class="more" onclick="openLayer('ofxL2',this)">🌿 อยากรู้อีกนิด · เครื่องหมายคิดเลข · ฟังก์ชัน · แท็บของ Excel ⬇️</button>
       </div>
 
@@ -5043,6 +5046,8 @@ function spawnConfetti(count){
 }
 function miniConfetti(){ spawnConfetti(14); }
 function bigConfetti(){ spawnConfetti(60); }
+// ลิงก์ตรงเข้าบท: index.html#ชื่อบท (ใช้ทำลิงก์ข้ามแอป)
+{ const h=decodeURIComponent(location.hash.slice(1)); if(h&&$(h)&&$(h).classList.contains('screen')) go(h); }
 </script>
 </body>
 </html>
